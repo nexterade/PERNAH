@@ -1,3 +1,10 @@
+## 0.2.0-dev.68 — Chronicle section style consistency
+
+- Fixed Chronicle section 44 to match the heading hierarchy and divider pattern used by numbered milestone sections.
+- Added regression coverage ensuring milestone headings use `h1` while the introductory contract section remains `h2`.
+- Documentation/editorial-only release; runtime and canonical schema v4 unchanged.
+- Parent artifact: `PERNAH-v0.2.0-dev.67.zip`.
+
 ## 0.2.0-dev.67 — Canonical event evidence projection hardening
 
 - Hardened retrieval orchestration so event/purchase result rows resolve through `Storage.event_memories(event_id)` before they may become answer evidence.

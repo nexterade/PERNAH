@@ -2,6 +2,8 @@
 
 Status roadmap: **Active implementation**
 
+Current maintenance note (dev.68): Chronicle numbered-section heading consistency repaired. Active AI gate remains answer-grounding and insufficient-evidence/refinement behavior.
+
 ## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 
 - [x] Add canonical attachment metadata and image bytes linked to Memory (schema v4).

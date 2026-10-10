@@ -18,6 +18,11 @@ class ChronicleIntegrityTests(unittest.TestCase):
         self.assertEqual(ids, list(range(len(ids))))
         self.assertEqual(numbers, list(range(len(numbers))))
 
+    def test_numbered_milestone_headings_share_h1_style(self):
+        self.assertRegex(self.html, r'<h1 id="section-44">44\. ATOMIC INGESTION DAN CONTINUITY REPAIR')
+        self.assertIn('<hr/><h1 id="section-44">', self.html)
+        self.assertRegex(self.html, r'<h2 id="section-0">0\. CHRONICLE CONTRACT')
+
     def test_section_ids_are_unique(self):
         ids = re.findall(r'id="(section-\d+)"', self.html)
         self.assertEqual(len(ids), len(set(ids)))

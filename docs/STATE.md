@@ -1,4 +1,11 @@
-## 0.2.0-dev.67 — Canonical evidence projection hardening (current)
+## 0.2.0-dev.68 — Chronicle section style consistency (current)
+
+- Corrected section 44 in `docs/Creation-Chronicle.html` to use the same `h1` milestone heading level and preceding divider as other numbered historical sections.
+- Added a regression test for numbered milestone heading consistency while preserving the introductory section 0 `h2`.
+- Documentation/editorial-only change; runtime and schema v4 unchanged.
+- Parent artifact: `PERNAH-v0.2.0-dev.67.zip`.
+
+## 0.2.0-dev.67 — Canonical evidence projection hardening
 
 - M6.3 now resolves event/purchase query rows through `Storage.event_memories(event_id)` before they can become provider evidence.
 - Only memory-shaped records with stable IDs and non-empty canonical content are passed as evidence; event/transaction summaries without linked memories are excluded.

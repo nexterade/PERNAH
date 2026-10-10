@@ -1,7 +1,7 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.67",
+  "version": "0.2.0-dev.68",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 6 — AI Layer",
@@ -43,8 +43,8 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 196,
-  "previous_release": "0.2.0-dev.66",
+  "expected_test_count": 197,
+  "previous_release": "0.2.0-dev.67",
   "next_release_task": "Harden answer grounding and explicit insufficient-evidence/refinement behavior before any user-facing AI integration.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
@@ -68,5 +68,6 @@
     "public_access_candidate": "Cloudflare Tunnel",
     "static_surface_candidate": "GitHub Pages",
     "canonical_storage": "SQLite on local runtime"
-  }
+  },
+  "last_change": "Chronicle section 44 heading hierarchy and divider normalized; documentation-only dev.68."
 }

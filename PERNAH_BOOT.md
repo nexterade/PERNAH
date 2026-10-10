@@ -11,14 +11,14 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.67`
+- **Version:** `0.2.0-dev.68`
 - **Schema:** `v4`
 - **Status:** active development
 
 ## Current continuation point
 
 - **Milestone:** Milestone 6 — AI Layer (M6.1/M6.2, extraction orchestration, and M6.3 canonical event evidence projection implemented; real provider/UI integration not started)
-- **Current next gate:** Review deterministic extraction orchestration and plan retrieval-first orchestration with minimized provider context; no real provider/network/SDK.
+- **Current next gate:** Harden answer grounding and insufficient-evidence/refinement behavior; no real provider/network/SDK.
 - **Current shell sub-gate:** shared shell now wraps Home, Memory, Chronicle, Glossary, Settings, and About; Chronicle/Glossary now embed content-only reference surfaces with one product navigation; standalone docs remain directly accessible
 - **Completed immediately before this gate:** Warung Padang manual acceptance of the Local Web Interface on the packaged dev.31 artifact
 - **Completed immediately before this release:** CLI Web Interface startup now auto-copies its printed local URL when a supported clipboard utility is available
@@ -33,7 +33,7 @@
 - `dev.63` records Project Owner PASS for attachment + Backup & Recovery on packaged dev.62 and adds the staged AI Layer plan.
 - `dev.64` implements provider-neutral AI contracts and strict validation for untrusted extraction/answer proposals; no real provider, network, SDK, automatic canonical writes, or schema change.
 - `dev.65` adds deterministic extraction orchestration around `normalize()`: provider output remains advisory, and all missing/invalid/failing provider paths retain deterministic fallback; no real provider or schema change.
-- Latest dev.67 suite baseline: **195 passed, 1 skipped (196 discovered)**; exact packaged-artifact validation remains mandatory.
+- dev.67 suite baseline: **196 passed, 1 skipped (197 discovered)**; dev.68 exact-artifact validation remains mandatory.
 - Exact packaged-artifact validation must be completed for this release before delivery.
 
 - Canonical test command: `python3 -m unittest discover -s tests -v`
@@ -91,4 +91,4 @@ CHANGELOG, Glosarium, Chronicle, source, or tests. Its purpose is to make cross-
 continuation resilient on limited-context/free-tier sessions while keeping authoritative
 project state inside the artifact itself.
 
-- `dev.66` added retrieval-first orchestration; `dev.67` hardens event/purchase results by resolving them to linked canonical memory rows before provider evidence is formed. No real provider/network SDK/schema change.
+- `dev.66` added retrieval-first orchestration; `dev.67` hardens event/purchase results by resolving them to linked canonical memory rows before provider evidence is formed; `dev.68` repairs Chronicle section-heading consistency. No real provider/network SDK/schema change.

@@ -5,7 +5,7 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.67`.
+Current release: `0.2.0-dev.68`.
 
 **Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. Next gate: review extraction orchestration and plan retrieval-first orchestration with minimized provider context. Provider proposals remain advisory and canonical writes remain deterministic.
 
@@ -65,7 +65,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.67  
+**Current project version:** 0.2.0-dev.68  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 
@@ -509,3 +509,6 @@ Current implementation adds canonical image attachments linked to Memory records
 
 
 **dev.67:** Retrieval orchestration now resolves event/purchase rows through linked canonical memories before forming provider evidence; orphan summaries are excluded. Next: test answer grounding and insufficient-evidence/refinement behavior; no real provider or network behavior yet.
+
+
+**dev.68:** Editorial-only Chronicle repair: section 44 now uses the standard numbered milestone `h1` heading and divider. Regression coverage added; runtime/schema v4 unchanged.

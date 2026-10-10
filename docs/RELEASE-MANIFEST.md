@@ -1,3 +1,12 @@
+## 0.2.0-dev.68 — Chronicle section style consistency
+
+- **Version:** `0.2.0-dev.68`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.67.zip`
+- **Scope:** editorial consistency in Chronicle milestone heading hierarchy and divider; regression test added.
+- **Runtime/schema:** unchanged; canonical schema v4.
+- **Tests:** full suite and exact packaged-artifact preflight required.
+- **Artifact SHA-256:** recorded after packaging, outside the ZIP.
+
 ## 0.2.0-dev.66 — Retrieval-first orchestration
 
 - **Version:** `0.2.0-dev.66`
@@ -81,9 +90,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.67`
+- **Version:** `0.2.0-dev.68`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.66.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.67.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

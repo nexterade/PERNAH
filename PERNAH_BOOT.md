@@ -11,14 +11,14 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.72`
+- **Version:** `0.2.0-dev.73`
 - **Schema:** `v4`
 - **Status:** active development
 
 ## Current continuation point
 
 - **Milestone:** Milestone 6 — AI Layer (M6.1–M6.4 contracts/orchestration and M6.5 external-processing default-deny guard implemented; real provider/UI integration not started)
-- **Current next gate:** Next gate: refine provider timeout/rate-limit/refusal semantics and review disclosure, retention/training, and cost before any real integration. No real provider/network/SDK.
+- **Current next gate:** M6.5 now requires provider identity, retention, training/data-use, deletion terms, and cost-limit acknowledgement in addition to explicit authorization. Next gate: provider-neutral adapter contract and mock tests; no real provider/network/SDK.
 - **Current shell sub-gate:** shared shell now wraps Home, Memory, Chronicle, Glossary, Settings, and About; Chronicle/Glossary now embed content-only reference surfaces with one product navigation; standalone docs remain directly accessible
 - **Completed immediately before this gate:** Warung Padang manual acceptance of the Local Web Interface on the packaged dev.31 artifact
 - **Completed immediately before this release:** CLI Web Interface startup now auto-copies its printed local URL when a supported clipboard utility is available
@@ -33,11 +33,11 @@
 - `dev.63` records Project Owner PASS for attachment + Backup & Recovery on packaged dev.62 and adds the staged AI Layer plan.
 - `dev.64` implements provider-neutral AI contracts and strict validation for untrusted extraction/answer proposals; no real provider, network, SDK, automatic canonical writes, or schema change.
 - `dev.65` adds deterministic extraction orchestration around `normalize()`: provider output remains advisory, and all missing/invalid/failing provider paths retain deterministic fallback; no real provider or schema change.
-- dev.67 suite baseline: **196 passed, 1 skipped (197 discovered)**; dev.69 added document-wide Chronicle structure guards. dev.70 adds M6.4 uncertainty-note enforcement/refinement/evidence minimization; dev.72 adds explicit default-deny external-processing authorization. Exact-artifact validation remains mandatory.
+- dev.67 suite baseline: **196 passed, 1 skipped (197 discovered)**; dev.69 added document-wide Chronicle structure guards. dev.70 adds M6.4 uncertainty-note enforcement/refinement/evidence minimization; dev.72 adds secret-safe provider failure categories; dev.73 adds a fail-closed provider disclosure checklist. Exact-artifact validation remains mandatory.
 - Exact packaged-artifact validation must be completed for this release before delivery.
 
 - Canonical test command: `python3 -m unittest discover -s tests -v`
-- Expected release test result: 204 passed, 1 skipped (205 discovered); exact artifact must be revalidated
+- Expected release test result: 209 passed, 1 skipped (210 discovered); exact artifact must be revalidated
 - Exact artifact must be tested again after packaging. The package must contain no generated Python/test cache artifacts, including `.pytest_cache`.
 - Release artifact must pass the executable Artifact Compliance Gate: valid version lineage, synchronized release metadata, required structure, flat-root packaging, documentation consistency including Chronicle + Glossary, provenance, and no generated Python cache artifacts.
 
@@ -91,4 +91,4 @@ CHANGELOG, Glosarium, Chronicle, source, or tests. Its purpose is to make cross-
 continuation resilient on limited-context/free-tier sessions while keeping authoritative
 project state inside the artifact itself.
 
-- `dev.66` added retrieval-first orchestration; `dev.67` resolves event/purchase results to linked canonical memories; `dev.68` repairs Chronicle section heading consistency; `dev.69` adds document-wide Chronicle structural guards; `dev.70` hardens M6.4 grounding; `dev.72` requires explicit external-processing authorization before provider calls. No real provider/network SDK/schema change.
+- `dev.66` added retrieval-first orchestration; `dev.67` resolves event/purchase results to linked canonical memories; `dev.68` repairs Chronicle section heading consistency; `dev.69` adds document-wide Chronicle structural guards; `dev.70` hardens M6.4 grounding; `dev.72` adds secret-safe provider failure categories; `dev.73` requires a complete provider disclosure checklist before external calls. No real provider/network SDK/schema change.

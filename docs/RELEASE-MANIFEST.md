@@ -1,4 +1,13 @@
-## 0.2.0-dev.72 — External-processing authorization boundary
+## 0.2.0-dev.73 — Provider disclosure checklist boundary
+
+- **Version:** `0.2.0-dev.73`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.72.zip`
+- **Scope:** M6.5-C; fail-closed policy now requires provider identity, retention, training/data-use, deletion terms, and cost-limit acknowledgement alongside explicit authorization and data-category allowlist.
+- **Runtime/provider:** no real provider, SDK, network calls, or consent UI; schema v4 unchanged. Flags are not vendor verification or proof of consent.
+- **Validation:** full suite plus exact packaged-artifact preflight required.
+- **Artifact SHA-256:** recorded after packaging, outside the ZIP.
+
+## 0.2.0-dev.72 — External-processing authorization boundary (historical)
 
 - **Version:** `0.2.0-dev.72`
 - **Parent artifact:** `PERNAH-v0.2.0-dev.70.zip`
@@ -117,9 +126,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.72`
+- **Version:** `0.2.0-dev.73`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.71.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.72.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

@@ -1,10 +1,10 @@
-Current maintenance note (dev.72): provider exceptions map to stable secret-safe categories (timeout, rate limit, refusal, authentication, unavailable, invalid response, generic error). No retry policy is enabled. Remaining gate: provider-specific disclosure, retention/training, data handling, and cost review before real integration.
+Current maintenance note (dev.73): external processing remains deny-by-default until authorization, provider identity, retention, training/data-use, deletion terms, cost-limit acknowledgement, and allowed data categories are explicitly reviewed. Flags are engineering contracts, not a consent UI or vendor verification. No real provider/network integration.
 
 # PERNAH — Backlog
 
 Status roadmap: **Active implementation**
 
-Current maintenance note (dev.72): M6.5 adds a default-deny external-processing policy for provider calls. Explicit authorization, disclosure acknowledgement, and allowlisted data categories are required; no consent UI or real provider is enabled. Next gate: review provider timeout/rate-limit/refusal semantics and disclosure/retention/cost requirements before any real integration.
+Current maintenance note (dev.73): M6.5 requires explicit authorization plus provider identity, retention, training/data-use, deletion terms, cost-limit acknowledgement, and allowlisted categories. This remains an engineering guard, not a consent UI or verification of provider terms. Next gate: provider-neutral adapter contract and mock integration tests; real integration remains blocked until provider-specific terms are reviewed.
 
 ## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 
@@ -149,7 +149,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-M6.1–M6.4 contracts, deterministic orchestration, canonical evidence projection, grounded answer validation, and refinement are implemented through dev.70. M6.5 dev.72 adds a deny-by-default authorization contract for external provider calls. Next gate: strengthen provider timeout/rate-limit/refusal semantics and define disclosure/retention/cost review; no real provider, SDK, network behavior, schema migration, or AI UI yet.
+M6.1–M6.4 contracts, deterministic orchestration, canonical evidence projection, grounded answer validation, and refinement are implemented through dev.70. M6.5 through dev.73 adds deny-by-default authorization, secret-safe failure classification, and explicit disclosure checklist flags for provider identity, retention, training/data use, deletion terms, and cost limits. Next gate: provider-neutral adapter contract and mock tests. No real provider, SDK, network behavior, schema migration, or AI UI yet.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 

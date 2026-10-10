@@ -4,6 +4,9 @@ from pernah.ai_layer import ExternalProcessingPolicy
 TEST_EXTERNAL_POLICY = ExternalProcessingPolicy(
     authorized=True, disclosure_acknowledged=True,
     allowed_data_categories=("memory_text", "bounded_descriptive_metadata"),
+    provider_identity_disclosed=True, retention_disclosed=True,
+    training_use_disclosed=True, deletion_terms_disclosed=True,
+    cost_limit_acknowledged=True,
 )
 
 from pernah.ai_layer import (
@@ -339,7 +342,46 @@ class ExternalProcessingBoundaryTests(unittest.TestCase):
         self.assertFalse(ExternalProcessingPolicy().permits_processing)
         self.assertFalse(ExternalProcessingPolicy(True, True, ("all_memory",)).permits_processing)
         self.assertFalse(ExternalProcessingPolicy(True, False, ("memory_text",)).permits_processing)
-        self.assertTrue(ExternalProcessingPolicy(True, True, ("memory_text",)).permits_processing)
+        complete = ExternalProcessingPolicy(
+            authorized=True, disclosure_acknowledged=True,
+            allowed_data_categories=("memory_text",),
+            provider_identity_disclosed=True, retention_disclosed=True,
+            training_use_disclosed=True, deletion_terms_disclosed=True,
+            cost_limit_acknowledged=True,
+        )
+        self.assertTrue(complete.permits_processing)
+        self.assertFalse(ExternalProcessingPolicy(
+            authorized=True, disclosure_acknowledged=True,
+            allowed_data_categories=("memory_text",),
+            provider_identity_disclosed=True, retention_disclosed=True,
+            training_use_disclosed=True, deletion_terms_disclosed=True,
+            cost_limit_acknowledged=False,
+        ).permits_processing)
+        self.assertFalse(ExternalProcessingPolicy(
+            authorized=True, disclosure_acknowledged=True,
+            allowed_data_categories=("memory_text", "memory_text"),
+            provider_identity_disclosed=True, retention_disclosed=True,
+            training_use_disclosed=True, deletion_terms_disclosed=True,
+            cost_limit_acknowledged=True,
+        ).permits_processing)
+
+    def test_each_disclosure_flag_is_required(self):
+        from dataclasses import replace
+        complete = TEST_EXTERNAL_POLICY
+        for field in ("provider_identity_disclosed", "retention_disclosed", "training_use_disclosed", "deletion_terms_disclosed", "cost_limit_acknowledged"):
+            with self.subTest(field=field):
+                self.assertFalse(replace(complete, **{field: False}).permits_processing)
+
+    def test_duplicate_data_categories_are_rejected(self):
+        from pernah.ai_layer import ExternalProcessingPolicy
+        policy = ExternalProcessingPolicy(
+            authorized=True, disclosure_acknowledged=True,
+            allowed_data_categories=("memory_text", "memory_text"),
+            provider_identity_disclosed=True, retention_disclosed=True,
+            training_use_disclosed=True, deletion_terms_disclosed=True,
+            cost_limit_acknowledged=True,
+        )
+        self.assertFalse(policy.permits_processing)
 
     def test_extraction_provider_is_not_called_without_explicit_authorization(self):
         from pernah.ai_layer import orchestrate_extraction

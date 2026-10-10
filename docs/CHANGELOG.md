@@ -1,3 +1,9 @@
+## 0.2.0-dev.73 — Provider disclosure checklist boundary
+
+- Extended the default-deny external-processing policy to require explicit disclosure flags for provider identity, retention, training/data use, deletion terms, and acknowledged cost limits.
+- Rejects incomplete disclosure, unknown/duplicate data categories, and keeps deterministic fallback as the safe path.
+- Updated provider review plan and continuity docs. No real provider, SDK, network call, consent UI, schema migration, or canonical data change.
+
 ## 0.2.0-dev.72 — Provider failure classification
 
 - Added provider-neutral, secret-safe failure classification for timeout, rate limit, refusal, authentication, unavailability, invalid response, and generic provider errors.

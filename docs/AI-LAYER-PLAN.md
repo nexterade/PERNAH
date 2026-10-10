@@ -1,6 +1,6 @@
 # Milestone 6 — AI Layer: Execution Plan
 
-**Status:** IN PROGRESS — M6.1–M6.4 implemented through dev.70; M6.5 external-processing default-deny guard added in dev.72  
+**Status:** IN PROGRESS — M6.1–M6.4 implemented through dev.70; M6.5 authorization, failure semantics, and provider disclosure checklist contract implemented through dev.73  
 **Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.70`  
 **Architecture guardrail:** AI is an optional interpretation/answering capability. Canonical memory and deterministic capture/retrieval remain authoritative.
 
@@ -113,3 +113,10 @@ Answer candidates still require traceable canonical memory IDs. Insufficient ans
 ## Implementation note — dev.72 (provider failure semantics)
 
 Failure classification now returns stable secret-safe reason categories for timeout, rate limit, refusal, authentication failure, unavailability, invalid response, and generic provider failure. No exception message is surfaced. No retries are performed. Real-provider integration remains blocked on documented disclosure, retention/training, and cost requirements.
+
+
+### M6.5-C — Provider disclosure and processing prerequisites (dev.73)
+
+Before any real external call, the caller must explicitly acknowledge provider identity, retention terms, training/data-use terms, deletion terms, and cost/usage limits in addition to authorization, general disclosure acknowledgement, and the allowlisted data categories. The contract fails closed if any flag is missing or if category values are duplicated/unknown.
+
+These flags are not a consent UI, proof of informed consent, vendor-terms verification, or a live cost meter. A future provider-specific review must record the actual vendor terms and limits; unknown or ambiguous terms mean no integration. Canonical memory remains locally authoritative and is never automatically expired or deleted because provider retention differs.

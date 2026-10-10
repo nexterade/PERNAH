@@ -81,14 +81,30 @@ class ExternalProcessingPolicy:
     authorized: bool = False
     disclosure_acknowledged: bool = False
     allowed_data_categories: tuple[str, ...] = ()
+    provider_identity_disclosed: bool = False
+    retention_disclosed: bool = False
+    training_use_disclosed: bool = False
+    deletion_terms_disclosed: bool = False
+    cost_limit_acknowledged: bool = False
 
     @property
     def permits_processing(self) -> bool:
+        """Fail closed unless the user-facing provider terms review is complete.
+
+        These flags are an engineering contract, not proof of informed consent,
+        verification of vendor claims, or an implemented consent UI.
+        """
         return (
             self.authorized is True
             and self.disclosure_acknowledged is True
+            and self.provider_identity_disclosed is True
+            and self.retention_disclosed is True
+            and self.training_use_disclosed is True
+            and self.deletion_terms_disclosed is True
+            and self.cost_limit_acknowledged is True
             and isinstance(self.allowed_data_categories, tuple)
             and bool(self.allowed_data_categories)
+            and len(set(self.allowed_data_categories)) == len(self.allowed_data_categories)
             and all(item in {"memory_text", "bounded_descriptive_metadata"} for item in self.allowed_data_categories)
         )
 

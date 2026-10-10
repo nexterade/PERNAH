@@ -1,10 +1,12 @@
-## 0.2.0-dev.72 — Provider failure classification (current)
+Current release: `0.2.0-dev.73` (M6.5-C provider disclosure checklist; schema v4 unchanged).
 
-M6.5 follow-up classifies provider errors into stable, secret-safe categories. Failures do not trigger automatic retries and preserve deterministic fallback. Provider retention/training/disclosure/cost review remains a prerequisite; no real provider or network integration. Schema v4 unchanged.
+## 0.2.0-dev.73 — Provider disclosure checklist (current)
 
-## 0.2.0-dev.72 — External-processing authorization boundary (current)
+M6.5 now includes stable secret-safe provider failure categories plus a fail-closed disclosure checklist for provider identity, retention, training/data use, deletion terms, and cost-limit acknowledgement. These flags are engineering contracts, not consent UI or vendor verification. No real provider/network integration. Schema v4 unchanged.
 
-- Added `ExternalProcessingPolicy`, default-deny for provider calls unless caller explicitly marks authorization and disclosure acknowledgement and selects only allowed data categories.
+## 0.2.0-dev.72 — External-processing authorization boundary (historical)
+
+- Added `ExternalProcessingPolicy`, default-deny for provider calls unless caller explicitly marks authorization, disclosure acknowledgement, provider identity, retention, training/data use, deletion terms, cost limits, and only allowed data categories.
 - Both extraction and answer orchestration retain deterministic functionality and block provider calls without authorization; no-evidence retrieval still short-circuits first.
 - Provider failure paths continue to sanitize exception details; no provider/network/SDK, consent UI, canonical writes, or schema migration was added. Schema v4 unchanged.
 - Added regression tests for default-deny, disclosure requirement, category allowlist, and provider non-invocation without authorization.

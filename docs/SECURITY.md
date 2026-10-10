@@ -127,3 +127,8 @@ A receipt or payment screenshot may contain names, account details, balances, or
 ## Provider failure classification — dev.72
 
 Provider failures are mapped to stable categories without exposing exception messages or response bodies. Timeout, rate-limit, refusal, authentication, service-unavailable, invalid-response, and generic failures all preserve deterministic fallback. Automatic retries are intentionally absent so a future adapter cannot silently multiply costs or external processing. This is not a provider integration and does not replace reviewing terms, retention, training use, and disclosure.
+
+
+## External AI processing disclosure gate
+
+Before any real external AI call, PERNAH requires an explicit authorization, disclosure acknowledgement, a strict allowlist of data categories, and reviewed flags for provider identity, retention, training/data use, deletion terms, and acknowledged cost limits. Unknown or ambiguous provider terms block integration. These flags are engineering guards only: they do not constitute a consent UI, verify vendor statements, or measure actual cost. Canonical memory remains local-first and is not automatically deleted or expired to match provider retention.

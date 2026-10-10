@@ -19,7 +19,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(state["version"], version)
         self.assertEqual(state["schema_version"], 4)
         self.assertGreaterEqual(state["expected_test_count"], 197)
-        self.assertEqual(state["previous_release"], "0.2.0-dev.71")
+        self.assertEqual(state["previous_release"], "0.2.0-dev.72")
         self.assertNotIn("dev.55 ZIP", state["next_release_task"])
         self.assertIn("M6.5", state["current_next_gate"])
         self.assertTrue(state["chat_is_ephemeral"] if "chat_is_ephemeral" in state else state["continuity_layer"]["chat_is_ephemeral"])
@@ -72,7 +72,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(names.count("continuity layer"), 1)
         self.assertEqual(names.count("boot snapshot"), 1)
         self.assertEqual(names.count("release manifest"), 1)
-        self.assertEqual(len(entries), 166)
+        self.assertEqual(len(entries), 167)
 
 
 if __name__ == "__main__":

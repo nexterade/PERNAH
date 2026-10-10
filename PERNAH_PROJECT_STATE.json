@@ -1,7 +1,7 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.61",
+  "version": "0.2.0-dev.62",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 5 — Input Interfaces",
@@ -44,8 +44,8 @@
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
   "expected_test_count": 171,
-  "previous_release": "0.2.0-dev.60",
-  "next_release_task": "Project Owner browser acceptance for image attachment capture and backup/restore on the exact dev.61 artifact.",
+  "previous_release": "0.2.0-dev.61",
+  "next_release_task": "Project Owner browser acceptance for image attachment capture and backup/restore on the exact dev.62 artifact; do not implement Catbox unless explicitly reopened and approved.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,7 +54,7 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Added canonical image attachments linked to memories, v3-to-v4 migration, bounded local web upload, and backup/restore preservation.",
+  "latest_change": "Documentation-only roadmap parking entry: PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔); no runtime/schema changes.",
   "expected_test_result": "full suite PASS and exact packaged-artifact preflight PASS",
   "manual_acceptance": "Warung Padang — PASS on packaged dev.31 artifact",
   "deployment_concept": {

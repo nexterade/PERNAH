@@ -1,3 +1,13 @@
+## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX
+
+- **Version:** `0.2.0-dev.62`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.61.zip`
+- **Scope:** documentation-only roadmap entry for a possible future Catbox attachment-hosting integration.
+- **Status:** IDEA PARKED / NOT COMMITTED / NOT IMPLEMENTED.
+- **Runtime/schema changes:** none; schema remains v4 and attachments remain stored in local SQLite BLOBs.
+- **Validation:** run full suite and exact packaged-artifact preflight before delivery.
+- **Artifact SHA-256:** record after packaging, outside the ZIP.
+
 ## 0.2.0-dev.61 — Canonical Image Attachments
 
 - **Version:** `0.2.0-dev.61`
@@ -21,9 +31,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.61`
+- **Version:** `0.2.0-dev.62`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.60.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.61.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

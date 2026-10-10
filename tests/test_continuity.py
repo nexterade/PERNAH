@@ -19,7 +19,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(state["version"], version)
         self.assertEqual(state["schema_version"], 4)
         self.assertEqual(state["expected_test_count"], 171)
-        self.assertEqual(state["previous_release"], "0.2.0-dev.60")
+        self.assertEqual(state["previous_release"], "0.2.0-dev.61")
         self.assertNotIn("dev.55 ZIP", state["next_release_task"])
         self.assertEqual(state["current_next_gate"], "Full suite and exact-artifact validation for canonical image attachments; then Project Owner browser acceptance for attachment capture and existing Backup & Recovery UX.")
         self.assertTrue(state["chat_is_ephemeral"] if "chat_is_ephemeral" in state else state["continuity_layer"]["chat_is_ephemeral"])

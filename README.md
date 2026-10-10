@@ -2,7 +2,7 @@
 
 **Personal Memory & Life Context System**
 
-Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.61.
+Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.62.
 
 ## Runtime
 
@@ -175,3 +175,8 @@ The project-facing UI uses the **PERNAH Visual Identity System**: Symbol + Wordm
 ## Image attachments
 
 The Local Web Interface Memory form can attach up to four JPEG, PNG, GIF, or WebP images to one note (8 MiB each; 12 MiB per request). This is intended for receipts, transfer/payment screenshots, warranty evidence, and other visual context. Images remain local and are preserved by canonical backup/restore. The current implementation does not OCR images or transmit them to an AI provider.
+
+
+## Roadmap note — dev.62
+
+“PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)” is a parked, non-committed idea in `docs/BACKLOG.md`. Catbox is not integrated; image attachments continue to use local SQLite storage.

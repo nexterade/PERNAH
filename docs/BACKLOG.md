@@ -2,7 +2,7 @@
 
 Status roadmap: **Active implementation**
 
-## Current Gate — v0.2.0-dev.61: Canonical Image Attachments
+## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 
 - [x] Add canonical attachment metadata and image bytes linked to Memory (schema v4).
 - [x] Migrate v3 SQLite databases and preserve v3 canonical JSON backup compatibility.
@@ -12,6 +12,27 @@ Status roadmap: **Active implementation**
 - [x] Add validation, migration, persistence, web, and backup regression tests.
 - [ ] Project Owner browser acceptance of image capture and backup/restore on exact packaged artifact.
 - [ ] Add image OCR / automatic evidence interpretation only after explicit design and privacy review; not part of this release.
+
+
+## Future Concept Parking Lot — Not Committed
+
+### PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)
+
+**Status:** IDEA PARKED / NOT COMMITTED / NOT IMPLEMENTED. This is a discussion outcome only; it is not the next gate, a milestone commitment, or authorization to start implementation.
+
+Concept: optionally use Catbox as an external attachment host while keeping PERNAH's canonical memory and attachment metadata provider-neutral. Intended use cases include transaction evidence (receipts, transfer/payment screenshots) and personal-life memories (family photos, relationship memories, trips, and meaningful moments).
+
+If the idea is revisited, plan and review these decisions before implementation:
+
+- [ ] Compare Catbox with local-only and hybrid storage; preserve local-first and offline core behavior.
+- [ ] Document the public-access/privacy implications clearly, especially for family photos and financial evidence; never imply Catbox URLs are private.
+- [ ] Design provider-neutral attachment metadata, upload state/failure recovery, and safe credential handling for optional API configuration.
+- [ ] Define deletion semantics and what happens when remote files become unavailable.
+- [ ] Define backup/export behavior so a backup is not merely a collection of external URLs; retain a portable recovery path where feasible.
+- [ ] Decide whether sensitive attachments need local-only handling or client-side encryption, including the preview/recovery trade-offs.
+- [ ] Write a beginner-friendly Catbox setup guide and test connection/upload/delete flows only after the privacy and architecture review is accepted.
+
+Do not implement, add Catbox runtime dependencies, migrate attachment storage, or change the current local SQLite attachment behavior until the Project Owner explicitly reopens and approves this concept.
 
 
 ## Previous Gate — v0.2.0-dev.60 (historical; superseded by dev.61)

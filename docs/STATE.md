@@ -1,3 +1,12 @@
+## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX (current)
+
+- Documentation-only release; no runtime, schema, attachment storage, or provider behavior changed.
+- Archived **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** in `docs/BACKLOG.md` as IDEA PARKED / NOT COMMITTED / NOT IMPLEMENTED.
+- The concept covers optional external attachment hosting for both evidence and personal memories, with privacy, credentials, deletion, backup portability, and local-first constraints explicitly left for future design review.
+- The current canonical attachment implementation remains local SQLite BLOB storage (schema v4); Catbox is not integrated and is not the current next gate.
+- Current gate remains Project Owner browser acceptance of image capture and Backup & Recovery on the exact packaged artifact.
+- Parent artifact: `PERNAH-v0.2.0-dev.61.zip`.
+
 ## 0.2.0-dev.61 — Canonical Image Attachments (current)
 
 - Schema v4 adds canonical `attachments` linked to `memories`; SQLite stores image bytes as BLOBs.

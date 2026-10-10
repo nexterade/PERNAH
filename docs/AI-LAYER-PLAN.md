@@ -1,7 +1,7 @@
 # Milestone 6 — AI Layer: Execution Plan
 
-**Status:** PLANNED — implementation not started in this release  
-**Planning baseline:** `0.2.0-dev.63`  
+**Status:** IN PROGRESS — M6.1/M6.2 and extraction orchestration foundation implemented through dev.65  
+**Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.65`  
 **Architecture guardrail:** AI is an optional interpretation/answering capability. Canonical memory and deterministic capture/retrieval remain authoritative.
 
 ## Outcome
@@ -81,3 +81,8 @@ Start with **M6.1 + M6.2 contracts and tests only**, using fake providers and no
 ## Implementation note — dev.64
 
 `pernah/ai_layer.py` now implements provider-neutral contracts, an offline-safe `UnconfiguredProvider`, strict extraction-proposal validation, and evidence-bound answer validation. Tests use local fixtures only. This module intentionally does not call providers, write canonical data, or construct a `MemoryDraft`; deterministic orchestration remains the next gate.
+
+
+## Implementation note — dev.65
+
+`orchestrate_extraction()` prepares the deterministic `normalize()` draft first, then optionally validates provider output. Missing providers, malformed proposals, and provider exceptions return the deterministic draft. Provider proposals remain advisory and are not converted into `MemoryDraft` or persisted; low-confidence proposals are marked review-required. The provider exception message is intentionally not exposed. Five regression tests cover these branches. This is orchestration groundwork, not retrieval orchestration or a real provider integration.

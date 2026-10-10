@@ -1,3 +1,13 @@
+## 0.2.0-dev.65 — Deterministic Extraction Orchestration (current)
+
+- M6.1/M6.2 contracts remain in `pernah/ai_layer.py`; M6.3 foundation adds `orchestrate_extraction()`.
+- Deterministic `normalize()` runs first and remains the only write-ready draft. Provider proposals are validated and advisory only; review-required proposals never bypass deterministic fallback.
+- Missing provider, invalid response, validation error, or provider exception returns the deterministic draft. Provider exception messages are not surfaced, reducing risk of secret leakage.
+- Added five regression tests. No real provider, SDK, network call, UI integration, canonical write, or schema migration; schema v4 unchanged.
+- Next gate: test/review the orchestration contract, then design deterministic retrieval-first orchestration with evidence-minimized provider context. Provider integration remains deferred.
+- Catbox remains parked.
+- Parent artifact: `PERNAH-v0.2.0-dev.64.zip`.
+
 ## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation (current)
 
 - Implemented M6.1 provider-neutral contracts and M6.2 structured extraction validation in `pernah/ai_layer.py`.

@@ -5,9 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.64`.
+Current release: `0.2.0-dev.65`.
 
-**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. Next review semantics and add deterministic fallback orchestration around `normalize()`.
+**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. Next gate: review extraction orchestration and plan retrieval-first orchestration with minimized provider context. Provider proposals remain advisory and canonical writes remain deterministic.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle
@@ -65,7 +65,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.62  
+**Current project version:** 0.2.0-dev.65  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 

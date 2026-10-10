@@ -8,6 +8,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping, Protocol, Sequence
 
+from .memory_engine import MemoryDraft, normalize
+
 
 MAX_INPUT_CHARS = 20_000
 MAX_OUTPUT_CHARS = 20_000
@@ -238,3 +240,69 @@ class UnconfiguredProvider:
 
     def answer(self, request: AnswerRequest) -> Mapping[str, Any]:
         raise ProviderUnavailable("No AI provider configured; use deterministic retrieval fallback.")
+
+
+@dataclass(frozen=True)
+class ExtractionOutcome:
+    """Safe orchestration result; deterministic draft is the only write-ready value.
+
+    A validated provider proposal is advisory and is never converted into a MemoryDraft
+    automatically. Callers may show it for review, while canonical capture remains on
+    the deterministic path unless a later, explicit review workflow is implemented.
+    """
+    draft: MemoryDraft
+    mode: str
+    provider_candidate: ValidatedExtraction | None = None
+    fallback_reason: str | None = None
+
+
+def orchestrate_extraction(
+    text: str,
+    provider: AIProvider | None = None,
+    *,
+    reference_time=None,
+    source_type: str = "manual",
+) -> ExtractionOutcome:
+    """Use deterministic normalization as the authoritative fallback.
+
+    Provider absence, provider errors, malformed proposals, or low-confidence/review
+    candidates never block capture and never mutate canonical storage. Even a valid
+    provider proposal remains advisory; the returned write-ready draft is deterministic.
+    """
+    # Normalize first so capture has a ready, provider-independent result even if the
+    # optional provider fails or returns invalid data.
+    draft = normalize(text, reference_time=reference_time, source_type=source_type)
+    if provider is None:
+        return ExtractionOutcome(draft=draft, mode="deterministic", fallback_reason="provider_not_configured")
+
+    request = ExtractionRequest(text=text, source_type=source_type)
+    try:
+        raw = provider.extract(request)
+        candidate = validate_extraction(raw, request)
+    except (AIError, ValueError, TypeError) as exc:
+        return ExtractionOutcome(
+            draft=draft,
+            mode="deterministic_fallback",
+            fallback_reason=type(exc).__name__,
+        )
+    except Exception as exc:
+        # Third-party providers may surface transport/timeouts using their own exception
+        # types. Fail closed without leaking exception messages that may contain secrets.
+        return ExtractionOutcome(
+            draft=draft,
+            mode="deterministic_fallback",
+            fallback_reason=f"provider_error:{type(exc).__name__}",
+        )
+
+    if candidate.requires_review:
+        return ExtractionOutcome(
+            draft=draft,
+            mode="deterministic_review_required",
+            provider_candidate=candidate,
+            fallback_reason="proposal_requires_review",
+        )
+    return ExtractionOutcome(
+        draft=draft,
+        mode="deterministic_with_candidate",
+        provider_candidate=candidate,
+    )

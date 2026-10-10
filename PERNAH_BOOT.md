@@ -11,14 +11,14 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.64`
+- **Version:** `0.2.0-dev.65`
 - **Schema:** `v4`
 - **Status:** active development
 
 ## Current continuation point
 
-- **Milestone:** Milestone 6 — AI Layer (M6.1/M6.2 contracts implemented; orchestration/provider integration not started)
-- **Current next gate:** Review M6.1/M6.2 API and failure semantics, then implement deterministic fallback orchestration around existing `normalize()`; no real provider/network/SDK.
+- **Milestone:** Milestone 6 — AI Layer (M6.1/M6.2 contracts + M6.3 extraction orchestration foundation implemented; retrieval orchestration/provider integration not started)
+- **Current next gate:** Review deterministic extraction orchestration and plan retrieval-first orchestration with minimized provider context; no real provider/network/SDK.
 - **Current shell sub-gate:** shared shell now wraps Home, Memory, Chronicle, Glossary, Settings, and About; Chronicle/Glossary now embed content-only reference surfaces with one product navigation; standalone docs remain directly accessible
 - **Completed immediately before this gate:** Warung Padang manual acceptance of the Local Web Interface on the packaged dev.31 artifact
 - **Completed immediately before this release:** CLI Web Interface startup now auto-copies its printed local URL when a supported clipboard utility is available
@@ -32,11 +32,12 @@
 - `dev.62` archived “PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)” as a non-committed roadmap concept. Catbox is not integrated; attachments remain local SQLite BLOBs.
 - `dev.63` records Project Owner PASS for attachment + Backup & Recovery on packaged dev.62 and adds the staged AI Layer plan.
 - `dev.64` implements provider-neutral AI contracts and strict validation for untrusted extraction/answer proposals; no real provider, network, SDK, automatic canonical writes, or schema change.
-- Latest dev.64 source-tree suite must be rerun; dev.63 baseline was **170 passed, 1 skipped (171 discovered)**, plus 12 new AI contract tests.
+- `dev.65` adds deterministic extraction orchestration around `normalize()`: provider output remains advisory, and all missing/invalid/failing provider paths retain deterministic fallback; no real provider or schema change.
+- Latest dev.65 suite baseline: **187 passed, 1 skipped (188 discovered)**; exact packaged-artifact validation remains mandatory.
 - Exact packaged-artifact validation must be completed for this release before delivery.
 
 - Canonical test command: `python3 -m unittest discover -s tests -v`
-- Expected release test result: 182 passed, 1 skipped (183 discovered); exact artifact must be revalidated
+- Expected release test result: 187 passed, 1 skipped (188 discovered); exact artifact must be revalidated
 - Exact artifact must be tested again after packaging. The package must contain no generated Python/test cache artifacts, including `.pytest_cache`.
 - Release artifact must pass the executable Artifact Compliance Gate: valid version lineage, synchronized release metadata, required structure, flat-root packaging, documentation consistency including Chronicle + Glossary, provenance, and no generated Python cache artifacts.
 

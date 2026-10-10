@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.64",
+  "version": "0.2.0-dev.65",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 6 — AI Layer (M6.1/M6.2 contracts implemented)",
-  "current_next_gate": "Review AI contract and failure semantics; then implement deterministic fallback orchestration using existing normalize() with no real provider/network/SDK.",
+  "current_next_gate": "Review deterministic extraction orchestration; plan retrieval-first orchestration with minimized provider context. No real provider/network/SDK yet.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -43,9 +43,9 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 183,
-  "previous_release": "0.2.0-dev.63",
-  "next_release_task": "Implement deterministic fallback orchestration around normalize() and define reviewed handoff into atomic ingestion; keep provider integration off.",
+  "expected_test_count": 188,
+  "previous_release": "0.2.0-dev.64",
+  "next_release_task": "Implement/test retrieval-first orchestration that preserves deterministic canonical candidates and minimizes any future provider context.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,8 +54,8 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Implemented provider-neutral AI contracts, offline-safe unconfigured provider, strict extraction proposal validation, and evidence-bound answer validation; schema v4 unchanged.",
-  "expected_test_result": "full suite PASS (182 passed, 1 skipped; 183 discovered) and exact packaged-artifact preflight PASS",
+  "latest_change": "Added offline-safe deterministic extraction orchestration around normalize(); provider proposals remain advisory and never write canonical memory.",
+  "expected_test_result": "full suite PASS (187 passed, 1 skipped; 188 discovered) and exact packaged-artifact preflight PASS",
   "manual_acceptance": "Project Owner reports all attachment + Backup & Recovery browser checks PASS on packaged dev.62 artifact.",
   "deployment_concept": {
     "status": "concept_not_implemented",

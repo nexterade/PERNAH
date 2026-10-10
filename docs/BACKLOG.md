@@ -145,7 +145,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-M6.1 provider-neutral contracts and M6.2 structured extraction validation are implemented in dev.64 with no real provider or network access. Next gate: review API/failure semantics, then implement deterministic fallback orchestration around existing `normalize()` before considering any real provider. Do not add an SDK, network behavior, schema migration, or AI UI until the contracts and privacy boundaries are reviewed.
+M6.1/M6.2 contracts and M6.3 deterministic extraction orchestration foundation are implemented through dev.65. Next gate: review orchestration behavior and design retrieval-first orchestration that uses deterministic retrieval first and limits any future provider context to the minimum necessary. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 
@@ -200,7 +200,7 @@ Detailed plan and acceptance criteria: [`docs/AI-LAYER-PLAN.md`](AI-LAYER-PLAN.m
 
 - [x] M6.1 — Provider-neutral request/result/error contracts; unconfigured provider is offline-safe
 - [x] M6.2 — Structured extraction contract and untrusted-output validation
-- [ ] M6.3 — Retrieval orchestration over deterministic canonical candidates
+- [ ] M6.3 — Retrieval-first orchestration over deterministic canonical candidates (extraction orchestration foundation landed in dev.65)
 - [ ] M6.4 — Memory-grounded answer generation with traceable evidence
 - [ ] M6.5 — Provider failure, privacy, and external-processing boundaries
 

@@ -1,3 +1,14 @@
+## 0.2.0-dev.65 — Deterministic Extraction Orchestration
+
+- **Version:** `0.2.0-dev.65`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.64.zip`
+- **Scope:** M6.3 extraction orchestration foundation around deterministic `normalize()`.
+- **Behavior:** provider proposals are validated and advisory; missing provider, invalid proposal, or provider failure falls back to the deterministic draft.
+- **Provider/network:** none integrated; no SDK, network calls, or credentials.
+- **Canonical schema:** v4 unchanged; no automatic AI write to canonical memory.
+- **Tests:** five orchestration regression tests plus full regression suite; exact packaged artifact preflight required.
+- **Artifact SHA-256:** record after packaging, outside the ZIP.
+
 ## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation
 
 - **Version:** `0.2.0-dev.64`
@@ -52,9 +63,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.64`
+- **Version:** `0.2.0-dev.65`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.63.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.64.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

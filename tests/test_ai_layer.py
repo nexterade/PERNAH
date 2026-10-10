@@ -82,3 +82,72 @@ class AILayerContractTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class ExtractionOrchestrationTests(unittest.TestCase):
+    def setUp(self):
+        from pernah.ai_layer import ExtractionRequest
+        self.request = ExtractionRequest("Gue beli laptop baru kemarin.")
+        self.raw = {
+            "original_text": self.request.text,
+            "normalized_text": self.request.text,
+            "intent": "record_event", "detected_language": "id", "confidence": 0.91,
+            "entities": [], "event": {"type": "purchase"},
+            "transaction": None, "relationships": [],
+        }
+
+    def test_missing_provider_uses_deterministic_normalize(self):
+        from pernah.ai_layer import orchestrate_extraction
+        from pernah.memory_engine import normalize
+        result = orchestrate_extraction(self.request.text)
+        self.assertEqual(result.mode, "deterministic")
+        self.assertEqual(result.draft, normalize(self.request.text))
+        self.assertEqual(result.fallback_reason, "provider_not_configured")
+
+    def test_valid_provider_proposal_is_advisory_only(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class FakeProvider:
+            name = "fake"
+            def extract(self, request): return dict(self.raw)
+            def answer(self, request): raise AssertionError("not used")
+        provider = FakeProvider()
+        provider.raw = dict(self.raw)
+        result = orchestrate_extraction(self.request.text, provider)
+        self.assertEqual(result.mode, "deterministic_with_candidate")
+        self.assertIsNotNone(result.provider_candidate)
+        self.assertEqual(result.draft.original_text, self.request.text)
+        self.assertFalse(hasattr(result.provider_candidate.proposal, "memory_id"))
+
+    def test_low_confidence_provider_candidate_requires_review(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class FakeProvider:
+            name = "fake"
+            def extract(self, request): return dict(self.raw, confidence=0.2)
+            def answer(self, request): raise AssertionError("not used")
+        provider = FakeProvider()
+        provider.raw = dict(self.raw)
+        result = orchestrate_extraction(self.request.text, provider)
+        self.assertEqual(result.mode, "deterministic_review_required")
+        self.assertTrue(result.provider_candidate.requires_review)
+        self.assertEqual(result.draft.original_text, self.request.text)
+
+    def test_invalid_provider_output_falls_back_without_leaking_message(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class FakeProvider:
+            name = "fake"
+            def extract(self, request): raise RuntimeError("secret-token-should-not-leak")
+            def answer(self, request): raise AssertionError("not used")
+        result = orchestrate_extraction(self.request.text, FakeProvider())
+        self.assertEqual(result.mode, "deterministic_fallback")
+        self.assertEqual(result.fallback_reason, "provider_error:RuntimeError")
+        self.assertNotIn("secret-token", result.fallback_reason)
+        self.assertEqual(result.draft.original_text, self.request.text)
+
+    def test_malformed_provider_output_falls_back(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class FakeProvider:
+            name = "fake"
+            def extract(self, request): return {"original_text": "forged"}
+            def answer(self, request): raise AssertionError("not used")
+        result = orchestrate_extraction(self.request.text, FakeProvider())
+        self.assertEqual(result.mode, "deterministic_fallback")
+        self.assertEqual(result.fallback_reason, "InvalidProposal")

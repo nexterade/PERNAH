@@ -1,5 +1,15 @@
 # PERNAH — Changelog
 
+## 0.2.0-dev.65 — Deterministic Extraction Orchestration
+
+- Added `orchestrate_extraction()` as a provider-neutral orchestration boundary that always prepares the existing deterministic `normalize()` draft first.
+- Provider absence, malformed output, validation failures, and provider exceptions fall back without blocking capture; exception messages are not copied into diagnostics.
+- Valid provider proposals remain advisory and never replace the deterministic write-ready draft. Low-confidence or ambiguous proposals are explicitly marked for review; no automatic canonical writes were added.
+- Added five orchestration regression tests covering no provider, valid advisory proposals, review-required proposals, malformed responses, and provider failure.
+- No SDK, network call, schema migration, UI integration, or real provider added; schema remains v4.
+- Parent artifact: `PERNAH-v0.2.0-dev.64.zip`.
+
+
 ## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation
 
 - Added provider-neutral AI request/result contracts and explicit `ProviderUnavailable`, `ProviderFailure`, and `InvalidProposal` error types in `pernah/ai_layer.py`.

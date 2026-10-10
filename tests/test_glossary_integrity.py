@@ -49,7 +49,7 @@ class GlossaryIntegrityTests(unittest.TestCase):
         self.assertNotIn("Deterministic Ranking", render_source)
 
     def test_glossary_has_expected_latest_size(self):
-        self.assertEqual(len(self.entries), 159)
+        self.assertEqual(len(self.entries), 160)
 
     def test_glossary_has_pernah_identity_without_cross_project_branding(self):
         self.assertIn("PERNAH", self.html)

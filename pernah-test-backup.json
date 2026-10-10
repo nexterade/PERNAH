@@ -1,0 +1,170 @@
+{
+  "format": "pernah-canonical-v1",
+  "schema_version": 3,
+  "sources": [
+    {
+      "id": "0386b08a-99a3-4e95-ae86-912bc12e5c0e",
+      "source_type": "web",
+      "reference": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:29Z"
+    },
+    {
+      "id": "98f862bc-18ac-4197-aa26-969ec4b90393",
+      "source_type": "web",
+      "reference": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:47Z"
+    },
+    {
+      "id": "b43d6199-9bb8-499c-a3cb-f2cda7442b75",
+      "source_type": "web",
+      "reference": "Hari ini gue melakukan test drive PERNAH dari HP Android. Gue mencoba Web Interface untuk memastikan bahwa input natural dapat diterima, diproses melalui boundary ingestion yang sama dengan manual input, kemudian disimpan ke canonical storage lokal. Setelah server dihentikan dan dijalankan kembali, database tetap tersedia dan sistem dapat digunakan lagi. Ini adalah catatan pengujian pertama untuk memastikan bahwa PERNAH bukan sekadar interface, tetapi benar-benar memiliki persistence.",
+      "created_at": "2026-10-06T10:15:41Z"
+    },
+    {
+      "id": "bc84414f-57fb-4565-8eb8-5f58a8fe8dbf",
+      "source_type": "web",
+      "reference": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:37Z"
+    },
+    {
+      "id": "c737a881-140a-4940-b078-ff1ee59b97ba",
+      "source_type": "web",
+      "reference": "Chatgpt baik ya 🤤",
+      "created_at": "2026-10-06T10:25:45Z"
+    },
+    {
+      "id": "e87a9f8e-51d9-4870-97a1-d243caf6e75f",
+      "source_type": "web",
+      "reference": "Gue bikin pernah hari ini, iya kan?",
+      "created_at": "2026-10-06T10:01:41Z"
+    }
+  ],
+  "entities": [
+    {
+      "id": "6839623e-84c6-4e96-97a9-e9e3a822bd71",
+      "type": "object",
+      "name": "handphone",
+      "created_at": "2026-10-06T10:15:41Z",
+      "updated_at": "2026-10-06T10:15:41Z"
+    },
+    {
+      "id": "898b3352-ffcf-4819-a50d-e11cf5128d44",
+      "type": "person",
+      "name": "Rahayu",
+      "created_at": "2026-10-06T10:16:29Z",
+      "updated_at": "2026-10-06T10:16:29Z"
+    }
+  ],
+  "memories": [
+    {
+      "id": "4cd71592-31c8-4a9c-bcc2-821c5017d9ec",
+      "type": "interaction",
+      "content": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:47Z",
+      "occurred_at": "2026-10-05T10:16:47Z",
+      "updated_at": "2026-10-06T10:16:47Z",
+      "source_id": "98f862bc-18ac-4197-aa26-969ec4b90393",
+      "confidence": 1.0,
+      "schema_version": 3
+    },
+    {
+      "id": "60ade528-9721-4985-b5c6-5bb9d0e423ac",
+      "type": "interaction",
+      "content": "Gue bikin pernah hari ini, iya kan?",
+      "created_at": "2026-10-06T10:01:41Z",
+      "occurred_at": "2026-10-06T10:01:41Z",
+      "updated_at": "2026-10-06T10:01:41Z",
+      "source_id": "e87a9f8e-51d9-4870-97a1-d243caf6e75f",
+      "confidence": 1.0,
+      "schema_version": 3
+    },
+    {
+      "id": "81577d52-f54f-49b9-ade2-6fd77a1121cc",
+      "type": "interaction",
+      "content": "Chatgpt baik ya 🤤",
+      "created_at": "2026-10-06T10:25:45Z",
+      "occurred_at": null,
+      "updated_at": "2026-10-06T10:25:45Z",
+      "source_id": "c737a881-140a-4940-b078-ff1ee59b97ba",
+      "confidence": 1.0,
+      "schema_version": 3
+    },
+    {
+      "id": "85384c01-f5e8-4660-a94c-972a393d585f",
+      "type": "interaction",
+      "content": "Hari ini gue melakukan test drive PERNAH dari HP Android. Gue mencoba Web Interface untuk memastikan bahwa input natural dapat diterima, diproses melalui boundary ingestion yang sama dengan manual input, kemudian disimpan ke canonical storage lokal. Setelah server dihentikan dan dijalankan kembali, database tetap tersedia dan sistem dapat digunakan lagi. Ini adalah catatan pengujian pertama untuk memastikan bahwa PERNAH bukan sekadar interface, tetapi benar-benar memiliki persistence.",
+      "created_at": "2026-10-06T10:15:41Z",
+      "occurred_at": "2026-10-06T10:15:41Z",
+      "updated_at": "2026-10-06T10:15:41Z",
+      "source_id": "b43d6199-9bb8-499c-a3cb-f2cda7442b75",
+      "confidence": 1.0,
+      "schema_version": 3
+    },
+    {
+      "id": "aaa65408-0946-442b-bc6a-c4cd800cb1cc",
+      "type": "interaction",
+      "content": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:37Z",
+      "occurred_at": "2026-10-05T10:16:37Z",
+      "updated_at": "2026-10-06T10:16:37Z",
+      "source_id": "bc84414f-57fb-4565-8eb8-5f58a8fe8dbf",
+      "confidence": 1.0,
+      "schema_version": 3
+    },
+    {
+      "id": "b6a0fd26-f88b-4e10-999a-7ed418cba9b6",
+      "type": "interaction",
+      "content": "Kemarin sore gue ketemu Rahayu di kantor buat ngobrolin proyek PERNAH. Besok jam 10 kita lanjut meeting lagi.",
+      "created_at": "2026-10-06T10:16:29Z",
+      "occurred_at": "2026-10-05T10:16:29Z",
+      "updated_at": "2026-10-06T10:16:29Z",
+      "source_id": "0386b08a-99a3-4e95-ae86-912bc12e5c0e",
+      "confidence": 1.0,
+      "schema_version": 3
+    }
+  ],
+  "relationships": [],
+  "events": [
+    {
+      "id": "09ccf094-8182-4a70-ac4d-e2254d84f5a6",
+      "type": "meeting",
+      "occurred_at": "2026-10-05T10:16:47Z",
+      "location_id": null,
+      "source_id": "98f862bc-18ac-4197-aa26-969ec4b90393"
+    },
+    {
+      "id": "0aab6437-74f2-4522-9d2c-abba7ce60505",
+      "type": "meeting",
+      "occurred_at": "2026-10-05T10:16:29Z",
+      "location_id": null,
+      "source_id": "0386b08a-99a3-4e95-ae86-912bc12e5c0e"
+    },
+    {
+      "id": "0ae2b562-208e-4887-a97d-83e3be9f5cff",
+      "type": "meeting",
+      "occurred_at": "2026-10-05T10:16:37Z",
+      "location_id": null,
+      "source_id": "bc84414f-57fb-4565-8eb8-5f58a8fe8dbf"
+    }
+  ],
+  "event_entities": [
+    {
+      "event_id": "09ccf094-8182-4a70-ac4d-e2254d84f5a6",
+      "entity_id": "898b3352-ffcf-4819-a50d-e11cf5128d44",
+      "role": "participant"
+    },
+    {
+      "event_id": "0aab6437-74f2-4522-9d2c-abba7ce60505",
+      "entity_id": "898b3352-ffcf-4819-a50d-e11cf5128d44",
+      "role": "participant"
+    },
+    {
+      "event_id": "0ae2b562-208e-4887-a97d-83e3be9f5cff",
+      "entity_id": "898b3352-ffcf-4819-a50d-e11cf5128d44",
+      "role": "participant"
+    }
+  ],
+  "commitments": [],
+  "decisions": [],
+  "transactions": []
+}

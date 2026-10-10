@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><meta content="#F4F5EF" name="theme-color"/><meta content="PERNAH Creation Chronicle — rekam historis, kontrak editorial, dan perjalanan perkembangan PERNAH." name="description"/><link rel="icon" href="assets/pernah-symbol.svg" type="image/svg+xml"/>
+<title>Creation Chronicle — PERNAH</title><style>
+:root{--bg:#f4f5ef;--surface:#fff;--surface-2:#eef1ea;--text:#141414;--muted:#5f635f;--border:#d9ddd5;--accent:#176b1d;--accent-strong:#0f5414;--accent-soft:#e4f4e5;--signal:#2bee34;--shadow:rgba(20,20,20,.10);--display:"LEMON MILK","Lemon/Milk",Arial,sans-serif;--body:"Open Sans",Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+html[data-theme="dark"]{--bg:#141414;--surface:#181818;--surface-2:#1d1d1d;--text:#f2f2f2;--muted:#a7a7a7;--border:#2b2b2b;--accent:#2bee34;--accent-strong:#74ff79;--accent-soft:#102a12;--shadow:rgba(0,0,0,.28);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.7;transition:background .2s ease,color .2s ease}button,input{font:inherit}button{cursor:pointer}.shell{width:min(1500px,100%);margin:auto;min-height:100vh;background:var(--surface);box-shadow:0 0 80px var(--shadow)}
+.sitebar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;padding:12px clamp(18px,4vw,46px);border-bottom:1px solid var(--border);background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(14px)}.brand{display:inline-flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;min-width:max-content}.brand img{width:34px;height:34px;color:var(--accent)}.brand-word{font:700 18px/1 var(--display);letter-spacing:.19em}.main-nav{display:flex;align-items:center;gap:5px;margin-left:auto}.main-nav a,.nav-btn{border:1px solid transparent;border-radius:9px;padding:8px 11px;color:var(--muted);text-decoration:none;font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase;background:transparent}.main-nav a:hover,.main-nav a.active,.nav-btn:hover{color:var(--text);border-color:var(--border);background:var(--surface-2)}.nav-tools{display:flex;align-items:center;gap:6px}.nav-btn{display:inline-flex;align-items:center;justify-content:center;min-width:38px;min-height:38px}.nav-btn[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.masthead{padding:38px clamp(22px,4vw,58px) 24px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,var(--surface) 0,var(--surface-2) 100%)}.masthead-top{display:flex;align-items:flex-end;justify-content:space-between;gap:28px}.chronicle-meta{font:700 10px/1.4 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}.kicker{margin-top:8px;font:800 11px/1.2 var(--body);letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}.title{margin:8px 0 0;font:700 clamp(42px,6vw,78px)/.92 var(--display);letter-spacing:.01em}.subtitle{margin:14px 0 0;color:var(--muted);font:400 16px/1.7 var(--body);max-width:820px}.edition{font:700 10px/1.5 var(--body);letter-spacing:.12em;text-align:right;color:var(--muted);white-space:nowrap}.edition b{display:block;color:var(--text);font-size:13px}.toolbar{display:grid;grid-template-columns:minmax(240px,1fr) auto auto;gap:10px;margin-top:26px}.search{display:flex;align-items:center;border:1px solid var(--border);background:var(--surface);border-radius:12px;min-height:48px;box-shadow:0 4px 18px var(--shadow)}.search span{padding:0 13px;color:var(--accent);font:700 15px var(--body)}.search input{width:100%;border:0;outline:0;background:transparent;padding:10px 10px 10px 0;color:var(--text);font:400 14px var(--body)}.tool-btn{border:1px solid var(--border);background:var(--surface-2);border-radius:12px;padding:0 16px;color:var(--text);font:800 11px var(--body);letter-spacing:.08em}.tool-btn:hover,.tool-btn:focus{border-color:var(--accent);outline:0;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}.stats{display:flex;flex-wrap:wrap;gap:9px;padding:14px 0 0}.stats span{border:1px solid var(--border);border-radius:999px;padding:6px 10px;background:var(--surface);color:var(--muted);font:11px var(--body)}.stats b{color:var(--text)}
+.sidebar-backdrop{display:none}.layout{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:calc(100vh - 250px)}.index{border-right:1px solid var(--border);padding:28px 20px;position:sticky;top:63px;align-self:start;max-height:calc(100vh - 63px);overflow:auto;background:var(--surface-2);transition:transform .2s ease}.index-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.index h2{margin:0 0 6px;font:800 13px var(--body);letter-spacing:.14em;text-transform:uppercase}.index-note{font:11px/1.5 var(--body);color:var(--muted);margin-bottom:16px}.toc{display:grid;gap:5px}.toc a{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:start;padding:8px 9px;border:1px solid transparent;border-radius:10px;color:var(--text);text-decoration:none;font:12px/1.35 var(--body)}.toc a .toc-num{color:var(--accent);font-weight:800}.toc a:hover,.toc a.active{background:var(--accent-soft);border-color:var(--border);color:var(--accent)}.sidebar-toggle{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:8px;width:34px;height:34px;font-weight:800}.layout.sidebar-collapsed{grid-template-columns:0 minmax(0,1fr)}.layout.sidebar-collapsed .index{transform:translateX(-100%);padding-left:0;padding-right:0;overflow:hidden}.layout.sidebar-collapsed .index>*{opacity:0}
+.content{padding:34px clamp(22px,5vw,70px) 92px;min-width:0}.content-head{display:flex;align-items:end;justify-content:space-between;gap:20px;border-bottom:1px solid var(--text);padding-bottom:12px;margin-bottom:28px}.content-head h2{margin:0;font:700 25px var(--display);letter-spacing:.01em}.content-head small{font:11px var(--body);color:var(--muted)}.chronicle{max-width:920px}.chronicle>h1:first-child{font:700 36px/1.05 var(--display);margin:0 0 4px;letter-spacing:.01em}.chronicle .chronicle-meta{font:800 10px/1.5 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}.chronicle h1,.chronicle h2{scroll-margin-top:88px}.chronicle h1:not(:first-child),.chronicle h2{position:relative;margin:58px 0 15px;padding:12px 0 0 42px;border-top:1px solid var(--border);font:700 27px/1.18 var(--display);letter-spacing:.01em}.chronicle h1:not(:first-child)::before,.chronicle h2::before{content:"";position:absolute;left:0;top:-8px;width:16px;height:16px;border:4px solid var(--surface);border-radius:50%;background:var(--accent);box-shadow:0 0 0 1px var(--accent)}.chronicle h1:not(:first-child)::after,.chronicle h2::after{content:"";position:absolute;left:7px;top:8px;bottom:-60px;width:2px;background:linear-gradient(var(--accent),transparent)}.chronicle h3{font:700 18px/1.35 var(--display);margin:30px 0 8px;color:var(--text)}.chronicle p{margin:11px 0}.chronicle ul,.chronicle ol{padding-left:24px}.chronicle li{margin:5px 0}.chronicle blockquote{margin:20px 0;padding:16px 20px;border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;background:var(--accent-soft);color:var(--text)}.chronicle pre{overflow:auto;padding:18px 20px;background:#101010;color:#f2f2f2;border-radius:12px;font:12px/1.6 var(--mono);box-shadow:0 12px 30px var(--shadow)}.chronicle code{font:12px var(--mono);background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:1px 5px}.chronicle pre code{background:transparent;border:0;padding:0}.chronicle strong{font-weight:800}.chronicle hr{border:0;border-top:1px dashed var(--border);margin:42px 0}.chronicle a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}mark{background:var(--signal);color:#0b0b0b;padding:0 2px;border-radius:2px}.no-results{padding:40px 0;text-align:center;color:var(--muted);font-size:16px}.footer{border-top:1px solid var(--border);padding:22px clamp(22px,4vw,58px) 34px;display:flex;justify-content:space-between;gap:20px;font:11px/1.5 var(--body);color:var(--muted)}.footer b{color:var(--text)}.float-top{position:fixed;right:22px;bottom:22px;z-index:30;width:48px;height:48px;border:1px solid var(--accent);border-radius:50%;background:var(--surface);color:var(--accent);font:800 18px var(--body);box-shadow:0 12px 28px var(--shadow);opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s ease}.float-top.visible{opacity:1;transform:none;pointer-events:auto}.brand-mark{display:block;width:34px;height:34px;color:var(--accent)}
+@media(max-width:900px){.sitebar{padding:10px 16px}.main-nav{display:none}.nav-tools{margin-left:auto}.brand-word{font-size:16px}.masthead{padding:28px 20px 20px}.masthead-top{align-items:flex-start}.edition{display:none}.toolbar{grid-template-columns:1fr auto}.layout{grid-template-columns:1fr}.index{position:fixed;z-index:25;left:0;top:61px;width:min(320px,88vw);height:calc(100vh - 61px);max-height:none;border-right:1px solid var(--border);box-shadow:20px 0 40px var(--shadow);transform:translateX(-105%)}.layout.sidebar-open .index{transform:none}.layout.sidebar-collapsed{grid-template-columns:1fr}.layout.sidebar-collapsed .index{transform:translateX(-105%)}.sidebar-backdrop{position:fixed;inset:61px 0 0;z-index:24;border:0;background:rgba(0,0,0,.28);padding:0}.layout.sidebar-open .sidebar-backdrop{display:block}.content{padding:24px 20px 72px}}
+@media(max-width:620px){.brand img{width:30px;height:30px}.brand-word{font-size:14px;letter-spacing:.16em}.title{font-size:43px}.subtitle{font-size:14px}.toolbar{grid-template-columns:1fr}.tool-btn{min-height:42px}.content-head{align-items:flex-start;flex-direction:column;gap:4px}.chronicle h1:not(:first-child),.chronicle h2{font-size:23px;padding-left:34px}.footer{padding:18px 20px;flex-direction:column}.stats{gap:6px}.float-top{right:16px;bottom:16px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{body{background:#fff;color:#141414}.shell{box-shadow:none}.sitebar,.index,.toolbar,.stats,.footer,.float-top{display:none}.layout{display:block}.content{padding:20px}.chronicle{max-width:none}.chronicle h1:not(:first-child),.chronicle h2{break-after:avoid}}
+</style></head><body><div class="shell"><header class="sitebar" aria-label="PERNAH navigation"><a class="brand" href="../" aria-label="PERNAH — project overview"><img class="brand-mark" src="assets/pernah-symbol.svg" alt=""><span class="brand-word">PERNAH</span></a><nav class="main-nav" aria-label="Primary"><a href="../">HOME</a><a class="active" href="Creation-Chronicle.html" aria-current="page">Chronicle</a><a href="Glosarium.html">Glossary</a></nav><div class="nav-tools"><button class="nav-btn" id="sidebarToggle" type="button" aria-label="Toggle chronicle index" aria-controls="sidebarIndex" aria-pressed="false">☰</button><button class="nav-btn" id="themeToggle" type="button" aria-label="Switch theme" aria-pressed="false">☾</button></div></header><header class="masthead"><div class="masthead-top"><div><div class="chronicle-meta">ARCHIVE · NARRATIVE · PROVENANCE · CONTINUITY</div><div class="kicker">PERNAH · Historical Record</div><h1 class="title">Creation Chronicle</h1><p class="subtitle">Dokumentasi perjalanan lahir dan berkembangnya PERNAH, direkonstruksi dari percakapan dan artefak proyek yang tersedia.</p></div><div class="edition"><b>EDISI PROYEK</b>CREATION CHRONICLE<br/>Standalone HTML</div></div><div class="toolbar"><label class="search"><span>⌕</span><input aria-label="Cari Creation Chronicle" autocomplete="off" id="search" placeholder="Cari bagian, keputusan, istilah, atau kalimat…" type="search"/></label><button class="tool-btn" id="clear" type="button">RESET</button><button class="tool-btn" id="print" type="button">CETAK</button></div><div class="stats"><span>Current documented feature state: <b>0.2.0-dev.59</b></span><span>Sections: <b>43</b></span><span>Source: <b>conversation + artifacts</b></span></div></header><div class="layout"><button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="Tutup chronicle index"></button><aside id="sidebarIndex" aria-label="Indeks Creation Chronicle" class="index"><div class="index-head"><h2>Indeks</h2></div><div class="index-note">Lompat antar bagian perjalanan PERNAH.</div><nav class="toc" id="toc"></nav></aside><main class="content"><div class="content-head"><h2>Historical Record</h2><small id="filterLabel">Chronology + narrative + provenance</small></div><article class="chronicle" id="chronicle"><h1>PERNAH — Creation Chronicle</h1><div class="chronicle-meta">HISTORICAL PROJECT RECORD · v0.2.0-dev.59 state documented · standalone HTML</div><p>Dokumentasi perjalanan lahir dan berkembangnya PERNAH, direkonstruksi dari percakapan dan artefak proyek yang tersedia. <strong>Current documented feature state: </strong>v0.2.0-dev.28 — Local Web Interface.</p><hr/><h2 id="section-0">0. CHRONICLE CONTRACT — Cara membaca rekam sejarah ini</h2>
+<p>Dokumen ini dibuat sebagai <strong>Creation Chronicle</strong>: catatan naratif
+mengenai bagaimana PERNAH dirancang, dibentuk, dan dikembangkan sampai
+milestone yang sedang berjalan.</p>
+<p>Dokumen ini <strong>bukan pengganti percakapan asli</strong>. Arsip percakapan asli
+tetap menjadi primary record. Chronicle ini adalah dokumen turunan yang
+merangkum perjalanan tersebut agar lebih mudah dibaca manusia.</p>
+<p>Karena tidak semua percakapan historis tersedia sebagai dokumen terpisah
+di workspace saat chronicle ini dibuat, bagian yang tidak dapat
+diverifikasi dari artefak yang tersedia tidak diperlakukan sebagai fakta
+pasti. Jika tanggal atau detail awal tidak tersedia, chronicle
+menyatakannya sebagai tidak terverifikasi daripada mengarang.</p>
+<p><strong>Batas penting:</strong> dokumen ini mencatat rekam jejak perancangan dan
+pengembangan yang tersedia. Ia tidak dengan sendirinya merupakan
+penetapan hukum mengenai kepemilikan, hak cipta, atau prioritas hukum.</p>
+<hr/>
+<h3>Kontrak Chronicle</h3><ul><li><strong>Peran: </strong>Chronicle adalah lapisan naratif/historis yang merangkum perjalanan project agar mudah dipahami manusia.</li><li><strong>Primary record: </strong>Percakapan asli dan artefak sumber tetap menjadi record utama; Chronicle tidak menggantikannya.</li><li><strong>Source discipline: </strong>Klaim historis harus dapat ditelusuri ke percakapan atau artefak yang tersedia. Jika tidak terverifikasi, nyatakan sebagai tidak terverifikasi.</li><li><strong>Chronology: </strong>Urutan milestone mengikuti urutan historis release/keputusan, bukan urutan saat bagian ditulis ulang.</li><li><strong>Current state: </strong>Status terbaru ditulis sebagai current documented state; snapshot lama diberi label historical snapshot.</li><li><strong>Separation: </strong>CHANGELOG mencatat perubahan; Chronicle menjelaskan perjalanan, konteks, dan alasan penting tanpa menjadi source of truth implementasi.</li><li><strong>Preservation: </strong>Refactor visual boleh mengubah presentasi, tetapi tidak boleh menghapus fakta historis yang sudah tercatat tanpa keputusan eksplisit.</li></ul><blockquote><p><strong>CHAT IS EPHEMERAL. ARTIFACT IS CONTINUOUS.</strong></p></blockquote><hr/><h1 id="section-1">1. THE BEGINNING --- Sebuah gagasan tentang memory yang durable</h1>
+<p>PERNAH lahir dari gagasan bahwa percakapan dengan AI tidak seharusnya
+menjadi satu-satunya tempat di mana konteks kehidupan seseorang
+tersimpan.</p>
+<p>Gagasan dasarnya kemudian dikonsolidasikan menjadi:</p>
+<blockquote>
+<p><strong>PERNAH = Personal Memory &amp; Life Context System</strong></p>
+</blockquote>
+<p>Arah produknya bukan sekadar membuat chatbot yang bisa menjawab
+pertanyaan. PERNAH dirancang sebagai <strong>memory/life-context engine</strong> yang
+dapat menerima informasi kehidupan sehari-hari, memahami konteksnya,
+menyimpannya dalam bentuk canonical, lalu mengambilnya kembali ketika
+dibutuhkan.</p>
+<p>Salah satu prinsip filosofis yang menjadi dasar proyek:</p>
+<blockquote>
+<p><strong>"PERNAH sendiri harus punya memory yang lebih durable daripada chat
+tempat kita membangunnya."</strong></p>
+</blockquote>
+<p>Dari sini, fokus proyek bergeser dari sekadar <em>chat with AI</em> menjadi
+pembangunan sebuah <strong>external memory system</strong>.</p>
+<hr/>
+<h1 id="section-2">2. FROM CHAT TO LIFE MEMORY</h1>
+<p>Arsitektur konseptual PERNAH kemudian dibentuk menjadi beberapa lapisan:</p>
+<pre><code class="language-text">                    LIFE MEMORY / PERNAH
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+          INPUT LAYER          RETRIEVAL LAYER
+              │                     │
+       WhatsApp / Web /        Questions / Search
+       Import / Manual               │
+              │                     │
+              ▼                     ▼
+        UNDERSTANDING         Context / Timeline
+              │
+      ┌───────┼────────┐
+      ▼       ▼        ▼
+   Memory   Money   Commitment
+   Things  People   Decision
+      │       │        │
+      └───────┴────────┘
+                 │
+             LIFE GRAPH
+</code></pre>
+<p>Konsep tersebut membuat PERNAH berbeda dari model sederhana:</p>
+<pre><code class="language-text">User → Message → Bot → Answer → Done
+</code></pre>
+<p>PERNAH diarahkan menjadi:</p>
+<pre><code class="language-text">User
+  ↓
+Natural conversation
+  ↓
+Understand
+  ↓
+Extract context
+  ↓
+Canonical memory
+  ↓
+Relationships / timeline
+  ↓
+Future retrieval
+</code></pre>
+<p>WhatsApp diposisikan sebagai salah satu <strong>input interface</strong>, bukan
+sebagai inti sistem.</p>
+<hr/>
+<h1 id="section-3">3. THE CORE PRINCIPLE --- Canonical memory harus independen</h1>
+<p>Salah satu keputusan arsitektur paling penting adalah pemisahan antara
+<strong>canonical data</strong> dan <strong>derived data</strong>.</p>
+<h3>Canonical data</h3>
+<p>Data yang menjadi sumber kebenaran utama:</p>
+<ul>
+<li>Memory</li>
+<li>Entity</li>
+<li>Event</li>
+<li>Relationship</li>
+<li>Temporal history</li>
+<li>Commitment</li>
+<li>Decision</li>
+<li>Transaction</li>
+<li>Physical Object</li>
+<li>Location</li>
+<li>Source</li>
+<li>Confidence</li>
+</ul>
+<h3>Derived data</h3>
+<p>Data yang boleh dibuat ulang:</p>
+<ul>
+<li>Search index</li>
+<li>Embeddings</li>
+<li>AI summaries</li>
+<li>Semantic index</li>
+<li>Cached answers</li>
+<li>Relationship suggestions</li>
+<li>Statistics</li>
+</ul>
+<p>Implikasinya sangat penting:</p>
+<blockquote>
+<p><strong>AI provider bukan source of truth.</strong></p>
+</blockquote>
+<p>Jika provider AI berubah, mati, atau tidak digunakan, canonical memory
+PERNAH tetap harus aman dan usable.</p>
+<hr/>
+<h1 id="section-4">4. LOCAL-FIRST</h1>
+<p>PERNAH kemudian mengambil arah <strong>local-first</strong>.</p>
+<p>Prinsip yang dipilih:</p>
+<ul>
+<li>canonical data berada secara lokal;</li>
+<li>online backup bersifat opsional;</li>
+<li>backup online, jika digunakan, diarahkan untuk terenkripsi;</li>
+<li>canonical data harus portable;</li>
+<li>data harus dapat diekspor dan diimpor;</li>
+<li>perubahan historis tidak boleh dihancurkan secara destruktif;</li>
+<li>derived data harus dapat direbuild.</li>
+</ul>
+<p>Arsitektur storage yang dituju:</p>
+<pre><code class="language-text">Local canonical data
+        │
+        ├── Retrieval / Search
+        ├── Timeline
+        ├── Derived indexes
+        └── Optional encrypted backup
+</code></pre>
+<p>Dengan demikian, keberadaan layanan online tidak menjadi syarat bagi
+identitas canonical memory.</p>
+<hr/>
+<h1 id="section-5">5. TEMPORAL MEMORY --- Memory tidak boleh kehilangan sejarah</h1>
+<p>PERNAH tidak dirancang sebagai database yang hanya menyimpan "nilai
+terakhir".</p>
+<p>Contoh konsep:</p>
+<pre><code class="language-text">Passport
+2026-10-05 → laci meja
+2027-03-12 → safe
+2028-01-08 → lemari dokumen
+</code></pre>
+<p>Jika user bertanya:</p>
+<blockquote>
+<p>"Terakhir passport gue di mana?"</p>
+</blockquote>
+<p>sistem dapat mengambil state valid terbaru.</p>
+<p>Tetapi jika user bertanya tentang sejarahnya, state sebelumnya tetap
+tersedia.</p>
+<p>Prinsipnya:</p>
+<blockquote>
+<p><strong>Informasi yang berubah membentuk history, bukan sekadar overwrite.</strong></p>
+</blockquote>
+<p>Hal ini kemudian menjadi bagian penting dari model temporal PERNAH.</p>
+<hr/>
+<h1 id="section-6">6. CANONICAL DATA MODEL</h1>
+<p>Model logis PERNAH kemudian mendefinisikan beberapa jenis record utama:</p>
+<h3>Memory</h3>
+<p>Representasi informasi yang ditangkap PERNAH.</p>
+<h3>Entity</h3>
+<p>Sesuatu yang dapat dirujuk dan dihubungkan dengan memory lain.</p>
+<p>Contoh: - person - object - place - organization - document</p>
+<h3>Event</h3>
+<p>Sesuatu yang terjadi pada waktu tertentu.</p>
+<h3>Relationship</h3>
+<p>Hubungan antara entity atau record yang memiliki validitas temporal.</p>
+<h3>Commitment</h3>
+<p>Janji atau kewajiban dengan action, pihak terkait, deadline, dan status.</p>
+<h3>Decision</h3>
+<p>Keputusan dengan pilihan, alasan, waktu, dan konteks.</p>
+<h3>Transaction</h3>
+<p>Pergerakan uang yang dapat dikaitkan dengan event, person, kategori, dan
+konteks.</p>
+<h3>Physical Object</h3>
+<p>Barang atau benda yang dapat memiliki state dan location history.</p>
+<h3>Location</h3>
+<p>Tempat yang dapat menjadi bagian dari history suatu object atau event.</p>
+<h3>Source &amp; Confidence</h3>
+<p>Provenance dan tingkat keyakinan terhadap suatu informasi.</p>
+<hr/>
+<h1 id="section-7">7. PROVENANCE --- "Dari mana memory ini berasal?"</h1>
+<p>PERNAH tidak hanya menyimpan hasil ekstraksi.</p>
+<p>Informasi penting juga harus mempertahankan <strong>source/provenance</strong>.</p>
+<p>Contoh source yang didefinisikan:</p>
+<ul>
+<li>whatsapp</li>
+<li>web</li>
+<li>manual</li>
+<li>import</li>
+<li>ai_inference</li>
+</ul>
+<p>Confidence digunakan untuk membedakan fakta yang dinyatakan langsung
+dengan hasil interpretasi atau inference.</p>
+<p>Dengan demikian, memory bukan sekadar:</p>
+<pre><code class="language-text">passport = safe
+</code></pre>
+<p>tetapi dapat memiliki konteks seperti:</p>
+<pre><code class="language-text">what was said
+source
+when it occurred
+confidence
+derived interpretation
+</code></pre>
+<hr/>
+<h1 id="section-8">8. THE RAHAYU EXAMPLE</h1>
+<p>Salah satu contoh konseptual yang digunakan untuk menggambarkan
+kemampuan PERNAH adalah input natural-language seperti:</p>
+<blockquote>
+<p><strong>"Urang geus meli laptop hargana 2 jt tadi isuk"</strong></p>
+</blockquote>
+<p>Target konseptual normalisasinya:</p>
+<pre><code class="language-text">language: Sundanese
+intent: record_purchase
+entity: laptop
+amount: Rp2.000.000
+action: purchase
+time expression: tadi isuk
+original_text: preserved
+</code></pre>
+<p>Kemudian query:</p>
+<blockquote>
+<p><strong>"Urang pernah meli laptop can nya?"</strong></p>
+</blockquote>
+<p>tidak seharusnya hanya dicari sebagai string.</p>
+<p>PERNAH diarahkan untuk memahami bahwa query tersebut meminta retrieval
+terhadap memory pembelian laptop.</p>
+<p>Dan dalam contoh relasional, nama <strong>Rahayu</strong> digunakan sebagai
+person/entity yang dapat dikaitkan dengan event, transaction, atau
+memory.</p>
+<hr/>
+<h1 id="section-9">9. GOVERNANCE --- CHECKPOINT lahir</h1>
+<p>Ketika proyek mulai berkembang, muncul kebutuhan agar development tidak
+berubah menjadi rangkaian improvisasi tanpa jejak.</p>
+<p>Dibentuklah <strong>CHECKPOINT</strong> sebagai fondasi governance.</p>
+<p>CHECKPOINT menetapkan antara lain:</p>
+<ul>
+<li>AI berperan sebagai co-developer, abstraction architect, technical
+UX specialist, reviewer/QC, documentarian, dan problem solver;</li>
+<li>perubahan besar mengikuti prinsip <strong>plan first, code later</strong>;</li>
+<li>pekerjaan dibatch berdasarkan file/scope;</li>
+<li>input/output harus dinormalisasi;</li>
+<li>testing harus dilakukan pada environment yang valid;</li>
+<li>refactoring harus menjaga integritas behavior;</li>
+<li>scope harus dikontrol;</li>
+<li>terminology harus didokumentasikan;</li>
+<li>source of truth setiap dokumen harus jelas.</li>
+</ul>
+<p>Salah satu prinsip dokumentasi penting:</p>
+<pre><code class="language-text">Planning      → BACKLOG
+Implementation→ source code
+Testing       → test suite / validation
+Current state → STATE
+Terminology   → Glosarium
+History       → CHANGELOG
+Rules         → CHECKPOINT
+</code></pre>
+<p>Dengan ini, proyek memperoleh struktur memori untuk dirinya sendiri.</p>
+<hr/>
+<h1 id="section-10">10. SOURCE OF TRUTH HIERARCHY</h1>
+<p>Seiring governance berkembang, pembagian otoritas dokumentasi menjadi
+eksplisit:</p>
+<pre><code class="language-text">CHECKPOINT.md
+    ↓
+STATE.md
+    ↓
+BACKLOG.md
+    ↓
+CHANGELOG.md
+    ↓
+README / TUTORIAL
+    ↓
+PERNAH_CONTINUATION.md
+</code></pre>
+<p>Dengan pembagian domain:</p>
+<ul>
+<li><strong>CHECKPOINT</strong> = aturan/fondasi proses</li>
+<li><strong>STATE</strong> = kondisi implementasi aktual</li>
+<li><strong>BACKLOG</strong> = pekerjaan yang direncanakan</li>
+<li><strong>CHANGELOG</strong> = histori</li>
+<li><strong>README/TUTORIAL</strong> = user-facing documentation</li>
+<li><strong>Glosarium</strong> = terminology</li>
+<li><strong>CONTINUATION</strong> = handoff lintas sesi</li>
+</ul>
+<p>Tujuannya bukan membuat banyak dokumen, tetapi mencegah satu dokumen
+dipaksa menjadi source of truth untuk semua hal.</p>
+<hr/>
+<h1 id="section-11">11. CANONICAL STORAGE FOUNDATION</h1>
+<p>Tahap implementasi kemudian bergerak ke storage.</p>
+<p>Keputusan physical storage yang terdokumentasi:</p>
+<ul>
+<li>SQLite sebagai local storage;</li>
+<li>Python standard library sebagai runtime dependency;</li>
+<li>UUID4 sebagai identifier;</li>
+<li>UTC ISO 8601 untuk timestamp;</li>
+<li>schema version sebagai metadata;</li>
+<li>canonical JSON sebagai format portable export/import.</li>
+</ul>
+<p>Physical storage berkembang hingga mencakup:</p>
+<pre><code class="language-text">sources
+entities
+memories
+relationships
+events
+event_entities
+commitments
+decisions
+transactions
+</code></pre>
+<p>Schema juga berkembang melalui migration.</p>
+<p>Pada tahap ini, PERNAH mulai bergerak dari blueprint menjadi sistem yang
+memiliki canonical storage nyata.</p>
+<hr/>
+<h1 id="section-12">12. MEMORY ENGINE v0.1</h1>
+<p>Berikutnya dibangun <strong>Memory Engine</strong> deterministic dan
+provider-neutral.</p>
+<p>Memory Engine menghasilkan kontrak <code>MemoryDraft</code>.</p>
+<p>Tahap input:</p>
+<pre><code class="language-text">RAW INPUT
+   ↓
+LANGUAGE DETECTION
+   ↓
+NORMALIZATION
+   ↓
+INTENT / ENTITY / TEMPORAL EXTRACTION
+   ↓
+MEMORY DRAFT
+   ↓
+INGESTION / VALIDATION
+   ↓
+CANONICAL STORAGE
+</code></pre>
+<p>Fitur yang dikembangkan pada tahap awal mencakup:</p>
+<ul>
+<li>preservation of original input;</li>
+<li>language detection foundation;</li>
+<li>normalization;</li>
+<li>intent extraction;</li>
+<li>entity extraction;</li>
+<li>amount extraction;</li>
+<li>temporal expression extraction;</li>
+<li>confidence;</li>
+<li>provenance/source;</li>
+<li>purchase capture;</li>
+<li>temporal retrieval intent.</li>
+</ul>
+<p>AI provider sengaja belum dijadikan dependency.</p>
+<hr/>
+<h1 id="section-13">13. INGESTION + RETRIEVAL</h1>
+<p>Memory Engine kemudian dihubungkan dengan ingestion dan retrieval.</p>
+<p>Untuk purchase capture yang didukung:</p>
+<pre><code class="language-text">MemoryDraft
+   ↓
+Validation
+   ↓
+Source provenance
+   ↓
+Entity
+   ↓
+Purchase Event
+   ↓
+Transaction
+   ↓
+Original interaction memory
+</code></pre>
+<p>Event-to-entity links kemudian direpresentasikan secara eksplisit
+melalui <code>event_entities</code>.</p>
+<p>Pada tahap ini, query temporal yang didukung mulai dapat mengambil
+purchase record yang sudah dipersist ke canonical storage.</p>
+<hr/>
+<h1 id="section-14">14. RETRIEVAL EXPANSION</h1>
+<p>Retrieval kemudian diperluas agar query purchase tidak selalu
+membutuhkan object tertentu.</p>
+<p>Sebelumnya fokus retrieval berada pada query yang sudah memiliki object
+entity.</p>
+<p>Kemudian diperluas menjadi:</p>
+<pre><code class="language-text">Query tanpa object
+       ↓
+Matching purchase records
+       ↓
+Temporal constraint
+       ↓
+Deduplication
+       ↓
+Result
+</code></pre>
+<p>Canonical retrieval juga menerima inclusive:</p>
+<pre><code class="language-text">occurred_after
+occurred_before
+</code></pre>
+<p>Entity-scoped retrieval diperkeras agar multiple event-entity links
+tidak menyebabkan satu purchase muncul berulang.</p>
+<p>Tahap ini menjadi fondasi menuju retrieval yang lebih umum.</p>
+<hr/>
+<h1 id="section-15">15. GLOSSARY --- Dari technical glossary menjadi knowledge dictionary</h1>
+<p>Di tengah perjalanan, dokumentasi terminology juga mengalami perubahan
+penting.</p>
+<p>Glosarium awal diarahkan sebagai technical reference.</p>
+<p>Kemudian kebutuhan berkembang: PERNAH bukan hanya membutuhkan kamus
+istilah pembangunannya sendiri, tetapi sebuah <strong>knowledge dictionary
+lintas domain</strong>.</p>
+<p>Filosofi akhirnya:</p>
+<blockquote>
+<p><strong>Glosarium PERNAH = kamus pengetahuan lintas domain dan lintas
+kalangan yang menjadi bagian dari ekosistem pengetahuan PERNAH.</strong></p>
+</blockquote>
+<p>Scope kemudian diperluas agar dapat mencakup pengetahuan seperti:</p>
+<ul>
+<li>Technology</li>
+<li>Internet</li>
+<li>Software</li>
+<li>Science</li>
+<li>Nature</li>
+<li>Photography</li>
+<li>History</li>
+<li>Culture</li>
+<li>Language</li>
+<li>Psychology</li>
+<li>Economics</li>
+<li>Finance</li>
+<li>Business</li>
+<li>Design</li>
+<li>Everyday Life</li>
+<li>Slang</li>
+<li>Internet Culture</li>
+<li>PERNAH</li>
+</ul>
+<p>Contoh istilah lintas domain yang dimasukkan sebagai seed:</p>
+<ul>
+<li>Aurora</li>
+<li>Gmail Dot Trick</li>
+<li>ISO</li>
+<li>Meme</li>
+<li>Polaroid</li>
+</ul>
+<p>Dengan demikian, jika suatu hari user bertanya:</p>
+<blockquote>
+<p>"Gmail dot trick teh naon?"</p>
+</blockquote>
+<p>pengetahuan tersebut secara konseptual dapat dijawab dari knowledge
+layer PERNAH tanpa harus menjadi istilah yang berkaitan langsung dengan
+software PERNAH.</p>
+<hr/>
+<h1 id="section-16">16. GLOSSARY DESIGN</h1>
+<p>Glosarium kemudian dibentuk menjadi dictionary-style reference dengan:</p>
+<ul>
+<li>alphabetic browsing;</li>
+<li>category filtering;</li>
+<li>search;</li>
+<li>responsive layout;</li>
+<li>print support;</li>
+<li>dense dictionary entries;</li>
+<li>typography menggunakan LEMON MILK untuk display/headings;</li>
+<li>Open Sans untuk body/UI;</li>
+<li>persistent Night/Day theme toggle.</li>
+</ul>
+<p>Dokumentasi proyek mencatat bahwa redesign ini berada pada
+documentation/UI scope dan tidak mengubah canonical storage maupun
+Memory Engine behavior.</p>
+<hr/>
+<h1 id="section-17">17. SEMANTIC VERSIONING &amp; RELEASE DISCIPLINE</h1>
+<p>Seiring artifact berkembang, versioning diperjelas menggunakan Semantic
+Versioning:</p>
+<pre><code class="language-text">MAJOR.MINOR.PATCH
+</code></pre>
+<p>Maknanya:</p>
+<ul>
+<li><strong>MAJOR</strong> = breaking/incompatible change</li>
+<li><strong>MINOR</strong> = feature atau peningkatan besar yang kompatibel</li>
+<li><strong>PATCH</strong> = bugfix/polish yang kompatibel</li>
+</ul>
+<p>Development artifact menggunakan pre-release suffix ketika diperlukan,
+misalnya:</p>
+<pre><code class="language-text">PERNAH-v0.2.0-dev.4.zip
+</code></pre>
+<p>Prinsip release juga diperjelas:</p>
+<ul>
+<li>artifact dengan versi yang sama immutable;</li>
+<li>jangan menggunakan nama artifact ambigu seperti <code>latest</code>;</li>
+<li>release harus traceable ke source state;</li>
+<li>schema version dibedakan dari product version;</li>
+<li>CHANGELOG, STATE, dan artifact harus tetap konsisten.</li>
+</ul>
+<hr/>
+<h1 id="section-18">18. EXACT SEARCH</h1>
+<p>Tahap berikutnya membawa retrieval dari pencarian umum menuju
+<strong>deterministic exact search</strong>.</p>
+<p>Flow:</p>
+<pre><code class="language-text">QUERY
+  ↓
+NORMALIZE
+  ↓
+EXACT MATCH
+  ├─ entity name
+  ├─ event type
+  ├─ amount/value
+  ├─ date/time
+  └─ normalized text
+  ↓
+RANKED RESULT
+  ↓
+MEMORY RESULT
+</code></pre>
+<p>Target behavior:</p>
+<h3>"Laptop"</h3>
+<p>→ exact entity <code>laptop</code></p>
+<h3>"Laptop 2 juta"</h3>
+<p>→ entity + value</p>
+<h3>"Pembelian laptop"</h3>
+<p>→ event type + entity</p>
+<h3>"Laptop yang gue beli kemarin"</h3>
+<p>→ entity + temporal constraint</p>
+<p>Search juga menekankan:</p>
+<ul>
+<li>exact entity matching;</li>
+<li>case/whitespace normalization;</li>
+<li>amount/currency filtering;</li>
+<li>temporal filtering;</li>
+<li>duplicate suppression;</li>
+<li>deterministic ranking;</li>
+<li>query specificity.</li>
+</ul>
+<p>Tujuannya adalah membuat retrieval dapat diprediksi sebelum PERNAH masuk
+ke semantic/AI search.</p>
+<hr/>
+<h1 id="section-19">19. BROADER TEMPORAL QUERY</h1>
+<p>Setelah exact search, temporal understanding diperluas.</p>
+<p>Query yang ditargetkan mencakup:</p>
+<ul>
+<li>today / yesterday;</li>
+<li>this week / last week;</li>
+<li>this month / last month;</li>
+<li>this year / last year;</li>
+<li>explicit date;</li>
+<li>N days;</li>
+<li>multi-day windows.</li>
+</ul>
+<p>Contoh:</p>
+<blockquote>
+<p><strong>"Urang pernah meli laptop minggu lalu?"</strong></p>
+</blockquote>
+<p>dapat dinormalisasi menjadi:</p>
+<pre><code class="language-text">action: purchase
+entity: laptop
+occurred_after: beginning of last week
+occurred_before: end of last week
+</code></pre>
+<p>Edge case penting juga diperbaiki:</p>
+<blockquote>
+<p><strong>"7 hari terakhir"</strong></p>
+</blockquote>
+<p>tidak boleh dianggap sebagai monetary amount hanya karena mengandung
+angka.</p>
+<p>Tahap ini memperluas retrieval dari sekadar "kemarin" menjadi temporal
+query yang lebih general.</p>
+<hr/>
+<h1 id="section-20">20. HISTORICAL SNAPSHOT — EARLY RETRIEVAL MILESTONE</h1>
+<p>Artifact yang terdokumentasi sebagai milestone terakhir pada chronicle
+ini adalah:</p>
+<p><strong>PERNAH v0.2.0-dev.4</strong></p>
+<p>Milestone tersebut mencakup:</p>
+<ul>
+<li>deterministic Memory Engine foundation;</li>
+<li>canonical SQLite storage;</li>
+<li>ingestion;</li>
+<li>retrieval;</li>
+<li>retrieval without object constraint;</li>
+<li>temporal filtering;</li>
+<li>exact search;</li>
+<li>deterministic specificity ranking;</li>
+<li>duplicate suppression;</li>
+<li>broader natural-language temporal query extraction;</li>
+<li>universal knowledge glossary;</li>
+<li>project governance and continuation documentation.</li>
+</ul>
+<p>The latest documented next gate is:</p>
+<blockquote>
+<p><strong>Entity Relationship Query</strong></p>
+</blockquote>
+<p>Kemudian direncanakan bergerak menuju:</p>
+<blockquote>
+<p><strong>Timeline generation</strong></p>
+</blockquote>
+<p>AI provider integration tetap ditahan sampai deterministic contract
+dianggap cukup stabil.</p>
+<hr/>
+<h1 id="section-21">21. KONTINUITAS, GOVERNANCE, DAN ARTIFACT SEBAGAI MEMORY</h1>
+<p>Ketika PERNAH berkembang lebih jauh, kontinuitas itu sendiri menjadi persoalan engineering yang eksplisit. Project tidak lagi memperlakukan satu sesi chat sebagai tempat state project hidup; artifact diperlakukan sebagai lapisan kontinuitas yang tahan terhadap pergantian sesi.</p>
+<p>Fase ini memperkenalkan:</p>
+<ul>
+<li><code>PERNAH_BOOT.md</code> sebagai boot snapshot cepat;</li>
+<li><code>PERNAH_PROJECT_STATE.json</code> sebagai snapshot operasional machine-readable;</li>
+<li><code>docs/RELEASE-MANIFEST.md</code> sebagai bukti lineage release;</li>
+<li>aturan context-sweep wajib dan exact-artifact validation;</li>
+<li>guardrail yang lebih kuat untuk integritas Glosarium dan Creation Chronicle;</li>
+<li>model kolaborasi eksplisit di mana AI bertindak sebagai Co-Developer dan partner diskusi, bukan sumber kebenaran.</li>
+</ul>
+<p>Prinsip praktisnya menjadi:</p>
+<blockquote><p><strong>CHAT IS EPHEMERAL. ARTIFACT IS CONTINUOUS.</strong></p></blockquote>
+<p>Ini tidak menggantikan canonical memory. Prinsip tersebut memperjelas perbedaan antara <strong>project continuity</strong> dan <strong>canonical personal data</strong>: keduanya membutuhkan preservation, tetapi berada pada lapisan sistem yang berbeda.</p>
+<hr/>
+<h1 id="section-22">22. LOCAL BACKUP — MENJAGA CANONICAL STATE</h1>
+<p>Setelah fondasi retrieval dan continuity layer terbentuk, muncul pertanyaan baru: jika canonical memory adalah source of truth, bagaimana truth tersebut dipertahankan secara independen dari instance database yang sedang berjalan?</p>
+<p>Jawaban pada <strong>v0.2.0-dev.22</strong> sengaja dibuat kecil dan lokal. Alih-alih membuat format backup baru, PERNAH menggunakan kembali kontrak JSON <code>pernah-canonical-v1</code> yang sudah ada.</p>
+<pre><code class="language-text">CANONICAL SQLITE
+      ↓
+Storage.backup()
+      ↓
+pernah-canonical-v1 JSON
+      ↓
+Storage.validate_backup()
+      ↓
+VALID / REJECTED
+</code></pre>
+<p>Milestone ini menetapkan beberapa boundary:</p>
+<ul>
+<li>backup adalah artifact preservation, bukan cache atau derived index;</li>
+<li>backup tidak membutuhkan AI provider, cloud service, atau runtime dependency pihak ketiga;</li>
+<li>serialisasi deterministic untuk canonical state yang sama;</li>
+<li>validation memeriksa format, schema, struktur tabel/row canonical, nilai canonical, dan integritas relasional;</li>
+<li>relational validation berjalan di SQLite terisolasi sehingga validasi tidak memutasi source database;</li>
+<li>restore sengaja dipisahkan sebagai operasi recovery untuk gate berikutnya.</li>
+</ul>
+<p>Milestone ini mempertajam prinsip preservation: <strong>backup baru berguna sebagai fondasi recovery apabila sistem dapat membuktikan bahwa backup tersebut valid sebelum mempercayainya.</strong></p>
+<p>Suite development mencapai <strong>60/60 PASS</strong> dengan regression coverage untuk database kosong dan terisi, deterministic output, file malformed, mismatch format/schema, table yang hilang, field tambahan, nilai canonical invalid, foreign key rusak, dan import round-trip.</p>
+<hr/>
+<h1 id="section-23">23. RESTORE WORKFLOW — MEMULIHKAN CANONICAL STATE</h1>
+<p>Pada <strong>v0.2.0-dev.23</strong>, preservation memperoleh pasangan yang sebelumnya belum ada: recovery. PERNAH kini tidak hanya dapat menghasilkan dan memvalidasi backup, tetapi juga dapat membangun kembali canonical database dari backup yang sudah dipercaya.</p>
+<pre><code class="language-text">VALIDATED BACKUP
+      ↓
+temporary SQLite target
+      ↓
+canonical round-trip equality
+      ↓
+atomic promotion
+      ↓
+RECOVERED CANONICAL STATE
+</code></pre>
+<p><code>Storage.restore()</code> sengaja tidak diperlakukan sebagai merge biasa. Default semantics-nya adalah <strong>replacement restore</strong>: backup yang valid dibangun terlebih dahulu pada file target sementara, seluruh canonical record dimasukkan dengan foreign-key enforcement, lalu hasil export canonical dibandingkan kembali dengan payload backup.</p>
+<p>Hanya setelah pemeriksaan tersebut berhasil, file sementara dipromosikan ke target menggunakan atomic filesystem replacement. Jika backup invalid, relationship rusak, staging gagal, atau path backup dan target sama, operasi ditolak tanpa memutasi target yang sudah ada.</p>
+<p>Dengan demikian, dev.23 membentuk continuity loop yang lebih lengkap:</p>
+<pre><code class="language-text">CANONICAL STATE
+      ↓ backup
+PRESERVED ARTIFACT
+      ↓ validate + restore
+CANONICAL STATE AGAIN
+</code></pre>
+<p>Suite regression bertambah menjadi <strong>66/66 PASS</strong>, termasuk restore database kosong, populated database, replacement terhadap target lama, round-trip equality, invalid backup safety, broken foreign-key safety, dan collision guard.</p>
+<p>Milestone ini juga melahirkan kebutuhan editorial yang lebih eksplisit. Creation Chronicle sesi 23–24 diaudit untuk mengembalikan konsistensi bahasa Indonesia tanpa menghapus fakta historis. Dari sini muncul istilah <strong>Arsiparis</strong>: peran yang menjaga keterlacakan perjalanan project melalui artifact, provenance, changelog, chronicle, dan dokumentasi tanpa menggantikan source of truth.</p>
+<hr/>
+<h1 id="section-24">24. PORTABLE EXPORT/IMPORT + DISASTER RECOVERY</h1>
+<p>Pada <strong>v0.2.0-dev.24</strong>, fondasi backup dan restore diperketat menjadi workflow portable yang lebih aman untuk dibawa keluar dari satu instance SQLite. Fokusnya bukan membuat format baru, melainkan memastikan kontrak <code>pernah-canonical-v1</code> benar-benar dapat diekspor, dibaca kembali, divalidasi, dan digunakan dalam latihan recovery tanpa memperlemah canonical storage.</p>
+<pre><code class="language-text">CANONICAL SQLITE
+      ↓
+atomic portable export
+      ↓
+pernah-canonical-v1
+      ↓
+validate + relational preflight
+      ↓
+import / restore
+      ↓
+recovered canonical state</code></pre>
+<ul>
+<li><code>Storage.export_json()</code> sekarang menulis melalui file sementara lalu melakukan atomic replacement, sehingga export yang terputus tidak menggantikan artifact valid dengan file parsial;</li>
+<li>export otomatis membuat parent directory yang belum ada;</li>
+<li><code>Storage.import_json()</code> menjadi jalur import file yang memvalidasi canonical structure dan relational integrity sebelum target dimutasi;</li>
+<li><code>import_canonical()</code> mendapat relational preflight yang sama, tetapi tetap mempertahankan semantics merge/dedup-oriented;</li>
+<li>full replacement recovery tetap dipisahkan pada <code>Storage.restore()</code>;</li>
+<li>disaster recovery diuji dalam temporary environment dengan menghapus database live secara terkontrol lalu membangunnya kembali dari backup yang tervalidasi;</li>
+<li>backup korup diuji sebagai failure path dan tidak boleh memutasi target yang sudah ada.</li>
+</ul>
+<p>Milestone ini menutup <strong>Milestone 4 — Backup &amp; Recovery</strong>. PERNAH kini memiliki preservation, validation, replacement restore, portable import/export, dan recovery drill sebagai satu rangkaian continuity yang dapat diuji secara lokal.</p>
+<p>Suite regression mencapai <strong>72/72 PASS</strong>. Tidak ada schema migration dan tidak ada dependency AI/provider yang diperkenalkan.</p>
+<p>Istilah <strong>Disaster Recovery</strong> ditambahkan ke Glosarium untuk membedakan proses pemulihan setelah gangguan besar dari sekadar restore satu file secara manual.</p>
+<hr/>
+<h1 id="section-25">25. FOUNDATION REFLECTION</h1>
+<p>PERNAH dibangun bukan hanya sebagai software untuk mengingat sesuatu.</p>
+<p>Ada gagasan yang lebih dalam di baliknya:</p>
+<blockquote>
+<p><strong>Kalau manusia bisa punya memory system eksternal untuk kehidupannya,
+maka proses membangun memory system itu sendiri juga layak memiliki
+memory.</strong></p>
+</blockquote>
+<p>Creation Chronicle ini adalah bagian dari memory tersebut.</p>
+<p>Percakapan asli menyimpan jejak prosesnya.</p>
+<p>Source code menyimpan bentuk sistemnya.</p>
+<p>Dokumentasi menyimpan keputusan-keputusannya.</p>
+<p>Dan chronicle ini menyimpan ceritanya.</p>
+<p><strong>PERNAH --- Personal Memory &amp; Life Context System</strong></p>
+<p><em>Creation Chronicle --- foundation reflection recorded at v0.2.0-dev.24</em></p>
+<hr/>
+<h1 id="section-26">26. MANUAL INPUT — PINTU PERTAMA KE DUNIA NYATA</h1>
+<p>Pada <strong>v0.2.0-dev.25</strong>, PERNAH mulai memasuki Milestone 5 — Input Interfaces. Langkah pertama sengaja bukan web, WhatsApp, atau provider AI, melainkan sebuah batas input manual yang kecil, lokal, dan mudah diuji.</p>
+<pre><code class="language-text">MANUAL TEXT
+      ↓
+capture_text()
+      ↓
+normalize()
+      ↓
+MemoryDraft
+      ↓
+ingest_draft()
+      ↓
+CANONICAL STORAGE</code></pre>
+<p><code>pernah.manual_input.capture_text()</code> menjadi antarmuka eksplisit pertama untuk memasukkan teks pengguna ke pipeline yang sudah ada. Ia tidak membuat schema baru dan tidak menggantikan Memory Engine. Fungsi tersebut hanya memberi boundary yang jelas antara <strong>input interface</strong> dan canonical storage.</p>
+<p>Untuk penggunaan lokal, PERNAH juga menyediakan <code>python -m pernah.manual</code> dengan mode teks sekali jalan atau prompt interaktif. Teks asli tetap dipertahankan melalui <code>MemoryDraft</code>, sementara normalisasi dan ingestion tetap mengikuti kontrak provider-neutral yang sudah dibangun sebelumnya.</p>
+<p>Milestone ini menegaskan boundary penting: <strong>interface adalah pintu masuk, bukan source of truth.</strong> Web interface, messaging adapter, dan import data nantinya dapat menjadi pintu yang berbeda tanpa mengubah prinsip canonical memory.</p>
+<p>Suite regression mencapai <strong>76/76 PASS</strong>. Tidak ada schema migration dan tidak ada dependency AI/provider yang diperkenalkan.</p>
+<hr/>
+<h1 id="section-27">27. DOCUMENTATION &amp; ARTIFACT HYGIENE</h1>
+<p>Pada <strong>v0.2.0-dev.26</strong>, sebelum masuk ke Web Interface, PERNAH berhenti sebentar untuk merapikan rumahnya sendiri. Fokus release ini bukan menambah kemampuan canonical storage atau Memory Engine, melainkan memastikan artifact yang akan dipakai untuk test drive tidak membawa kebingungan dokumentasi.</p>
+<p>Legacy root <code>Readme.md</code> dipensiunkan dari lineage aktif. <code>README.md</code> tetap menjadi dokumen onboarding canonical. <code>docs/CHANGELOG.md</code> juga diaudit dan blok histori yang terduplikasi dibersihkan tanpa mengubah fakta release yang dicatat.</p>
+<p>Audit yang sama menemukan beberapa stale reference: nama API manual input, jumlah istilah glossary, dan deskripsi runtime. Semuanya disinkronkan dengan implementation reality. Tutorial minimal untuk jalur manual CLI juga ditambahkan agar artifact dapat diuji tanpa bergantung pada konteks percakapan.</p>
+<pre><code class="language-text">DOCUMENTATION
+    ↓
+AUDIT
+    ↓
+CLEANUP
+    ↓
+REGRESSION TEST
+    ↓
+EXACT ARTIFACT
+    ↓
+TEST DRIVE READY</code></pre>
+<p>Tidak ada schema migration, perubahan canonical storage, atau dependency AI/provider pada release ini. Ini adalah release hygiene: <strong>rapihin → buktiin → baru gas.</strong></p>
+<hr/>
+<h1 id="section-28">28. DATA CLASSIFICATION &amp; PRIVACY BOUNDARY</h1>
+<p>Pada <strong>v0.2.0-dev.27</strong>, PERNAH mengambil satu langkah kecil sebelum Web Interface: menetapkan batas klasifikasi data dan privasi secara eksplisit. Release ini sengaja tidak menyentuh canonical schema atau menambahkan runtime security feature.</p>
+<p>PERNAH kini membedakan <strong>Normal Data</strong>, <strong>Sensitive Data</strong>, dan <strong>Secret Data</strong>. Normal Data dapat menjadi canonical memory. Sensitive Data memerlukan kehati-hatian tambahan pada interface, log, export, backup, dan artifact. Secret Data seperti password, API key, token, PIN, recovery code, private key, seed phrase, dan TOTP secret tidak boleh disimpan plaintext sebagai Memory Core canonical data.</p>
+<p>Gate ini juga mengunci satu kekhawatiran penting tentang data permanen: canonical data tidak boleh otomatis dihapus, dipangkas, atau dibuat kedaluwarsa oleh maintenance, retrieval, indexing, backup, atau optimasi. Yang boleh dibuang atau dibangun ulang adalah derived data, bukan canonical source.</p>
+<pre><code class="language-text">DATA
+  ↓
+CLASSIFICATION
+  ├── Normal Data → Memory Core
+  ├── Sensitive Data → extra privacy care
+  └── Secret Data → Secret Vault boundary
+                         ↓
+                    future capability</code></pre>
+<p>Secret Vault dicatat sebagai future capability terpisah. Implementasinya belum dilakukan; ketika waktunya tiba, desain harus membahas encryption/decryption, key derivation, integrity/authentication, lock/unlock lifecycle, backup/recovery, dan threat model. Encoding biasa tidak dianggap sebagai security boundary.</p>
+<p>Release ini adalah governance gate: <strong>klasifikasikan → batasi → baru buka interface lebih luas.</strong></p>
+<hr/>
+<h1 id="section-29">29. FINAL NOTE — REFLECTION BEFORE THE WEB GATE</h1>
+<p>PERNAH dibangun bukan hanya sebagai software untuk mengingat sesuatu.</p>
+<blockquote>
+<p><strong>Kalau manusia bisa punya memory system eksternal untuk kehidupannya, maka proses membangun memory system itu sendiri juga layak memiliki memory.</strong></p>
+</blockquote>
+<p>Creation Chronicle ini adalah bagian dari memory tersebut.</p>
+<p>Percakapan asli menyimpan jejak prosesnya.</p>
+<p>Source code menyimpan bentuk sistemnya.</p>
+<p>Dokumentasi menyimpan keputusan-keputusannya.</p>
+<p>Dan chronicle ini menyimpan ceritanya.</p>
+<p><strong>PERNAH --- Personal Memory &amp; Life Context System</strong></p>
+<p><em>Final reflection retained from the dev.27 governance gate; current state is recorded in the final handoff section.</em></p>
+<hr/>
+<h1 id="section-30">30. LOCAL WEB INTERFACE — PINTU BROWSER KE CORE</h1>
+<p>Pada <strong>v0.2.0-dev.28</strong>, PERNAH membuka pintu input berbasis browser secara minimal dan lokal. Interface ini sengaja tidak membuat pipeline baru: POST <code>/capture</code> memakai <code>capture_text()</code> yang sama dengan manual input, sehingga browser tetap hanya menjadi interface dan canonical storage tetap menjadi sumber kebenaran.</p>
+<p>Server menggunakan Python standard library dan bind ke <code>127.0.0.1</code> secara default. Release ini tidak menambahkan authentication, cloud transport, remote exposure, atau Secret Vault runtime. Boundary security yang ditetapkan pada dev.27 tetap berlaku.</p>
+<p>Dengan demikian alurnya menjadi:</p>
+<pre><code>Browser → Local Web Server → capture_text() → normalize() → ingest_draft() → Canonical SQLite</code></pre>
+<p>Slice ini menutup implementasi awal Web Interface. Pengujian berikutnya dapat fokus pada usability, retrieval dari data hasil web input, dan hardening interface tanpa mengubah canonical boundary.</p>
+<hr/><h1 id="section-31">31. CURRENT DOCUMENTED STATE — v0.2.0-dev.28</h1><pre><code>Project:
+PERNAH
+
+Identity:
+Personal Memory &amp; Life Context System
+
+Latest documented feature artifact:
+PERNAH-v0.2.0-dev.28.zip
+
+Current gate:
+Milestone 5 — Web Interface
+
+Completed input slices:
+Manual input + initial local Web Interface
+
+Security/privacy boundary:
+Normal / Sensitive / Secret Data classification defined; Secret Vault remains roadmap-only
+
+AI/provider dependency:
+Deferred
+
+Core principle:
+Interface may change. Canonical memory remains authoritative.</code></pre><p><em>Creation Chronicle refactored as a documentation-only release; feature state documented through v0.2.0-dev.28.</em></p><hr/><h1 id="section-32">32. WARUNG PADANG ACCEPTANCE — WEB INTERFACE TEST DRIVE</h1><p>Pada tahap ini, Local Web Interface tidak lagi hanya dinyatakan lolos automated test. Project Owner menjalankan sendiri alur browser pada artifact terpaket <strong>v0.2.0-dev.31</strong> sebagai checkpoint <strong>Warung Padang</strong>: produk dicicipi dari sudut pandang pengguna nyata, bukan hanya dari sisi test suite.</p><p>Hasil manual acceptance: <strong>PASS</strong>. Dengan hasil ini, initial Local Web Interface diterima sebagai product-facing input slice untuk Milestone 5. Hardening interface menjadi gate berikutnya.</p><pre><code>Automated suite: 102/102 PASS
+Warung Padang manual acceptance: PASS
+Current next gate: Milestone 5 — Web Interface hardening</code></pre><hr/><h1 id="section-33">33. CURRENT DOCUMENTED STATE — v0.2.0-dev.32</h1><pre><code>Project:
+PERNAH
+
+Identity:
+Personal Memory &amp; Life Context System
+
+Latest release artifact:
+PERNAH-v0.2.0-dev.32.zip
+
+Accepted feature slice:
+Local Web Interface — Warung Padang PASS
+
+Current gate:
+Milestone 5 — Web Interface hardening
+
+Security/privacy boundary:
+Normal / Sensitive / Secret Data classification defined; Secret Vault remains roadmap-only
+
+AI/provider dependency:
+Deferred
+
+Core principle:
+Interface may change. Canonical memory remains authoritative.</code></pre><p><em>Manual acceptance recorded from the Project Owner's real-browser test drive; hardening remains the next implementation slice.</em></p><hr/><h1 id="section-34">34. KNOWLEDGE-SURFACE CONSISTENCY — GLOSSARY + CHRONICLE IMPACT GATE</h1><p>Pada tahap ini, PERNAH memperlakukan Glossary dan Creation Chronicle bukan hanya sebagai file yang wajib ada, tetapi sebagai dua canonical knowledge surfaces dengan fungsi berbeda.</p><p>Glossary menjawab <strong>“apa arti konsep ini?”</strong>, sedangkan Chronicle menjawab <strong>“apa yang terjadi, kapan, dan mengapa/keputusan apa yang diambil?”</strong>. Untuk mencegah knowledge drift, setiap perubahan material kini melewati <strong>Knowledge-Surface Impact Check</strong> dengan empat kemungkinan: <code>BOTH</code>, <code>GLOSSARY</code>, <code>CHRONICLE</code>, atau <code>NONE</code>.</p><p>Perubahan ini sengaja dibuat lightweight. Tidak setiap edit kecil menghasilkan narasi baru. Namun perubahan governance seperti <strong>Prompt Translation</strong>, <strong>Human Touch</strong>, <strong>Artifact Compliance Gate</strong>, dan konsep <strong>invariant/immutable artifact</strong> dievaluasi sebagai terminology dan historical development, sehingga pengetahuan tidak berhenti di CHECKPOINT atau percakapan saja.</p><pre><code>CHANGE
+  ↓
+KNOWLEDGE-SURFACE IMPACT CHECK
+  ├── BOTH
+  ├── GLOSSARY
+  ├── CHRONICLE
+  └── NONE
+  ↓
+DOCUMENT SYNC → RELEASE PREFLIGHT</code></pre><p><strong>Release:</strong> v0.2.0-dev.49. Parent: v0.2.0-dev.48. Automated suite target: 144/144 PASS after knowledge-surface regression coverage.</p></article><hr/><h1 id="section-35">35. TEST DISCOVERY + LANGUAGE BOUNDARY HARDENING — Menutup blind spot sebelum artifact dijual</h1><p>Pada v0.2.0-dev.50, PERNAH menutup sebuah blind spot yang ditemukan saat audit dev.49: tiga regression test di <code>tests/test_memory_engine.py</code> berbentuk top-level <code>test_*</code> function sehingga tidak ikut ditemukan oleh canonical <code>python3 -m unittest discover -s tests -v</code>. Masalahnya bukan sekadar angka test, tetapi kontrak release: seluruh regression test yang ada harus benar-benar masuk ke gate resmi.</p><p>Ketiga test tersebut dikonversi ke <code>unittest.TestCase</code>, lalu ditambahkan regression guard di <code>test_release_integrity.py</code> yang menolak top-level <code>test_*</code> function di <code>tests/test_*.py</code>. Dengan demikian, blind spot serupa akan gagal sebagai regression, bukan baru ditemukan ketika runner lain digunakan.</p><p>Audit yang sama juga menemukan batas language detection pada input campuran Sunda–Indonesia. Untuk input seperti <em>“Urang pernah beli laptop teu?”</em>, skor lexical dapat seri karena kata umum Indonesia bercampur dengan marker Sunda. Detector kini memberi precedence deterministik kepada marker Sunda yang khas ketika skor seri. Regression expectation untuk query retrieval Sunda juga diselaraskan dengan payload query yang memang sekarang membawa <code>entity</code> dan <code>text</code>.</p><pre><code>DEV.49 AUDIT
+↓
+DISCOVERY BLIND SPOT FOUND
+↓
+UNITTEST CONTRACT HARDENED
+↓
+REGRESSION GUARD ADDED
+↓
+MIXED-LANGUAGE BOUNDARY HARDENED
+↓
+148/148 PASS (1 skipped)
+↓
+EXACT ARTIFACT VALIDATION NEXT</code></pre><p><strong>Release:</strong> v0.2.0-dev.50. Parent: v0.2.0-dev.49. Automated suite: <strong>148/148 PASS</strong> with one existing skip.</p><hr/><h1 id="section-36">36. RECOVERY GATE AUTOMATION — Backup → Restore → Restart</h1><p>Pada v0.2.0-dev.51, gate recovery diperdalam dengan regression coverage yang melewati interface web lokal dan canonical storage sekaligus. Test mengirim input melalui <code>POST /capture</code>, memastikan hasil dapat dibaca melalui route <code>?saved=...</code>, membuat canonical backup, memvalidasi backup, menghentikan server, menghapus database live sebagai simulasi kehilangan terkontrol, lalu menjalankan <code>Storage.restore()</code> untuk membangun kembali database.</p><p>Setelah restore, server dijalankan kembali terhadap database yang dipulihkan. Saved-memory route yang sama harus tetap mengembalikan memory, dan refresh GET kedua harus tetap aman. Ini bukan pengganti test drive manusia; automated test membuktikan recovery contract secara repeatable, sedangkan Project Owner tetap wajib mencicipi flow pada browser nyata sebelum gate produk dianggap selesai.</p><pre><code>WEB CAPTURE
+↓
+CANONICAL BACKUP
+↓
+VALIDATE
+↓
+CONTROLLED DATABASE LOSS
+↓
+RESTORE
+↓
+SERVER RESTART
+↓
+SAVED ROUTE + REFRESH
+↓
+149/149 PASS
+↓
+HUMAN BROWSER TEST DRIVE PENDING</code></pre><p>Di release yang sama, exact-artifact hygiene diperketat: <code>.pytest_cache/</code> dan cache generated lain sekarang menjadi blocker packaging, bukan sekadar detail lingkungan kerja.</p><p><strong>Release:</strong> v0.2.0-dev.51. Parent: v0.2.0-dev.50. Automated suite: <strong>149/149 PASS</strong> with one existing skip.</p><hr/><h1 id="section-37">37. WEB BACKUP &amp; RECOVERY — Recovery akhirnya punya pintu di product UI</h1><p>Pada v0.2.0-dev.52, batas yang ditemukan saat test-drive dev.51 ditutup dengan cara yang eksplisit: capability <code>Storage.restore()</code> yang sebelumnya hanya berada di storage/engineering layer sekarang memiliki product-facing surface di <strong>Settings → Backup &amp; Recovery</strong>.</p><p>UI menyediakan <strong>Download JSON</strong> untuk canonical backup dan <strong>Restore selected backup</strong> untuk memilih backup lokal. Restore tidak langsung mengganti database: browser harus melewati confirmation dialog, request wajib membawa <code>X-PERNAH-Confirm: restore</code>, payload divalidasi sebagai canonical backup, lalu <code>Storage.restore()</code> melakukan atomic replacement.</p><p>Desain ini sengaja tidak mengubah canonical schema, tidak menambahkan cloud transport, dan tidak menganggap backup sebagai data turunan. Backup tetap representasi canonical state; restore adalah operasi recovery yang mengganti target state secara sadar dan teruji.</p><pre><code>SETTINGS
+↓
+BACKUP / DOWNLOAD
+↓
+SELECT CANONICAL JSON
+↓
+EXPLICIT CONFIRMATION
+↓
+VALIDATE BACKUP
+↓
+ATOMIC RESTORE
+↓
+REFRESH / VERIFY MEMORY
+↓
+155/155 PASS
+↓
+HUMAN WEB BACKUP &amp; RECOVERY TEST DRIVE PENDING</code></pre><p><strong>Release:</strong> v0.2.0-dev.52. Parent: v0.2.0-dev.51. Automated suite: <strong>155/155 PASS</strong> with one existing skip.</p><hr/><h1 id="section-38">38. MOBILE REFERENCE NAVIGATION — Tap outside untuk menutup index</h1><p>Pada v0.2.0-dev.53, mobile reference navigation dipoles setelah ditemukan bahwa index Glossary dapat dibuka tetapi belum memiliki area tap-outside yang jelas untuk menutupnya. Standalone Glossary sekarang memiliki backdrop interaktif di belakang index; men-tap area di luar index menutup sidebar tanpa mengganggu pencarian, kategori, alphabet filter, atau gesture swipe yang sudah ada.</p><p>Backdrop ditambahkan pada source Glossary sehingga reader product-facing <code>/glossary</code> yang menanamkan fragment yang sama otomatis mempertahankan perilaku tersebut. Regression guard memastikan kontrak backdrop dan close handler tidak hilang pada perubahan berikutnya.</p><pre><code>MOBILE INDEX
+↓
+OPEN SIDEBAR
+↓
+BACKDROP ACTIVE
+↓
+TAP OUTSIDE
+↓
+CLOSE SIDEBAR
+↓
+156/156 PASS
+↓
+HUMAN WEB BACKUP &amp; RECOVERY TEST DRIVE PENDING</code></pre><p><strong>Release:</strong> v0.2.0-dev.53. Parent: v0.2.0-dev.52. Automated suite: <strong>156/156 PASS</strong> with one existing skip.</p><hr/><h1 id="section-39">39. CLI URL AUTO-COPY — Startup langsung siap ditempel</h1><p>Pada v0.2.0-dev.54, startup Local Web Interface dipoles untuk menghilangkan satu langkah kecil yang berulang: setelah server hidup, URL yang dicetak di terminal sekarang otomatis dicoba untuk disalin ke clipboard. Implementasinya sengaja tetap dependency-free dan best-effort, sehingga tidak mengubah prinsip local/offline runtime PERNAH.</p><p>PERNAH mencoba utility clipboard lokal yang umum pada Termux, Wayland, X11, macOS, dan Windows/WSL. Jika tidak ada utility yang tersedia atau proses clipboard gagal, server tetap berjalan normal dan URL tetap dicetak untuk disalin manual. Dengan begitu fitur ini adalah convenience layer, bukan dependency atau single point of failure.</p><pre><code>SERVER STARTS
+↓
+PRINT LOCAL URL
+↓
+TRY LOCAL CLIPBOARD UTILITY
+↓
+COPIED  OR  MANUAL COPY FALLBACK
+↓
+SERVE REQUESTS</code></pre><p><strong>Knowledge-Surface Impact Check:</strong> <code>CHRONICLE</code>. Perubahan ini merupakan material runtime behavior yang layak dicatat sebagai sejarah implementasi, tetapi tidak memperkenalkan terminology governance baru yang memerlukan Glossary entry.</p><p><strong>Release:</strong> v0.2.0-dev.54. Parent: v0.2.0-dev.53. Automated suite: <strong>158/158 PASS</strong> with one existing skip.</p><hr/><h1 id="section-40">40. WEB UX RECOVERY — Restore fetch, Glossary rendering, and mobile index close</h1><p>Pada v0.2.0-dev.55, human test-drive terhadap dev.54 menemukan tiga UX/runtime issues yang nyata di perangkat mobile: operasi Restore berakhir dengan <code>Failed to fetch</code>, Glossary tampil kosong meskipun canonical entries tersedia, dan tap di luar index mobile belum cukup konsisten untuk menutup sidebar.</p><p>Investigasi menemukan boundary restore pada dynamic Web Interface memakai Content Security Policy tanpa <code>connect-src 'self'</code>, sehingga browser dapat memblokir <code>fetch('/restore')</code> sebelum request aplikasi selesai. Dev.55 menambahkan izin same-origin tersebut tanpa membuka koneksi eksternal.</p><p>Glossary juga diperkeras agar kegagalan akses browser <code>localStorage</code> tidak menghentikan seluruh bootstrap JavaScript sebelum dictionary dirender. Untuk mobile index, backdrop tetap menjadi mekanisme visual utama, tetapi sekarang document-level pointer guard juga menutup sidebar ketika pointer/tap terjadi di luar index yang terbuka.</p><p><strong>Knowledge-Surface Impact Check:</strong> <code>CHRONICLE</code>. Perubahan ini merupakan material runtime/UX correction yang layak dicatat sebagai sejarah implementasi; tidak ada terminology governance baru yang memerlukan Glossary entry.</p><p><strong>Release:</strong> v0.2.0-dev.55. Parent: v0.2.0-dev.54. Automated suite: <strong>158/158 PASS</strong> with one existing skip.</p><hr/><h1 id="section-41">41. HYBRID VOCABULARY + GLOSSARY — Kosakata bebas yang tetap terdefinisi</h1><p>Pada v0.2.0-dev.56, arah Glossary diperluas menjadi hybrid antara vocabulary dan glossary. Istilah tidak harus formal atau murni teknis untuk dianggap berguna: kata baru, jargon product/UX/engineering, singkatan, command-line option, error message, API name, dan istilah internal PERNAH dapat dicatat selama membantu memahami perjalanan project.</p><p>Canonical dictionary bertambah dari 133 menjadi <strong>153 entries</strong>. Penambahan mencakup <code>Product Owner</code>, <code>UX</code>, <code>Debugging</code>, <code>Automation</code>, <code>Failed to fetch</code>, <code>fetch</code>, <code>CSP</code>, <code>connect-src</code>, <code>python -m</code>, <code>--port</code>, <code>localhost</code>, <code>SPOK</code>, serta vocabulary internal seperti <code>Chaos Generator™</code>.</p><pre><code>VOCABULARY ENCOUNTERED
+↓
+DECIDE USEFULNESS
+↓
+ADD TERM + DEFINITION + EXAMPLE
+↓
+SEARCHABLE HYBRID GLOSSARY
+↓
+153 ENTRIES</code></pre><p><strong>Knowledge-Surface Impact Check:</strong> <code>GLOSSARY + CHRONICLE</code>. Perubahan ini memperluas canonical vocabulary surface sekaligus mencatat perubahan konsep Glossary sebagai bagian dari sejarah project.</p><p><strong>Release:</strong> v0.2.0-dev.56. Parent: v0.2.0-dev.55. Automated suite: <strong>158/158 PASS</strong> with one existing skip.</p><hr/><h1 id="section-42">42. OBROLAN SANTAI — Jokes, cuan, dan sedikit visi tersembunyi</h1><p>Di luar implementasi dan test gate, perjalanan PERNAH juga diwarnai obrolan santai antara Project Owner dan co-developer. Bagian ini dicatat bukan sebagai requirement atau keputusan teknis, melainkan sebagai konteks ringan yang ikut mewarnai proses development.</p><p>Beberapa percakapan berkembang menjadi running jokes: perangkat pengujian yang sempat disebut <strong>HP kentang</strong>, lalu naik kasta menjadi <strong>Singkong Premium™</strong> dan <strong>Ubi Cilembu™</strong>; human test-drive yang diposisikan sebagai <strong>audit lapangan</strong>; serta peran Project Owner sebagai <strong>Chaos Generator™</strong> yang terus menemukan kasus nyata setelah automated suite menyatakan PASS.</p><p>Topik monetisasi juga sempat muncul sebagai candaan. Ide seperti menambahkan AdSense ke PERNAH diperlakukan sebagai joke, tetapi sekaligus menyisakan sedikit visi realistis: jika suatu hari PERNAH menghasilkan uang, hasilnya tentu tidak ditolak dan bahkan bisa membantu mendanai upgrade perangkat development. Proporsinya sendiri diringkas secara informal sebagai <strong>75% jokes, 25% bukan jokes</strong>.</p><blockquote><p><strong>“Cuan? 75% jokes, sisanya bukan jokes.”</strong></p></blockquote><p>Catatan ini tidak mengubah product requirement, pricing strategy, deployment plan, atau source of truth teknis. Ia hanya menjaga continuity dari sisi manusia: development serius tetap berjalan, sementara humor dan aspirasi kecil tetap menjadi bagian natural dari perjalanan project.</p><p><strong>Knowledge-Surface Impact Check:</strong> <code>CHRONICLE</code>. Ini merupakan catatan naratif non-implementatif dan tidak memperkenalkan canonical terminology atau perubahan runtime.</p>
+<hr/><h1 id="section-43">43. CHRONICLE SIDEBAR SCROLL-SYNC — Active session mengikuti viewport</h1><p>Pada v0.2.0-dev.59, human test-drive menemukan bahwa indeks Chronicle tetap menyorot sesi pertama meskipun pembaca sudah menggulir ke sesi lain. Masalahnya berasal dari TOC yang sebelumnya hanya membangun link dan tidak memiliki scroll synchronization untuk menentukan sesi aktif dari posisi viewport.</p><p>Perbaikannya memakai perhitungan posisi heading terhadap viewport: sesi terakhir yang sudah melewati anchor baca menjadi active, lalu link TOC yang sesuai ikut disorot dan otomatis dibawa tetap terlihat di dalam scroll container index. Klik item tetap menetapkan target active state sambil menggunakan anchor scrolling yang sudah ada, sehingga setelah smooth-scroll selesai scrollspy kembali mengonfirmasi sesi target.</p><p>Mobile Chronicle juga sekarang memakai pola backdrop + outside-pointer guard yang sama: tap backdrop atau area di luar index menutup sidebar, sedangkan tap di dalam index tidak dianggap outside. Swipe dan Escape tetap dipertahankan.</p><p><strong>Knowledge-Surface Impact Check:</strong> <code>CHRONICLE</code>. Ini merupakan perubahan runtime UX yang material dan dicatat sebagai sejarah implementasi; tidak ada canonical schema atau vocabulary governance baru.</p><p><strong>Release:</strong> v0.2.0-dev.59. Parent: v0.2.0-dev.58.</p><div class="no-results" hidden="" id="noResults">Tidak ada bagian yang cocok dengan pencarian.</div></main></div><footer class="footer"><div><b>PERNAH / CREATION CHRONICLE</b><br/>Historical narrative layer; bukan pengganti arsip percakapan asli.</div><div>Local · Standalone HTML · Mobile friendly · Print friendly</div></footer></div><button class="float-top" id="floatTop" type="button" aria-label="Kembali ke atas">↑</button><script>(()=>{'use strict';
+const root=document.getElementById('chronicle'),nav=document.getElementById('toc'),search=document.getElementById('search'),noResults=document.getElementById('noResults'),filterLabel=document.getElementById('filterLabel'),original=root.innerHTML;
+const page=document.documentElement,layout=document.querySelector('.layout'),themeToggle=document.getElementById('themeToggle'),sidebarToggle=document.getElementById('sidebarToggle'),floatTop=document.getElementById('floatTop');
+const themeMedia=matchMedia('(prefers-color-scheme: dark)');
+function themeValue(){const v=localStorage.getItem('pernah-theme');return v==='dark'||v==='light'||v==='system'?v:'system';}
+function resolvedTheme(v){return v==='system'?(themeMedia.matches?'dark':'light'):v;}
+function applyTheme(theme){const resolved=resolvedTheme(theme);page.dataset.theme=resolved;const dark=resolved==='dark';themeToggle.textContent=theme==='system'?'◐':dark?'☀':'☾';themeToggle.setAttribute('aria-pressed',String(dark));themeToggle.title=theme==='system'?'Theme: system':dark?'Theme: dark':'Theme: light';document.querySelector('meta[name="theme-color"]').content=dark?'#141414':'#F4F5EF';}
+applyTheme(themeValue());
+themeToggle.addEventListener('click',()=>{const v=themeValue();const next=v==='system'?'light':v==='light'?'dark':'system';localStorage.setItem('pernah-theme',next);applyTheme(next);});
+themeMedia.addEventListener?.('change',()=>{if(themeValue()==='system')applyTheme('system');});
+addEventListener('storage',e=>{if(e.key==='pernah-theme')applyTheme(themeValue());});
+function closeSidebar(){layout.classList.remove('sidebar-open');sidebarToggle.setAttribute('aria-pressed','false')}
+function toggleSidebar(){if(matchMedia('(max-width: 900px)').matches){const open=!layout.classList.contains('sidebar-open');layout.classList.toggle('sidebar-open',open);layout.classList.remove('sidebar-collapsed');sidebarToggle.setAttribute('aria-pressed',String(open));}else{const collapsed=!layout.classList.contains('sidebar-collapsed');layout.classList.toggle('sidebar-collapsed',collapsed);sidebarToggle.setAttribute('aria-pressed',String(collapsed));}} sidebarToggle.addEventListener('click',toggleSidebar);
+let touchStartX=null,touchStartY=null;
+layout.addEventListener('touchstart',e=>{if(!e.touches[0])return;touchStartX=e.touches[0].clientX;touchStartY=e.touches[0].clientY;},{passive:true});
+layout.addEventListener('touchend',e=>{if(touchStartX===null||!e.changedTouches[0])return;const sx=touchStartX,sy=touchStartY,dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;touchStartX=touchStartY=null;if(!matchMedia('(max-width: 900px)').matches||Math.abs(dx)<70||Math.abs(dx)<Math.abs(dy))return;if(dx<0)closeSidebar();else if(!layout.classList.contains('sidebar-open')){layout.classList.add('sidebar-open');sidebarToggle.setAttribute('aria-pressed','true');}},{passive:true});
+window.addEventListener('scroll',()=>floatTop.classList.toggle('visible',window.scrollY>500),{passive:true});floatTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+let activeSectionId=null;
+function setActiveSection(id){if(!id||id===activeSectionId)return;activeSectionId=id;nav.querySelectorAll('a.active').forEach(a=>a.classList.remove('active'));const link=nav.querySelector(`a[href="#${id}"]`);if(link){link.classList.add('active');const top=link.offsetTop,bottom=top+link.offsetHeight;if(top<nav.scrollTop)nav.scrollTop=top;else if(bottom>nav.scrollTop+nav.clientHeight)nav.scrollTop=bottom-nav.clientHeight;}}
+function syncActiveSection(){const sections=[...root.querySelectorAll('h1[id],h2[id]')];if(!sections.length)return;const sitebar=document.querySelector('.sitebar');const anchor=(sitebar?.getBoundingClientRect().bottom||0)+24;let active=sections[0];for(const section of sections){if(section.getBoundingClientRect().top<=anchor)active=section;else break;}setActiveSection(active.id);}
+function buildToc(){nav.innerHTML='';root.querySelectorAll('h1[id],h2[id]').forEach((h,i)=>{const a=document.createElement('a');a.href='#'+h.id;const n=document.createElement('span');n.className='toc-num';n.textContent=String(i).padStart(2,'0');const t=document.createElement('span');t.textContent=h.textContent.replace(/^\d+\.\s*/,'');a.append(n,t);nav.append(a)});activeSectionId=null;syncActiveSection();}
+function esc(v){return v.replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));}
+function render(){const q=search.value.trim();root.innerHTML=original;buildToc();if(!q){noResults.hidden=true;filterLabel.textContent='Chronology + narrative + provenance';return}const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'ig');let count=0;root.querySelectorAll('p,li,blockquote,h1,h2,h3,td,th').forEach(el=>{if(el.textContent.toLocaleLowerCase().includes(q.toLocaleLowerCase())){count++;el.innerHTML=el.innerHTML.replace(re,m=>`<mark>${m}</mark>`);}});filterLabel.textContent=`${count} bagian cocok dengan “${q}”`;noResults.hidden=count!==0}
+nav.addEventListener('click',e=>{const link=e.target.closest('a[href^="#section-"]');if(link){setActiveSection(link.getAttribute('href').slice(1));if(matchMedia('(max-width: 900px)').matches)closeSidebar();}});
+const sidebarBackdrop=document.getElementById('sidebarBackdrop');
+document.addEventListener('pointerdown',e=>{if(!matchMedia('(max-width: 900px)').matches||!layout.classList.contains('sidebar-open'))return;const target=e.target;if(!sidebarIndex.contains(target)&&target!==sidebarToggle&&!sidebarToggle.contains(target))closeSidebar();});
+sidebarBackdrop.addEventListener('click',closeSidebar);
+let scrollRaf=0;window.addEventListener('scroll',()=>{if(scrollRaf)return;scrollRaf=requestAnimationFrame(()=>{scrollRaf=0;syncActiveSection();});},{passive:true});
+search.addEventListener('input',render);document.getElementById('clear').addEventListener('click',()=>{search.value='';render();search.focus()});document.getElementById('print').addEventListener('click',()=>window.print());document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();search.focus();search.select()}if(e.key==='Escape'){if(layout.classList.contains('sidebar-open'))closeSidebar();if(document.activeElement===search)search.blur();}});buildToc();
+})();</script></body></html>

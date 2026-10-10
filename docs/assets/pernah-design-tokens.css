@@ -1,0 +1,15 @@
+/* PERNAH Visual Identity System v0.2 */
+:root {
+  --bg:#F4F5EF; --surface:#FFFFFF; --surface-2:#ECEFE8;
+  --text:#141414; --muted:#5F635F; --border:#D9DDD5;
+  --accent:#176B1D; --accent-soft:#E4F4E5;
+  --shadow:rgba(20,20,20,.10);
+  --display:"LEMON MILK","Lemon/Milk",Arial,sans-serif;
+  --body:"Open Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+:root[data-theme="dark"] {
+  --bg:#141414; --surface:#1C1C1C; --surface-2:#101010;
+  --text:#F2F2F2; --muted:#A7A7A7; --border:#2B2B2B;
+  --accent:#2BEE34; --accent-soft:#102A12;
+  --shadow:rgba(0,0,0,.34);
+}

@@ -1,0 +1,72 @@
+{
+  "project": "PERNAH",
+  "expansion": "Personal Memory & Life Context System",
+  "version": "0.2.0-dev.59",
+  "schema_version": 3,
+  "status": "active development",
+  "milestone": "Milestone 5 — Input Interfaces",
+  "current_next_gate": "Chronicle Sidebar Scroll-Sync / Scrollspy human acceptance plus exact packaged artifact regression verification",
+  "continuity_layer": {
+    "boot_file": "PERNAH_BOOT.md",
+    "handoff_file": "PERNAH_CONTINUATION.md",
+    "release_manifest": "docs/RELEASE-MANIFEST.md",
+    "machine_state": "PERNAH_PROJECT_STATE.json",
+    "artifact_is_continuous": true,
+    "chat_is_ephemeral": true
+  },
+  "source_of_truth": [
+    "docs/CHECKPOINT.md",
+    "docs/STATE.md",
+    "docs/BACKLOG.md",
+    "docs/CHANGELOG.md",
+    "README.md",
+    "docs/TUTORIAL.md",
+    "docs/SECURITY.md",
+    "PERNAH_CONTINUATION.md",
+    "PERNAH_BOOT.md",
+    "PERNAH_PROJECT_STATE.json",
+    "docs/Creation-Chronicle.html",
+    "docs/Glosarium.html"
+  ],
+  "mandatory_context": [
+    "docs/CHECKPOINT.md",
+    "README.md",
+    "docs/STATE.md",
+    "docs/BACKLOG.md",
+    "docs/CHANGELOG.md",
+    "source",
+    "tests",
+    "docs/SECURITY.md",
+    "docs/Creation-Chronicle.html",
+    "docs/Glosarium.html"
+  ],
+  "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
+  "canonical_memory_authoritative": true,
+  "ai_provider_dependency": false,
+  "expected_test_count": 158,
+  "previous_release": "0.2.0-dev.56",
+  "next_release_task": "Complete human Web Backup & Recovery browser acceptance, verify Glossary rendering, and verify mobile index close behavior on the exact dev.55 ZIP",
+  "collaboration_style": {
+    "role": "Co-Developer and discussion partner",
+    "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
+    "proactive_feedback": true,
+    "yes_man": false,
+    "resource_aware": true,
+    "default_cost_preference": "free/local/offline/low-cost when sufficient"
+  },
+  "latest_change": "Added dependency-free best-effort CLI URL auto-copy on Web Interface startup, with graceful fallback when no supported clipboard utility is available.",
+  "expected_test_result": "full suite PASS",
+  "manual_acceptance": "Warung Padang — PASS on packaged dev.31 artifact",
+  "deployment_concept": {
+    "status": "concept_not_implemented",
+    "domain": "pernah.my.id",
+    "runtime_candidate": "AmLogic HG680P / OpenWrt 24.10.4",
+    "observed_ram": "~1.76 GB",
+    "observed_data_mount": "~29.12 GB",
+    "observed_cpu": "~3%",
+    "observed_temperature": "~39 C",
+    "public_access_candidate": "Cloudflare Tunnel",
+    "static_surface_candidate": "GitHub Pages",
+    "canonical_storage": "SQLite on local runtime"
+  }
+}

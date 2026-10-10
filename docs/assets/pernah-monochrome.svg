@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" role="img" aria-labelledby="title desc">
+  <title id="title">PERNAH monochrome lockup</title>
+  <desc id="desc">Monochrome PERNAH Continuity P symbol and wordmark.</desc>
+  <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M19 79V30C19 17.85 28.85 8 41 8h15c12.7 0 23 10.3 23 23S68.7 54 56 54H35"/>
+    <path d="M35 54c10 0 17-6 17-16"/>
+  </g>
+  <circle cx="35" cy="30" r="6" fill="currentColor"/>
+  <circle cx="35" cy="54" r="6" fill="currentColor"/>
+  <text x="108" y="63" fill="currentColor" font-family="'LEMON MILK','Open Sans',sans-serif" font-size="48" font-weight="700" letter-spacing="9">PERNAH</text>
+</svg>

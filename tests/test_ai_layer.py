@@ -206,6 +206,46 @@ class RetrievalOrchestrationTests(unittest.TestCase):
         self.assertNotIn("private-api-key", result.fallback_reason)
         self.assertEqual(result.evidence[0]["memory_id"], "m1")
 
+    def test_event_result_resolves_to_linked_canonical_memory(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return []
+            def find_purchase_events(self, **kwargs):
+                return [{"event_id": "event-1", "transaction_id": "tx-1", "amount": 200000, "entity_name": "Laptop"}]
+            def event_memories(self, event_id):
+                self.requested_event = event_id
+                return [{"id": "mem-1", "type": "event", "content": "Gue beli laptop seharga Rp200.000", "occurred_at": "2026-01-01T00:00:00Z"}]
+        class Provider:
+            def answer(self, request):
+                self.request = request
+                return {"text": "Ada catatan pembelian laptop.", "supporting_memory_ids": ["mem-1"], "evidence_sufficient": True}
+        db, provider = DB(), Provider()
+        result = orchestrate_retrieval(db, "Pernah beli laptop?", provider)
+        self.assertEqual(db.requested_event, "event-1")
+        self.assertEqual(result.evidence[0]["memory_id"], "mem-1")
+        self.assertEqual(result.evidence[0]["matched_event_id"], "event-1")
+        self.assertNotIn("transaction_id", provider.request.evidence[0])
+
+    def test_event_without_linked_memory_is_not_evidence(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return []
+            def find_purchase_events(self, **kwargs):
+                return [{"event_id": "event-orphan", "transaction_id": "tx-1", "amount": 200000}]
+            def event_memories(self, event_id): return []
+        class Provider:
+            def answer(self, request): raise AssertionError("unlinked event must not reach provider")
+        result = orchestrate_retrieval(DB(), "Pernah beli laptop?", Provider())
+        self.assertEqual(result.mode, "deterministic_no_evidence")
+        self.assertEqual(result.evidence, ())
+
+    def test_memory_rows_without_content_are_not_evidence(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return [{"id": "mem-1", "type": "note"}]
+        result = orchestrate_retrieval(DB(), "catatan")
+        self.assertEqual(result.evidence, ())
+
     def test_retrieval_limit_is_bounded(self):
         from pernah.ai_layer import orchestrate_retrieval
         class DB:

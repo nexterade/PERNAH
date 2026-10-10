@@ -1,3 +1,12 @@
+## 0.2.0-dev.67 — Canonical event evidence projection hardening
+
+- Hardened retrieval orchestration so event/purchase result rows resolve through `Storage.event_memories(event_id)` before they may become answer evidence.
+- Evidence requires a stable canonical memory ID and non-empty content; transaction/event summaries without linked memory records are not forwarded to providers.
+- Normalized nested timeline memories, deduplicated IDs, and preserved the configured evidence bound.
+- Added regression coverage for linked event memory, orphan event exclusion, and malformed memory rows.
+- No provider SDK, network calls, canonical writes, or schema migration; schema remains v4.
+- Parent artifact: `PERNAH-v0.2.0-dev.66.zip`.
+
 # PERNAH — Changelog
 
 ## 0.2.0-dev.66 — Retrieval-first orchestration

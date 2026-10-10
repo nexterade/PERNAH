@@ -9,7 +9,7 @@
 
 ## 0.2.0-dev.65 — Deterministic Extraction Orchestration
 
-- **Version:** `0.2.0-dev.66`
+- **Version:** `0.2.0-dev.65`
 - **Parent artifact:** `PERNAH-v0.2.0-dev.64.zip`
 - **Scope:** M6.3 extraction orchestration foundation around deterministic `normalize()`.
 - **Behavior:** provider proposals are validated and advisory; missing provider, invalid proposal, or provider failure falls back to the deterministic draft.
@@ -69,12 +69,21 @@
 - **Automated suite target:** full suite must pass against the exact packaged ZIP.
 - **Artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
+## 0.2.0-dev.67 — Canonical Event Evidence Projection Hardening
+
+- **Version:** `0.2.0-dev.67`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.66.zip`
+- **Scope:** resolve event/purchase query results to linked canonical memories before provider evidence is formed; reject orphan summaries and malformed rows.
+- **Runtime/schema:** schema v4 unchanged; no real provider, SDK, network calls, or canonical writes.
+- **Tests:** full suite and exact packaged-artifact preflight required.
+- **Artifact SHA-256:** recorded after packaging, outside the ZIP.
+
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.66`
+- **Version:** `0.2.0-dev.67`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.65.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.66.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

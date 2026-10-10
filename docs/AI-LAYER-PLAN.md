@@ -1,7 +1,7 @@
 # Milestone 6 — AI Layer: Execution Plan
 
-**Status:** IN PROGRESS — M6.1/M6.2 and extraction orchestration foundation implemented through dev.65  
-**Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.65`  
+**Status:** IN PROGRESS — M6.1/M6.2, extraction orchestration, and M6.3 evidence projection implemented through dev.67  
+**Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.67`  
 **Architecture guardrail:** AI is an optional interpretation/answering capability. Canonical memory and deterministic capture/retrieval remain authoritative.
 
 ## Outcome
@@ -93,3 +93,8 @@ Start with **M6.1 + M6.2 contracts and tests only**, using fake providers and no
 `orchestrate_retrieval()` runs the existing deterministic `normalize()` → `retrieve()` path first. Only bounded canonical memory candidates with stable memory IDs are eligible as provider evidence. A provider is not called when retrieval is empty. A valid answer is accepted only through `validate_answer()` and must cite IDs in the supplied evidence set. Provider errors preserve deterministic evidence and return a sanitized error class. This layer is advisory and performs no canonical writes.
 
 Known limitation: deterministic retrieval returns different shapes for event/timeline queries; orchestration only forwards rows that can be tied to stable canonical memory IDs. Broader event-to-memory projection should be added only with tests grounded in actual storage return contracts.
+
+
+## Implementation note — dev.67
+
+Event/purchase retrieval rows are not automatically canonical memory evidence. When a query result exposes an `event_id` without a direct memory payload, orchestration resolves it through the storage contract `event_memories(event_id)`. Only linked rows with a stable memory ID and non-empty content are forwarded. Timeline nested memory rows follow the same normalization and deduplication rules. Orphan event summaries and malformed rows are excluded; provider/network integration remains deferred.

@@ -345,26 +345,50 @@ def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *
     # reduced to their referenced canonical memory records.
     candidates: list[Mapping[str, Any]] = []
     seen: set[str] = set()
+
+    def add_memory(memory: Any, *, event_id: str | None = None) -> None:
+        # Only canonical memory-shaped rows are evidence. Event/transaction summaries
+        # must resolve through Storage.event_memories() before reaching a provider.
+        if not isinstance(memory, Mapping):
+            return
+        raw_id = memory.get("memory_id", memory.get("id"))
+        content = memory.get("content")
+        if raw_id is None or not isinstance(content, str) or not content.strip():
+            return
+        key = str(raw_id).strip()
+        if not key or key in seen:
+            return
+        item = dict(memory)
+        item["memory_id"] = key
+        item.pop("id", None)
+        if event_id is not None:
+            item["matched_event_id"] = event_id
+        candidates.append(item)
+        seen.add(key)
+
     for row in rows or []:
         if not isinstance(row, Mapping):
             continue
-        if row.get("memory_id", row.get("id")) is not None:
-            item = dict(row)
-            key = str(item.get("memory_id", item.get("id")))
-            item["memory_id"] = key
-            if key not in seen:
-                candidates.append(item)
-                seen.add(key)
-        elif isinstance(row.get("memories"), (list, tuple)):
-            for memory in row["memories"]:
-                if not isinstance(memory, Mapping) or memory.get("memory_id", memory.get("id")) is None:
-                    continue
-                item = dict(memory)
-                key = str(item.get("memory_id", item.get("id")))
-                item["memory_id"] = key
-                if key not in seen:
-                    candidates.append(item)
-                    seen.add(key)
+        # Exact-search and semantic-search rows already represent canonical memories.
+        if row.get("memory_id", row.get("id")) is not None and isinstance(row.get("content"), str):
+            add_memory(row)
+            continue
+        # Timeline rows expose their canonical memories as a nested collection.
+        event_id = row.get("event_id")
+        nested = row.get("memories")
+        if isinstance(nested, (list, tuple)):
+            for memory in nested:
+                add_memory(memory, event_id=str(event_id) if event_id is not None else None)
+        # Purchase/event query rows may contain only event/transaction fields. Resolve
+        # those IDs through the canonical storage API; never treat a transaction ID as
+        # a memory ID or forward the summary itself as personal-memory evidence.
+        elif event_id is not None and callable(getattr(db, "event_memories", None)):
+            try:
+                linked_memories = db.event_memories(str(event_id))
+            except Exception:
+                linked_memories = []
+            for memory in linked_memories or []:
+                add_memory(memory, event_id=str(event_id))
     evidence = tuple(candidates[:limit])
     if provider is None:
         return RetrievalResult(question, evidence, "deterministic", fallback_reason="provider_not_configured")

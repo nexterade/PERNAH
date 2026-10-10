@@ -1,11 +1,12 @@
-## 0.2.0-dev.66 — Retrieval-first orchestration (current)
+## 0.2.0-dev.67 — Canonical evidence projection hardening (current)
 
-- Implemented `orchestrate_retrieval()` on top of deterministic `normalize()` and `retrieve()`.
-- Optional provider is only invoked when bounded canonical evidence exists; provider output is validated against exact supplied memory IDs.
-- Provider failures preserve deterministic results and do not expose exception messages.
+- M6.3 now resolves event/purchase query rows through `Storage.event_memories(event_id)` before they can become provider evidence.
+- Only memory-shaped records with stable IDs and non-empty canonical content are passed as evidence; event/transaction summaries without linked memories are excluded.
+- Timeline nested memory rows are normalized to `memory_id`; duplicate IDs are removed and evidence remains bounded.
+- Added regression tests for event-to-memory mapping, orphan events, and malformed memory rows.
 - No provider SDK/network, canonical writes, or schema migration; schema remains v4.
-- Next gate: add event/timeline evidence projection tests against actual storage return contracts and review user-facing answer behavior.
-- Parent artifact: `PERNAH-v0.2.0-dev.65.zip`.
+- Next gate: test answer grounding and insufficiency/refinement behavior before considering any user-facing integration.
+- Parent artifact: `PERNAH-v0.2.0-dev.66.zip`.
 
 ## 0.2.0-dev.65 — Deterministic Extraction Orchestration (current)
 

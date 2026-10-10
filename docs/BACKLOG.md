@@ -145,7 +145,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-M6.1/M6.2 contracts, extraction orchestration, and the initial M6.3 retrieval-first orchestration are implemented through dev.66. Next gate: review query/result contracts and add grounded event/timeline evidence projection tests. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
+M6.1/M6.2 contracts, extraction orchestration, and M6.3 retrieval-first orchestration with canonical event-to-memory evidence projection are implemented through dev.67. Next gate: harden answer grounding and explicit insufficient-evidence/refinement behavior. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 
@@ -200,7 +200,8 @@ Detailed plan and acceptance criteria: [`docs/AI-LAYER-PLAN.md`](AI-LAYER-PLAN.m
 
 - [x] M6.1 — Provider-neutral request/result/error contracts; unconfigured provider is offline-safe
 - [x] M6.2 — Structured extraction contract and untrusted-output validation
-- [x] M6.3 — Initial retrieval-first orchestration over deterministic canonical candidates (dev.66; event/timeline evidence projection remains a follow-up)
+- [x] M6.3 — Retrieval-first orchestration with bounded canonical event/timeline evidence projection (dev.67)
+- [ ] M6.4 — Grounded answer generation and insufficient-evidence/refinement behavior
 - [ ] M6.4 — Memory-grounded answer generation with traceable evidence
 - [ ] M6.5 — Provider failure, privacy, and external-processing boundaries
 

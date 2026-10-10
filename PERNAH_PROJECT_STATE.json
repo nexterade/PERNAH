@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.71",
+  "version": "0.2.0-dev.72",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 6 — AI Layer",
-  "current_next_gate": "M6.5 follow-up: review provider timeout/rate-limit/refusal semantics and disclosure/retention/training/cost requirements; no real provider/network/SDK or AI UI.",
+  "current_next_gate": "M6.5 remaining: document disclosure, provider retention/training, data handling and cost requirements before real integration; failure classification is implemented, no retries/provider/network/UI.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -43,9 +43,9 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 205,
-  "previous_release": "0.2.0-dev.70",
-  "next_release_task": "M6.5 follow-up: review provider timeout/rate-limit/refusal semantics and disclosure/retention/training/cost requirements; no real provider/network/SDK or AI UI.",
+  "expected_test_count": 208,
+  "previous_release": "0.2.0-dev.71",
+  "next_release_task": "M6.5 remaining: document disclosure, provider retention/training, data handling and cost requirements before real integration; failure classification is implemented, no retries/provider/network/UI.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,8 +54,8 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "M6.5 external-processing default-deny policy requiring explicit authorization, disclosure acknowledgement, and allowlisted data categories.",
-  "expected_test_result": "204 passed, 1 skipped (205 discovered); exact packaged-artifact preflight must pass.",
+  "latest_change": "M6.5 provider failure classification with secret-safe stable categories and deterministic fallback; no automatic retries.",
+  "expected_test_result": "207 passed, 1 skipped (208 discovered); exact packaged-artifact preflight must pass.",
   "manual_acceptance": "Project Owner reports all attachment + Backup & Recovery browser checks PASS on packaged dev.62 artifact.",
   "deployment_concept": {
     "status": "concept_not_implemented",
@@ -69,5 +69,5 @@
     "static_surface_candidate": "GitHub Pages",
     "canonical_storage": "SQLite on local runtime"
   },
-  "last_change": "M6.5 external-processing default-deny policy requiring explicit authorization, disclosure acknowledgement, and allowlisted data categories.; schema v4 unchanged."
+  "last_change": "M6.5 provider failure classification with secret-safe stable categories and deterministic fallback; no automatic retries.; schema v4 unchanged."
 }

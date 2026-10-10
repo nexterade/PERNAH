@@ -1,4 +1,8 @@
-## 0.2.0-dev.71 — External-processing authorization boundary (current)
+## 0.2.0-dev.72 — Provider failure classification (current)
+
+M6.5 follow-up classifies provider errors into stable, secret-safe categories. Failures do not trigger automatic retries and preserve deterministic fallback. Provider retention/training/disclosure/cost review remains a prerequisite; no real provider or network integration. Schema v4 unchanged.
+
+## 0.2.0-dev.72 — External-processing authorization boundary (current)
 
 - Added `ExternalProcessingPolicy`, default-deny for provider calls unless caller explicitly marks authorization and disclosure acknowledgement and selects only allowed data categories.
 - Both extraction and answer orchestration retain deterministic functionality and block provider calls without authorization; no-evidence retrieval still short-circuits first.

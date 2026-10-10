@@ -1,6 +1,6 @@
-## 0.2.0-dev.71 — External-processing authorization boundary
+## 0.2.0-dev.72 — External-processing authorization boundary
 
-- **Version:** `0.2.0-dev.71`
+- **Version:** `0.2.0-dev.72`
 - **Parent artifact:** `PERNAH-v0.2.0-dev.70.zip`
 - **Scope:** M6.5 foundation: deny-by-default provider processing, explicit authorization/disclosure acknowledgement, and strict data-category allowlist.
 - **Runtime/provider:** no real provider, SDK, network calls, or consent UI; schema v4 unchanged.
@@ -117,9 +117,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.71`
+- **Version:** `0.2.0-dev.72`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.70.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.71.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

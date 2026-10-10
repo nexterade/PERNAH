@@ -144,7 +144,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             def answer(self, request): raise AssertionError("not used")
         result = orchestrate_extraction(self.request.text, FakeProvider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_fallback")
-        self.assertEqual(result.fallback_reason, "provider_error:RuntimeError")
+        self.assertEqual(result.fallback_reason, "provider_error")
         self.assertNotIn("secret-token", result.fallback_reason)
         self.assertEqual(result.draft.original_text, self.request.text)
 
@@ -156,7 +156,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             def answer(self, request): raise AssertionError("not used")
         result = orchestrate_extraction(self.request.text, FakeProvider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_fallback")
-        self.assertEqual(result.fallback_reason, "InvalidProposal")
+        self.assertEqual(result.fallback_reason, "provider_invalid_response")
 
 
 class RetrievalOrchestrationTests(unittest.TestCase):
@@ -360,3 +360,49 @@ class ExternalProcessingBoundaryTests(unittest.TestCase):
         self.assertEqual(result.mode, "deterministic_external_processing_blocked")
         self.assertEqual(result.fallback_reason, "external_processing_not_authorized")
         self.assertEqual(result.evidence[0]["memory_id"], "m1")
+
+
+class ProviderFailureClassificationTests(unittest.TestCase):
+    def test_failure_categories_are_stable_and_secret_safe(self):
+        from pernah.ai_layer import classify_provider_failure
+        class GatewayTimeout(Exception):
+            pass
+        class RateLimitError(Exception):
+            pass
+        class ModelRefusal(Exception):
+            pass
+        class APIError(Exception):
+            status_code = 503
+        cases = [
+            (TimeoutError("private-token"), "provider_timeout"),
+            (GatewayTimeout("private-token"), "provider_timeout"),
+            (RateLimitError("private-token"), "provider_rate_limited"),
+            (ModelRefusal("private-token"), "provider_refused"),
+            (APIError("private-token"), "provider_unavailable"),
+            (RuntimeError("private-token"), "provider_error"),
+            (ValueError("private-token"), "provider_invalid_response"),
+        ]
+        for exc, expected in cases:
+            with self.subTest(exc=type(exc).__name__):
+                result = classify_provider_failure(exc)
+                self.assertEqual(result, expected)
+                self.assertNotIn("private-token", result)
+
+    def test_status_codes_classify_rate_limit_and_auth_without_message(self):
+        from pernah.ai_layer import classify_provider_failure
+        class ResponseError(Exception):
+            def __init__(self, status_code):
+                super().__init__("secret body")
+                self.status_code = status_code
+        self.assertEqual(classify_provider_failure(ResponseError(429)), "provider_rate_limited")
+        self.assertEqual(classify_provider_failure(ResponseError(401)), "provider_authentication_failed")
+        self.assertEqual(classify_provider_failure(ResponseError(504)), "provider_timeout")
+
+    def test_extraction_timeout_uses_deterministic_fallback_category(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class FakeProvider:
+            def extract(self, request): raise TimeoutError("secret api key")
+        result = orchestrate_extraction("Gue beli laptop kemarin.", FakeProvider(), external_processing=TEST_EXTERNAL_POLICY)
+        self.assertEqual(result.mode, "deterministic_fallback")
+        self.assertEqual(result.fallback_reason, "provider_timeout")
+        self.assertNotIn("secret", result.fallback_reason)

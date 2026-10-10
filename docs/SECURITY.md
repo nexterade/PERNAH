@@ -114,11 +114,16 @@ Image attachments are canonical evidence linked to a Memory record. They are sto
 A receipt or payment screenshot may contain names, account details, balances, or other Sensitive Data. Keep the current interface bound to localhost, avoid logging payload contents, and do not send attachments to external services or AI providers. The current implementation does not perform OCR, image interpretation, redaction, encryption-at-rest, or per-attachment access control; do not treat it as a secure document vault or expose it remotely.
 
 
-## AI external-processing boundary — dev.71
+## AI external-processing boundary — dev.72
 
 - External provider processing is denied by default. Passing a provider object alone must not authorize transmission of memory content.
 - The provider-neutral orchestration boundary requires an explicit per-call policy that acknowledges authorization and disclosure and limits data categories to `memory_text` and/or `bounded_descriptive_metadata`. Unknown categories fail closed.
 - This policy object is an engineering guard, **not** a consent interface, legal disclosure, provider-terms verifier, or proof that a user actually consented. A future UI/integration must explain the provider, exact data classes sent, retention/training use, cost, and available alternatives before enabling processing.
 - Secret Data, API credentials, full attachment bytes, and arbitrary storage metadata must never be included in provider context. Exception messages and provider payloads must not be written to logs.
 - Timeout, network failure, rate limit, refusal, malformed output, or absent authorization must preserve deterministic behavior and must not mutate canonical memory.
-- Provider retention/training terms and cost remain unreviewed; therefore no real provider, SDK, or network integration is enabled in dev.71.
+- Provider retention/training terms and cost remain unreviewed; therefore no real provider, SDK, or network integration is enabled in dev.72.
+
+
+## Provider failure classification — dev.72
+
+Provider failures are mapped to stable categories without exposing exception messages or response bodies. Timeout, rate-limit, refusal, authentication, service-unavailable, invalid-response, and generic failures all preserve deterministic fallback. Automatic retries are intentionally absent so a future adapter cannot silently multiply costs or external processing. This is not a provider integration and does not replace reviewing terms, retention, training use, and disclosure.

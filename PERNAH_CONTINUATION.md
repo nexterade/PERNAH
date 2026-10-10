@@ -5,9 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.71`.
+Current release: `0.2.0-dev.72`.
 
-**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. M6.3 retrieval-first orchestration and M6.4 grounded-answer validation/refinement are implemented through dev.70. Dev.71 adds a default-deny `ExternalProcessingPolicy`: provider calls require explicit authorization, disclosure acknowledgement, and allowed data categories. Deterministic behavior is preserved when authorization is absent. Next gate: review timeout/rate-limit/refusal semantics plus disclosure/retention/training/cost before real integration. No real provider/network/SDK or AI UI integration yet; canonical writes remain deterministic.
+**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. M6.3 retrieval-first orchestration and M6.4 grounded-answer validation/refinement are implemented through dev.70. Dev.71 adds a default-deny `ExternalProcessingPolicy`: provider calls require explicit authorization, disclosure acknowledgement, and allowed data categories. Dev.72 adds stable secret-safe provider failure categories and deterministic fallback without automatic retries. Deterministic behavior is preserved when authorization is absent. Next gate: review timeout/rate-limit/refusal semantics plus disclosure/retention/training/cost before real integration. No real provider/network/SDK or AI UI integration yet; canonical writes remain deterministic.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle
@@ -65,7 +65,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.71  
+**Current project version:** 0.2.0-dev.72  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 

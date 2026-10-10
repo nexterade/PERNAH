@@ -1,4 +1,10 @@
-## 0.2.0-dev.71 — External-processing authorization boundary
+## 0.2.0-dev.72 — Provider failure classification
+
+- Added provider-neutral, secret-safe failure classification for timeout, rate limit, refusal, authentication, unavailability, invalid response, and generic provider errors.
+- Extraction and answer orchestration keep deterministic fallback and expose only stable categories, never exception messages or response bodies. No automatic retries, provider SDK, or network calls.
+- Schema v4 unchanged.
+
+## 0.2.0-dev.72 — External-processing authorization boundary
 
 - Added `ExternalProcessingPolicy` with a deny-by-default posture; provider calls require explicit authorization, disclosure acknowledgement, and a strict data-category allowlist.
 - Extraction and retrieval preserve deterministic results when external processing is not authorized. Provider exception messages remain excluded from fallback diagnostics.

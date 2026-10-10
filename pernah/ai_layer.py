@@ -35,6 +35,39 @@ class InvalidProposal(AIError, ValueError):
     """A provider proposal is malformed or outside the accepted contract."""
 
 
+def classify_provider_failure(exc: BaseException) -> str:
+    """Map provider failures to stable, secret-safe categories without retrying.
+
+    The adapter remains provider-neutral: it inspects exception class names and a
+    conventional numeric status_code only. Exception messages and response bodies
+    are deliberately never returned or logged here.
+    """
+    name = type(exc).__name__.casefold().replace("_", "")
+    status = getattr(exc, "status_code", None)
+    if isinstance(status, int) and not isinstance(status, bool):
+        if status == 429:
+            return "provider_rate_limited"
+        if status in {401, 403}:
+            return "provider_authentication_failed"
+        if status in {408, 504}:
+            return "provider_timeout"
+        if status >= 500:
+            return "provider_unavailable"
+    if "timeout" in name or "timedout" in name:
+        return "provider_timeout"
+    if "ratelimit" in name or "toomanyrequests" in name:
+        return "provider_rate_limited"
+    if "refusal" in name or "safetyblocked" in name:
+        return "provider_refused"
+    if "auth" in name or "permissiondenied" in name or "unauthorized" in name:
+        return "provider_authentication_failed"
+    if "connection" in name or "unavailable" in name or "serviceerror" in name:
+        return "provider_unavailable"
+    if isinstance(exc, (InvalidProposal, ValueError, TypeError)):
+        return "provider_invalid_response"
+    return "provider_error"
+
+
 
 
 @dataclass(frozen=True)
@@ -308,19 +341,13 @@ def orchestrate_extraction(
     try:
         raw = provider.extract(request)
         candidate = validate_extraction(raw, request)
-    except (AIError, ValueError, TypeError) as exc:
-        return ExtractionOutcome(
-            draft=draft,
-            mode="deterministic_fallback",
-            fallback_reason=type(exc).__name__,
-        )
+    except InvalidProposal:
+        return ExtractionOutcome(draft=draft, mode="deterministic_fallback", fallback_reason="provider_invalid_response")
     except Exception as exc:
-        # Third-party providers may surface transport/timeouts using their own exception
-        # types. Fail closed without leaking exception messages that may contain secrets.
+        # Provider-specific exceptions are normalized to a stable, secret-safe category.
         return ExtractionOutcome(
-            draft=draft,
-            mode="deterministic_fallback",
-            fallback_reason=f"provider_error:{type(exc).__name__}",
+            draft=draft, mode="deterministic_fallback",
+            fallback_reason=classify_provider_failure(exc),
         )
 
     if candidate.requires_review:

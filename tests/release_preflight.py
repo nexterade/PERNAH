@@ -15,7 +15,7 @@ REQUIRED = {
     "VERSION", "README.md", "PERNAH_BOOT.md", "PERNAH_CONTINUATION.md",
     "PERNAH_PROJECT_STATE.json", "docs/CHECKPOINT.md", "docs/STATE.md",
     "docs/BACKLOG.md", "docs/CHANGELOG.md", "docs/RELEASE-MANIFEST.md",
-    "docs/SECURITY.md", "docs/Creation-Chronicle.html", "docs/Glosarium.html",
+    "docs/SECURITY.md", "docs/Creation-Chronicle.html", "docs/Glosarium.html", "docs/AI-LAYER-PLAN.md",
     "tests", "pernah",
 }
 

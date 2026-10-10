@@ -1,3 +1,14 @@
+# PERNAH — Changelog
+
+## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan
+
+- Recorded Project Owner manual acceptance of image attachment capture, preview, and Backup & Recovery on the packaged `dev.62` artifact; all checks were reported PASS.
+- Added `docs/AI-LAYER-PLAN.md` with staged delivery slices, non-goals, privacy boundaries, and acceptance criteria for Milestone 6.
+- First implementation target is provider-neutral contracts and structured-output validation using fakes only; no real provider, network call, SDK, schema migration, or AI runtime behavior is introduced in this release.
+- Kept **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** parked and unimplemented.
+- Documentation/plan-only release: runtime and canonical schema v4 are unchanged.
+- Parent artifact: `PERNAH-v0.2.0-dev.62.zip`.
+
 ## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX
 
 - Archived **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** in the backlog as a future, non-committed concept.
@@ -255,8 +266,6 @@
 - Expanded the glossary with HTTP/Web fundamentals: HTTP, GET, POST, Request, Response, Redirect, Post/Redirect/Get (PRG), Endpoint, and Idempotency.
 - Automated suite: **109/109 PASS**.
 - No canonical schema, storage semantics, AI/provider dependency, or Secret Vault runtime changed.
-
-# PERNAH — Changelog
 
 ## 0.2.0-dev.33 — Web Interface Hardening Slice
 

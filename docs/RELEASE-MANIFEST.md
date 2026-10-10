@@ -1,3 +1,14 @@
+## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan
+
+- **Version:** `0.2.0-dev.63`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.62.zip`
+- **Scope:** documentation-only record of Project Owner acceptance for dev.62 attachment/recovery UX and the staged Milestone 6 plan.
+- **Acceptance evidence:** Project Owner reports all manual checks PASS; supplied screenshot shows saved canonical memory with displayed image attachment.
+- **Runtime/schema changes:** none; schema remains v4, attachments remain local SQLite BLOBs, and no AI provider is integrated.
+- **AI plan:** `docs/AI-LAYER-PLAN.md`; initial implementation slice uses fake providers and requires no network/SDK.
+- **Validation:** full suite and exact packaged-artifact preflight required before delivery.
+- **Artifact SHA-256:** record after packaging, outside the ZIP.
+
 ## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX
 
 - **Version:** `0.2.0-dev.62`
@@ -31,9 +42,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.62`
+- **Version:** `0.2.0-dev.63`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.61.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.62.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

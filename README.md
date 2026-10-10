@@ -2,7 +2,7 @@
 
 **Personal Memory & Life Context System**
 
-Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.62.
+Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.63.
 
 ## Runtime
 
@@ -180,3 +180,8 @@ The Local Web Interface Memory form can attach up to four JPEG, PNG, GIF, or Web
 ## Roadmap note — dev.62
 
 “PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)” is a parked, non-committed idea in `docs/BACKLOG.md`. Catbox is not integrated; image attachments continue to use local SQLite storage.
+
+
+## Roadmap note — dev.63
+
+Milestone 6 — AI Layer is planned in `docs/AI-LAYER-PLAN.md`. The first slice will define provider-neutral contracts and validate structured extraction with fake providers only; no real AI provider or network dependency is included yet.

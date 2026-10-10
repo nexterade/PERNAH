@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.62",
+  "version": "0.2.0-dev.63",
   "schema_version": 4,
   "status": "active development",
-  "milestone": "Milestone 5 — Input Interfaces",
-  "current_next_gate": "Full suite and exact-artifact validation for canonical image attachments; then Project Owner browser acceptance for attachment capture and existing Backup & Recovery UX.",
+  "milestone": "Milestone 6 — AI Layer (plan accepted; implementation not yet started)",
+  "current_next_gate": "Implement M6.1 provider-neutral contracts and M6.2 structured extraction validation using fake providers only; no real provider/network/SDK until contracts and privacy boundaries are reviewed.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -44,8 +44,8 @@
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
   "expected_test_count": 171,
-  "previous_release": "0.2.0-dev.61",
-  "next_release_task": "Project Owner browser acceptance for image attachment capture and backup/restore on the exact dev.62 artifact; do not implement Catbox unless explicitly reopened and approved.",
+  "previous_release": "0.2.0-dev.62",
+  "next_release_task": "Implement first Milestone 6 slice from docs/AI-LAYER-PLAN.md: provider-neutral contracts and structured-output validation with fake providers only.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,9 +54,9 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Documentation-only roadmap parking entry: PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔); no runtime/schema changes.",
-  "expected_test_result": "full suite PASS and exact packaged-artifact preflight PASS",
-  "manual_acceptance": "Warung Padang — PASS on packaged dev.31 artifact",
+  "latest_change": "Project Owner manual acceptance of dev.62 attachment and Backup & Recovery UX recorded; added staged Milestone 6 AI Layer plan. No runtime/schema/provider behavior changed.",
+  "expected_test_result": "full suite PASS (170 passed, 1 skipped baseline) and exact packaged-artifact preflight PASS",
+  "manual_acceptance": "Project Owner reports all attachment + Backup & Recovery browser checks PASS on packaged dev.62 artifact.",
   "deployment_concept": {
     "status": "concept_not_implemented",
     "domain": "pernah.my.id",

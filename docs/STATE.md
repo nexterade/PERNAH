@@ -1,10 +1,20 @@
-## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX (current)
+## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan (current)
+
+- Project Owner reports all manual checks PASS on exact packaged `dev.62`: image capture, preview/reopen, backup, restore, refresh/restart persistence, and existing Memory/Backup UX.
+- The supplied screenshot independently confirms saved memory + image preview; the complete checklist PASS is based on the Project Owner's report.
+- Milestone 5 image attachment / Backup & Recovery acceptance gate is closed for the tested `dev.62` artifact.
+- `docs/AI-LAYER-PLAN.md` defines the staged Milestone 6 plan; first slice is M6.1 provider-neutral contracts + M6.2 structured extraction validation, fake provider only.
+- No runtime, schema, or provider behavior changed in dev.63; schema remains v4 and attachments remain local SQLite BLOBs.
+- Catbox remains parked in the roadmap.
+- Parent artifact: `PERNAH-v0.2.0-dev.62.zip`.
+
+## 0.2.0-dev.62 — Roadmap Parking Lot: PERNAH CROSSOVER CATBOX
 
 - Documentation-only release; no runtime, schema, attachment storage, or provider behavior changed.
 - Archived **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** in `docs/BACKLOG.md` as IDEA PARKED / NOT COMMITTED / NOT IMPLEMENTED.
 - The concept covers optional external attachment hosting for both evidence and personal memories, with privacy, credentials, deletion, backup portability, and local-first constraints explicitly left for future design review.
 - The current canonical attachment implementation remains local SQLite BLOB storage (schema v4); Catbox is not integrated and is not the current next gate.
-- Current gate remains Project Owner browser acceptance of image capture and Backup & Recovery on the exact packaged artifact.
+- Historical gate: Project Owner browser acceptance of image capture and Backup & Recovery; accepted on the packaged dev.62 artifact and recorded in dev.63.
 - Parent artifact: `PERNAH-v0.2.0-dev.61.zip`.
 
 ## 0.2.0-dev.61 — Canonical Image Attachments (current)

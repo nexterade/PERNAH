@@ -5,9 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.62`.
+Current release: `0.2.0-dev.63`.
 
-**Current implementation / next gate:** schema v4 canonical image attachments are implemented and remain local SQLite BLOBs. `dev.62` is documentation-only and parks “PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)” as a non-committed concept. Re-run the suite and exact-artifact validation, then obtain Project Owner browser acceptance for attachment capture and Backup & Recovery.
+**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. Follow `docs/AI-LAYER-PLAN.md`; first implement provider-neutral contracts and structured-output validation with fake providers only.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle

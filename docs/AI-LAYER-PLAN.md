@@ -1,6 +1,6 @@
 # Milestone 6 — AI Layer: Execution Plan
 
-**Status:** IN PROGRESS — M6.1–M6.3 implemented; M6.4 grounding/refinement hardening implemented in dev.70  
+**Status:** IN PROGRESS — M6.1–M6.4 implemented through dev.70; M6.5 external-processing default-deny guard added in dev.71  
 **Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.70`  
 **Architecture guardrail:** AI is an optional interpretation/answering capability. Canonical memory and deterministic capture/retrieval remain authoritative.
 
@@ -103,3 +103,8 @@ Event/purchase retrieval rows are not automatically canonical memory evidence. W
 ## Implementation note — dev.70 (M6.4)
 
 Answer candidates still require traceable canonical memory IDs. Insufficient answers now require a non-empty uncertainty note; the orchestration result includes deterministic, UI-neutral refinement suggestions when evidence is absent/insufficient or the provider fails. Empty evidence continues to short-circuit provider invocation. Before an optional provider sees evidence, each record is projected to a small allowlist (`memory_id`, `content`, and selected bounded descriptive fields), excluding arbitrary storage metadata and attachment bytes. This does not enable a real provider or external processing; M6.5 must define and test provider failure, privacy disclosure, and external-processing boundaries first.
+
+
+## Implementation note — dev.71 (M6.5 boundary foundation)
+
+`ExternalProcessingPolicy` now defaults to deny. Provider-facing extraction and answer orchestration require explicit per-call authorization, disclosure acknowledgement, and an allowlist limited to `memory_text` and `bounded_descriptive_metadata`. Without a permitted policy, deterministic outputs are returned and the provider is not called. This object is not a consent UI and cannot verify real user consent or provider contractual terms. Real provider integration remains blocked until timeout/rate-limit/refusal handling, user-facing disclosure, retention/training terms, and cost are reviewed.

@@ -2,7 +2,7 @@
 
 Status roadmap: **Active implementation**
 
-Current maintenance note (dev.70): M6.4 answer grounding now enforces non-empty uncertainty notes, returns deterministic refinement suggestions for insufficient evidence, and minimizes provider-facing canonical evidence. Active gate advances to M6.5 provider failure, privacy, and external-processing boundaries.
+Current maintenance note (dev.71): M6.5 adds a default-deny external-processing policy for provider calls. Explicit authorization, disclosure acknowledgement, and allowlisted data categories are required; no consent UI or real provider is enabled. Next gate: review provider timeout/rate-limit/refusal semantics and disclosure/retention/cost requirements before any real integration.
 
 ## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 
@@ -147,7 +147,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-M6.1/M6.2 contracts, extraction orchestration, and M6.3 retrieval-first orchestration with canonical event-to-memory evidence projection are implemented through dev.67. Next gate: M6.5 provider failure, privacy, and external-processing boundaries. M6.4 has deterministic refinement suggestions and minimized provider evidence projection. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
+M6.1–M6.4 contracts, deterministic orchestration, canonical evidence projection, grounded answer validation, and refinement are implemented through dev.70. M6.5 dev.71 adds a deny-by-default authorization contract for external provider calls. Next gate: strengthen provider timeout/rate-limit/refusal semantics and define disclosure/retention/cost review; no real provider, SDK, network behavior, schema migration, or AI UI yet.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 

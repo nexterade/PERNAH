@@ -1,3 +1,11 @@
+## 0.2.0-dev.71 — External-processing authorization boundary
+
+- Added `ExternalProcessingPolicy` with a deny-by-default posture; provider calls require explicit authorization, disclosure acknowledgement, and a strict data-category allowlist.
+- Extraction and retrieval preserve deterministic results when external processing is not authorized. Provider exception messages remain excluded from fallback diagnostics.
+- Added tests proving provider non-invocation without authorization and rejecting unapproved data categories.
+- No real provider, network/SDK, consent UI, canonical writes, or schema migration; canonical schema remains v4.
+- Parent artifact: `PERNAH-v0.2.0-dev.70.zip`.
+
 ## 0.2.0-dev.70 — Grounded answer and refinement boundary
 
 - Hardened insufficient-evidence validation: uncertainty notes must be non-empty after trimming.

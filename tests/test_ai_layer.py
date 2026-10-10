@@ -1,5 +1,11 @@
 import unittest
 
+from pernah.ai_layer import ExternalProcessingPolicy
+TEST_EXTERNAL_POLICY = ExternalProcessingPolicy(
+    authorized=True, disclosure_acknowledged=True,
+    allowed_data_categories=("memory_text", "bounded_descriptive_metadata"),
+)
+
 from pernah.ai_layer import (
     AnswerRequest, ExtractionRequest, InvalidProposal, ProviderUnavailable,
     UnconfiguredProvider, validate_answer, validate_extraction,
@@ -111,7 +117,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             def answer(self, request): raise AssertionError("not used")
         provider = FakeProvider()
         provider.raw = dict(self.raw)
-        result = orchestrate_extraction(self.request.text, provider)
+        result = orchestrate_extraction(self.request.text, provider, external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_with_candidate")
         self.assertIsNotNone(result.provider_candidate)
         self.assertEqual(result.draft.original_text, self.request.text)
@@ -125,7 +131,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             def answer(self, request): raise AssertionError("not used")
         provider = FakeProvider()
         provider.raw = dict(self.raw)
-        result = orchestrate_extraction(self.request.text, provider)
+        result = orchestrate_extraction(self.request.text, provider, external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_review_required")
         self.assertTrue(result.provider_candidate.requires_review)
         self.assertEqual(result.draft.original_text, self.request.text)
@@ -136,7 +142,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             name = "fake"
             def extract(self, request): raise RuntimeError("secret-token-should-not-leak")
             def answer(self, request): raise AssertionError("not used")
-        result = orchestrate_extraction(self.request.text, FakeProvider())
+        result = orchestrate_extraction(self.request.text, FakeProvider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_fallback")
         self.assertEqual(result.fallback_reason, "provider_error:RuntimeError")
         self.assertNotIn("secret-token", result.fallback_reason)
@@ -148,7 +154,7 @@ class ExtractionOrchestrationTests(unittest.TestCase):
             name = "fake"
             def extract(self, request): return {"original_text": "forged"}
             def answer(self, request): raise AssertionError("not used")
-        result = orchestrate_extraction(self.request.text, FakeProvider())
+        result = orchestrate_extraction(self.request.text, FakeProvider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_fallback")
         self.assertEqual(result.fallback_reason, "InvalidProposal")
 
@@ -178,7 +184,7 @@ class RetrievalOrchestrationTests(unittest.TestCase):
                 self.request = request
                 return {"text": "Catatan ditemukan.", "supporting_memory_ids": ["m1"], "evidence_sufficient": True}
         provider = Provider()
-        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider)
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider, external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_with_grounded_candidate")
         self.assertEqual([e["memory_id"] for e in provider.request.evidence], ["m1"])
         self.assertEqual(result.answer_candidate.supporting_memory_ids, ("m1",))
@@ -201,7 +207,7 @@ class RetrievalOrchestrationTests(unittest.TestCase):
             def list_memories(self): return [{"id": "m1", "content": "Catatan", "created_at": "2026-01-01T00:00:00Z"}]
         class Provider:
             def answer(self, request): raise RuntimeError("private-api-key")
-        result = orchestrate_retrieval(DB(), "Apa catatannya?", Provider())
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", Provider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_fallback")
         self.assertNotIn("private-api-key", result.fallback_reason)
         self.assertEqual(result.evidence[0]["memory_id"], "m1")
@@ -220,7 +226,7 @@ class RetrievalOrchestrationTests(unittest.TestCase):
                 self.request = request
                 return {"text": "Ada catatan pembelian laptop.", "supporting_memory_ids": ["mem-1"], "evidence_sufficient": True}
         db, provider = DB(), Provider()
-        result = orchestrate_retrieval(db, "Pernah beli laptop?", provider)
+        result = orchestrate_retrieval(db, "Pernah beli laptop?", provider, external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(db.requested_event, "event-1")
         self.assertEqual(result.evidence[0]["memory_id"], "mem-1")
         self.assertEqual(result.evidence[0]["matched_event_id"], "event-1")
@@ -235,7 +241,7 @@ class RetrievalOrchestrationTests(unittest.TestCase):
             def event_memories(self, event_id): return []
         class Provider:
             def answer(self, request): raise AssertionError("unlinked event must not reach provider")
-        result = orchestrate_retrieval(DB(), "Pernah beli laptop?", Provider())
+        result = orchestrate_retrieval(DB(), "Pernah beli laptop?", Provider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_no_evidence")
         self.assertEqual(result.evidence, ())
 
@@ -279,7 +285,7 @@ class GroundedAnswerRefinementTests(unittest.TestCase):
                     "supporting_memory_ids": [], "evidence_sufficient": False,
                     "uncertainty_note": "Catatan yang ditemukan tidak memuat detail yang ditanyakan.",
                 }
-        result = orchestrate_retrieval(DB(), "Detailnya apa?", Provider())
+        result = orchestrate_retrieval(DB(), "Detailnya apa?", Provider(), external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_review_required")
         self.assertEqual(result.fallback_reason, "evidence_insufficient")
         self.assertIsNotNone(result.answer_candidate)
@@ -306,7 +312,7 @@ class GroundedAnswerRefinementTests(unittest.TestCase):
                 self.evidence = request.evidence
                 return {"text": "Catatan ditemukan.", "supporting_memory_ids": ["m1"], "evidence_sufficient": True}
         provider = Provider()
-        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider)
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider, external_processing=TEST_EXTERNAL_POLICY)
         self.assertEqual(result.mode, "deterministic_with_grounded_candidate")
         self.assertEqual(set(provider.evidence[0]), {"memory_id", "content", "created_at", "source_type"})
         self.assertNotIn("secret_token", provider.evidence[0])
@@ -325,3 +331,32 @@ class GroundedAnswerRefinementTests(unittest.TestCase):
         self.assertGreaterEqual(len(result.refinement_suggestions), 2)
         self.assertLessEqual(len(result.refinement_suggestions), 3)
         self.assertTrue(all(isinstance(item, str) and item.strip() for item in result.refinement_suggestions))
+
+
+class ExternalProcessingBoundaryTests(unittest.TestCase):
+    def test_policy_denies_by_default_and_rejects_unknown_categories(self):
+        from pernah.ai_layer import ExternalProcessingPolicy
+        self.assertFalse(ExternalProcessingPolicy().permits_processing)
+        self.assertFalse(ExternalProcessingPolicy(True, True, ("all_memory",)).permits_processing)
+        self.assertFalse(ExternalProcessingPolicy(True, False, ("memory_text",)).permits_processing)
+        self.assertTrue(ExternalProcessingPolicy(True, True, ("memory_text",)).permits_processing)
+
+    def test_extraction_provider_is_not_called_without_explicit_authorization(self):
+        from pernah.ai_layer import orchestrate_extraction
+        class Provider:
+            def extract(self, request): raise AssertionError("provider must not be called")
+        result = orchestrate_extraction("Gue beli laptop", Provider())
+        self.assertEqual(result.mode, "deterministic_external_processing_blocked")
+        self.assertEqual(result.fallback_reason, "external_processing_not_authorized")
+
+    def test_retrieval_provider_is_not_called_without_explicit_authorization(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return [{"id": "m1", "content": "Catatan pribadi"}]
+            def list_memories(self): return [{"id": "m1", "content": "Catatan pribadi"}]
+        class Provider:
+            def answer(self, request): raise AssertionError("provider must not be called")
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", Provider())
+        self.assertEqual(result.mode, "deterministic_external_processing_blocked")
+        self.assertEqual(result.fallback_reason, "external_processing_not_authorized")
+        self.assertEqual(result.evidence[0]["memory_id"], "m1")

@@ -1,4 +1,12 @@
-## 0.2.0-dev.70 — Grounded answer and refinement boundary (current)
+## 0.2.0-dev.71 — External-processing authorization boundary (current)
+
+- Added `ExternalProcessingPolicy`, default-deny for provider calls unless caller explicitly marks authorization and disclosure acknowledgement and selects only allowed data categories.
+- Both extraction and answer orchestration retain deterministic functionality and block provider calls without authorization; no-evidence retrieval still short-circuits first.
+- Provider failure paths continue to sanitize exception details; no provider/network/SDK, consent UI, canonical writes, or schema migration was added. Schema v4 unchanged.
+- Added regression tests for default-deny, disclosure requirement, category allowlist, and provider non-invocation without authorization.
+- Parent artifact: `PERNAH-v0.2.0-dev.70.zip`.
+
+## 0.2.0-dev.70 — Grounded answer and refinement boundary (historical)
 
 - M6.4 adds non-empty uncertainty-note validation and deterministic retrieval refinement suggestions for missing/insufficient evidence and provider failures.
 - Provider-facing evidence is now a minimized projection: memory ID + content, with only selected bounded descriptive fields. Arbitrary metadata and attachment bytes are excluded.

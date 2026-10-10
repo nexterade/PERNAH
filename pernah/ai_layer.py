@@ -35,6 +35,31 @@ class InvalidProposal(AIError, ValueError):
     """A provider proposal is malformed or outside the accepted contract."""
 
 
+
+
+@dataclass(frozen=True)
+class ExternalProcessingPolicy:
+    """Explicit per-call authorization for sending personal memory context externally.
+
+    The safe default is deny. This is a caller assertion, not a consent UI or provider
+    terms verifier; production integrations must obtain meaningful user consent and
+    disclose provider retention/training/cost before constructing an authorized policy.
+    """
+    authorized: bool = False
+    disclosure_acknowledged: bool = False
+    allowed_data_categories: tuple[str, ...] = ()
+
+    @property
+    def permits_processing(self) -> bool:
+        return (
+            self.authorized is True
+            and self.disclosure_acknowledged is True
+            and isinstance(self.allowed_data_categories, tuple)
+            and bool(self.allowed_data_categories)
+            and all(item in {"memory_text", "bounded_descriptive_metadata"} for item in self.allowed_data_categories)
+        )
+
+
 @dataclass(frozen=True)
 class ExtractionRequest:
     text: str
@@ -262,6 +287,7 @@ def orchestrate_extraction(
     *,
     reference_time=None,
     source_type: str = "manual",
+    external_processing: ExternalProcessingPolicy | None = None,
 ) -> ExtractionOutcome:
     """Use deterministic normalization as the authoritative fallback.
 
@@ -274,6 +300,9 @@ def orchestrate_extraction(
     draft = normalize(text, reference_time=reference_time, source_type=source_type)
     if provider is None:
         return ExtractionOutcome(draft=draft, mode="deterministic", fallback_reason="provider_not_configured")
+
+    if external_processing is None or not external_processing.permits_processing:
+        return ExtractionOutcome(draft=draft, mode="deterministic_external_processing_blocked", fallback_reason="external_processing_not_authorized")
 
     request = ExtractionRequest(text=text, source_type=source_type)
     try:
@@ -333,7 +362,10 @@ def _refinement_suggestions(question: str, evidence: Sequence[Mapping[str, Any]]
     return tuple(dict.fromkeys(suggestions))[:3]
 
 
-def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *, limit: int = 10) -> RetrievalResult:
+def orchestrate_retrieval(
+    db: Any, question: str, provider: Any | None = None, *, limit: int = 10,
+    external_processing: ExternalProcessingPolicy | None = None,
+) -> RetrievalResult:
     """Run deterministic retrieval first; AI may only see bounded canonical evidence.
 
     This function never writes canonical data. Provider failures return the exact
@@ -417,6 +449,12 @@ def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *
         return RetrievalResult(
             question, (), "deterministic_no_evidence", fallback_reason="no_canonical_evidence",
             refinement_suggestions=_refinement_suggestions(question, ()),
+        )
+    if external_processing is None or not external_processing.permits_processing:
+        return RetrievalResult(
+            question, evidence, "deterministic_external_processing_blocked",
+            fallback_reason="external_processing_not_authorized",
+            refinement_suggestions=_refinement_suggestions(question, evidence),
         )
     request = AnswerRequest(question, evidence)
     try:

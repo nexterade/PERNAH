@@ -33,6 +33,7 @@ class GlossaryIntegrityTests(unittest.TestCase):
         self.assertIn("Secret Data", names)
         self.assertIn("Web Backup & Recovery", names)
         self.assertIn("Explicit Restore Confirmation", names)
+        self.assertIn("Atomic Ingestion", names)
         self.assertIn("Vocabulary", names)
         self.assertIn("Product Owner", names)
         self.assertIn("Failed to fetch", names)
@@ -48,7 +49,7 @@ class GlossaryIntegrityTests(unittest.TestCase):
         self.assertNotIn("Deterministic Ranking", render_source)
 
     def test_glossary_has_expected_latest_size(self):
-        self.assertEqual(len(self.entries), 153)
+        self.assertEqual(len(self.entries), 154)
 
     def test_glossary_has_pernah_identity_without_cross_project_branding(self):
         self.assertIn("PERNAH", self.html)

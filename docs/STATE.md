@@ -1,3 +1,11 @@
+## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
+
+- `pernah.ingestion.ingest_draft()` now validates the transaction/event invariant before writing and wraps each draft in a SQLite savepoint.
+- Any exception during ingestion rolls back source, memory, entity, event, event-entity, and transaction writes from that draft.
+- Added regression coverage for invalid draft shape and downstream persistence failure.
+- Continuity snapshots and release metadata are synchronized to `dev.60`; the original `dev.59` artifact remains immutable.
+- Schema remains v3; no AI/provider runtime dependency added.
+
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy
 
 - Chronicle TOC now derives its active item from section position relative to the viewport instead of relying only on click/static state.
@@ -418,7 +426,7 @@ Milestone 4 is complete through local backup, validation, restore, portable expo
 
 ## Next implementation gate
 
-The deterministic relationship slice now includes meeting, conversation, call, and collaboration event patterns using the existing `event_entities` participant contract. Entity-scoped retrieval can filter by deterministic event type while preserving temporal-window and chronological timeline behavior. The semantic layer now also has expanded local concept normalization and a deterministic concept-relevance boundary to reduce false positives.
+Current gate: Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks (including CLI URL auto-copy on the target terminal). Once these Milestone 5 acceptance items are closed, reassess Milestone 6 — AI Layer. Do not introduce provider coupling before deterministic capture/retrieval contracts are stable. The current `dev.60` release adds atomic ingestion and continuity metadata synchronization; schema remains v3.
 
 Next implementation gate: Milestone 5 — Web App Shell integration and Web Interface hardening regression. The manual input and initial Local Web Interface slices are implemented and the latter has passed the Warung Padang manual acceptance gate. Milestone 4 — Backup & Recovery remains complete through local backup, validation, restore, portable export/import hardening, and a controlled disaster-recovery drill. Continuity Layer v1 remains the cross-chat recovery mechanism. AI provider integration remains deferred until the deterministic contract is stable.
 

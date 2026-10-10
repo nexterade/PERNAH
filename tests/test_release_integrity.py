@@ -15,7 +15,7 @@ class ReleaseIntegrityTests(unittest.TestCase):
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         self.assertRegex(version, SEMVER)
         self.assertRegex(version, RELEASE)
-        self.assertEqual(version, "0.2.0-dev.59")
+        self.assertEqual(version, "0.2.0-dev.60")
 
     def test_versioned_documents_are_synchronized(self):
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
@@ -37,6 +37,9 @@ class ReleaseIntegrityTests(unittest.TestCase):
         self.assertIsNotNone(m)
         self.assertLess(int(m.group(1)), n)
         self.assertIn(f"## {version}", (ROOT / "docs/CHANGELOG.md").read_text(encoding="utf-8"))
+        current_block = re.search(r"## Current artifact(.*?)(?=\n## |\Z)", manifest, re.S)
+        self.assertIsNotNone(current_block)
+        self.assertIn(f"`{version}`", current_block.group(1))
 
     def test_required_documentation_surfaces_are_in_consistency_gate(self):
         required = [

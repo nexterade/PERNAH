@@ -1,3 +1,12 @@
+## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
+
+- Made `ingest_draft()` atomic with a SQLite savepoint; failures roll back all rows written by that draft, including when the caller catches the exception inside a `Storage` context.
+- Added regression tests for invalid transaction drafts and simulated downstream failures.
+- Synchronized boot and machine-state snapshots, current release manifest, and continuation gates with authoritative state.
+- Updated Chronicle and Glossary to record the atomic-ingestion contract and this material engineering change.
+- Parent artifact: `PERNAH-v0.2.0-dev.59.zip`.
+- Source-tree automated suite: **163 passed, 1 skipped** (164 discovered); exact packaged-artifact validation remains mandatory.
+
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy
 
 - Added viewport-based Chronicle scroll synchronization so the sidebar active item follows the section currently reached in the viewport.

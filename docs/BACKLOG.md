@@ -2,7 +2,7 @@
 
 Status roadmap: **Active implementation**
 
-## Current Gate — v0.2.0-dev.59
+## Current Gate — v0.2.0-dev.60
 
 - [x] Close the test-discovery blind spot by bringing Memory Engine regression tests under canonical `unittest` discovery.
 - [x] Add a regression guard against top-level `test_*` functions bypassing the release runner.
@@ -18,6 +18,8 @@ Status roadmap: **Active implementation**
 - [ ] Confirm CLI URL auto-copy manually on the target terminal environment using the exact dev.54 artifact.
 - [x] Fix Chronicle sidebar active-state synchronization with viewport scrollspy.
 - [x] Keep Chronicle mobile outside-tap/backdrop close behavior aligned with the Glossary sidebar contract.
+- [x] Make draft ingestion atomic with SQLite savepoint rollback and add failure-path regression tests.
+- [x] Synchronize continuity snapshots and release metadata for `dev.60`.
 
 ## Milestone 0 — Foundation
 
@@ -108,7 +110,7 @@ Status roadmap: **Active implementation**
 
 ## Next gate
 
-Milestone 5 — Web Interface hardening: shared product shell and local Backup & Recovery are implemented; next, run the human Backup & Recovery acceptance on the packaged artifact and close remaining Web Interface acceptance items.
+Milestone 5 — close Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks. Once those gates are accepted, reassess Milestone 6 — AI Layer; do not introduce provider coupling before deterministic capture/retrieval contracts are stable.
 
 ### Product shell direction
 

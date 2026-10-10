@@ -5,7 +5,7 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.59`.
+Current release: `0.2.0-dev.60`.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle
@@ -63,7 +63,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.59  
+**Current project version:** 0.2.0-dev.60  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 
@@ -481,8 +481,16 @@ Manual input slice completed via `pernah.manual_input.capture_text()` and `pytho
 
 Local Web Interface is implemented over the existing capture boundary and its request boundary now has the first hardening slice. Data Classification & Privacy Boundary remains defined in `docs/SECURITY.md`. PERNAH distinguishes Normal Data, Sensitive Data, and Secret Data. Canonical data has an explicit no-auto-prune/no-auto-expire rule. Secret Data must not be stored plaintext in Memory Core. Secret Vault is roadmap-only and not implemented. The initial localhost input boundary has passed the Warung Padang manual acceptance gate; the next product gate is Web Interface hardening.
 
-## Current Focus — dev.59
+## Previous Focus — dev.59
 Chronicle Sidebar Scroll-Sync / Scrollspy is the current runtime UX slice. Active Chronicle index state follows viewport section position; mobile sidebar retains backdrop/outside close and swipe/Escape behavior.
 
 
-Hybrid Vocabulary + Glossary: the canonical dictionary now accepts useful vocabulary, jargon, command snippets, abbreviations, error messages, and technical terms when they are useful to understand the project journey. Current canonical size: **153 entries**.
+Hybrid Vocabulary + Glossary: the canonical dictionary accepts useful vocabulary, jargon, command snippets, abbreviations, error messages, and technical terms when useful to understand the project journey. Current canonical size: **153 entries**.
+
+
+## dev.60 handoff — Atomic Ingestion + Continuity Repair
+
+- `ingest_draft()` prevalidates the transaction/event invariant and uses a unique SQLite savepoint so any exception rolls back all writes from that draft.
+- Regression tests cover malformed transaction drafts and a simulated downstream persistence failure.
+- `VERSION`, boot snapshot, machine state, README, STATE, BACKLOG, CHANGELOG, release manifest, Chronicle, and Glossary are synchronized to `0.2.0-dev.60`.
+- Current product gate remains Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks. Milestone 6 readiness should be reassessed only after those gates are closed.

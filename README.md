@@ -2,7 +2,7 @@
 
 **Personal Memory & Life Context System**
 
-Canonical storage + deterministic Memory Engine + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.59.
+Canonical storage + deterministic Memory Engine + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.60.
 
 ## Runtime
 

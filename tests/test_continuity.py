@@ -18,7 +18,10 @@ class ContinuityIntegrityTests(unittest.TestCase):
         state = json.loads((ROOT / "PERNAH_PROJECT_STATE.json").read_text(encoding="utf-8"))
         self.assertEqual(state["version"], version)
         self.assertEqual(state["schema_version"], 3)
-        self.assertEqual(state["current_next_gate"], "Chronicle Sidebar Scroll-Sync / Scrollspy human acceptance plus exact packaged artifact regression verification")
+        self.assertEqual(state["expected_test_count"], 164)
+        self.assertEqual(state["previous_release"], "0.2.0-dev.59")
+        self.assertNotIn("dev.55 ZIP", state["next_release_task"])
+        self.assertEqual(state["current_next_gate"], "Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks; then reassess Milestone 6 readiness.")
         self.assertTrue(state["chat_is_ephemeral"] if "chat_is_ephemeral" in state else state["continuity_layer"]["chat_is_ephemeral"])
 
     def test_release_manifest_records_parent_and_current_release(self):
@@ -26,7 +29,11 @@ class ContinuityIntegrityTests(unittest.TestCase):
         manifest = (ROOT / "docs" / "RELEASE-MANIFEST.md").read_text(encoding="utf-8")
         self.assertIn(f"**Version:** `{version}`", manifest)
         self.assertIn("PERNAH-v0.2.0-dev.20.zip", manifest)
-        self.assertIn("Previous release SHA-256", manifest)
+        self.assertIn("Current artifact SHA-256", manifest)
+        current_block = re.search(r"## Current artifact(.*?)(?=\n## |\Z)", manifest, re.S)
+        self.assertIsNotNone(current_block)
+        self.assertIn(f"`{version}`", current_block.group(1))
+        self.assertNotIn("0.2.0-dev.48", current_block.group(1))
 
 
     def test_checkpoint_defines_collaborative_ai_style(self):
@@ -65,7 +72,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(names.count("continuity layer"), 1)
         self.assertEqual(names.count("boot snapshot"), 1)
         self.assertEqual(names.count("release manifest"), 1)
-        self.assertEqual(len(entries), 153)
+        self.assertEqual(len(entries), 154)
 
 
 if __name__ == "__main__":

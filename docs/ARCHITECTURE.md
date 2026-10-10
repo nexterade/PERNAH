@@ -308,6 +308,8 @@ Transaction
 Interaction memory
 ```
 
+Ingestion atomicity contract (implemented in `dev.60`): `ingest_draft()` validates the transaction/event invariant before writing, then wraps all writes from one draft in a unique SQLite savepoint. If any persistence step raises, it rolls back to that savepoint before re-raising, so a caller may catch the exception without leaving partial canonical records. This is an operation-level guarantee and does not change the schema or canonical record semantics.
+
 The current deterministic retrieval path supports a temporal purchase query by object entity. It is intentionally narrow and does not yet represent general semantic search.
 
 ## 13. Rebuildable semantic retrieval

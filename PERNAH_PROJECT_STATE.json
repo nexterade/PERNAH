@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.59",
+  "version": "0.2.0-dev.60",
   "schema_version": 3,
   "status": "active development",
   "milestone": "Milestone 5 — Input Interfaces",
-  "current_next_gate": "Chronicle Sidebar Scroll-Sync / Scrollspy human acceptance plus exact packaged artifact regression verification",
+  "current_next_gate": "Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks; then reassess Milestone 6 readiness.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -43,9 +43,9 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 158,
-  "previous_release": "0.2.0-dev.56",
-  "next_release_task": "Complete human Web Backup & Recovery browser acceptance, verify Glossary rendering, and verify mobile index close behavior on the exact dev.55 ZIP",
+  "expected_test_count": 164,
+  "previous_release": "0.2.0-dev.59",
+  "next_release_task": "Complete Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks; then reassess Milestone 6 readiness.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,7 +54,7 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Added dependency-free best-effort CLI URL auto-copy on Web Interface startup, with graceful fallback when no supported clipboard utility is available.",
+  "latest_change": "Made MemoryDraft ingestion atomic with SQLite savepoint rollback; synchronized continuity and release metadata.",
   "expected_test_result": "full suite PASS",
   "manual_acceptance": "Warung Padang — PASS on packaged dev.31 artifact",
   "deployment_concept": {

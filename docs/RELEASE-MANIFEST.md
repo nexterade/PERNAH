@@ -1,3 +1,21 @@
+## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
+
+- **Version:** `0.2.0-dev.60`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.59.zip`
+- **Scope:** atomic draft ingestion, failure-path regression coverage, and continuity/release metadata synchronization.
+- **Schema:** v3 (unchanged).
+- **Source-tree suite:** **163 passed, 1 skipped** (164 discovered).
+- **Automated suite target:** full suite must pass against the exact packaged ZIP.
+- **Artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
+
+## Current artifact
+
+- **Project:** PERNAH
+- **Version:** `0.2.0-dev.60`
+- **Schema:** `v3`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.59.zip`
+- **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
+
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy
 
 - **Version:** `0.2.0-dev.59`
@@ -165,15 +183,6 @@
 - ZIP checksum is recorded only in the delivery record after packaging.
 
 # PERNAH — Release Manifest
-
-## Current artifact
-
-- **Project:** PERNAH
-- **Version:** `0.2.0-dev.48`
-- **Schema:** `v3`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.47-fixed.zip`
-- **Previous release SHA-256:** recorded at dev.35 delivery time.
-- **Current artifact SHA-256:** recorded at delivery time, not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.39 — Domain + OpenWrt Deployment Concept
 

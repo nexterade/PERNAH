@@ -4,7 +4,7 @@ import unittest
 from pernah.ingestion import ingest_draft
 from pernah.memory_engine import normalize
 from pernah.retrieval import retrieve
-from pernah.storage import Storage
+from pernah.storage import Storage, ValidationError
 
 
 REF = datetime(2008, 4, 29, 2, 0, tzinfo=timezone.utc)
@@ -66,3 +66,25 @@ class IngestionTests(unittest.TestCase):
             )
             self.assertEqual(len(rows), 1)
             self.assertEqual(rows[0]["amount"], 2_000_000)
+
+    def test_invalid_transaction_draft_writes_no_partial_canonical_records(self):
+        draft = normalize("Urang geus meli laptop hargana 2 jt tadi isuk", reference_time=REF)
+        draft.event = None
+        with Storage() as db:
+            with self.assertRaises(ValidationError):
+                ingest_draft(db, draft)
+            for table in ("sources", "memories", "entities", "events", "event_entities", "transactions"):
+                self.assertEqual(db._conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0], 0, table)
+
+    def test_ingestion_rolls_back_partial_writes_when_later_step_fails(self):
+        draft = normalize("Urang geus meli laptop hargana 2 jt tadi isuk", reference_time=REF)
+        with Storage() as db:
+            original = db.add_transaction
+            def fail_after_prior_writes(*args, **kwargs):
+                raise RuntimeError("simulated downstream failure")
+            db.add_transaction = fail_after_prior_writes
+            with self.assertRaisesRegex(RuntimeError, "simulated downstream failure"):
+                ingest_draft(db, draft)
+            db.add_transaction = original
+            for table in ("sources", "memories", "entities", "events", "event_entities", "transactions"):
+                self.assertEqual(db._conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0], 0, table)

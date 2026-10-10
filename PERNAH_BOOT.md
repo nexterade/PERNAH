@@ -11,14 +11,14 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.59`
+- **Version:** `0.2.0-dev.60`
 - **Schema:** `v3`
 - **Status:** active development
 
 ## Current continuation point
 
 - **Milestone:** Milestone 5 — Input Interfaces
-- **Current next gate:** Milestone 5 — human Web Backup & Recovery browser test-drive gate plus dev.55 Web UX verification on the exact packaged artifact
+- **Current next gate:** Milestone 5 — Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks; then reassess Milestone 6 readiness
 - **Current shell sub-gate:** shared shell now wraps Home, Memory, Chronicle, Glossary, Settings, and About; Chronicle/Glossary now embed content-only reference surfaces with one product navigation; standalone docs remain directly accessible
 - **Completed immediately before this gate:** Warung Padang manual acceptance of the Local Web Interface on the packaged dev.31 artifact
 - **Completed immediately before this release:** CLI Web Interface startup now auto-copies its printed local URL when a supported clipboard utility is available
@@ -28,8 +28,12 @@
 
 ## Last validated state
 
+- `dev.60` includes atomic ingestion savepoint rollback and synchronized continuity metadata.
+- Latest source-tree regression run: **163 passed, 1 skipped** (164 tests discovered); exact packaged-artifact run is the final release gate.
+- Exact packaged-artifact validation must be completed for this release before delivery.
+
 - Canonical test command: `python3 -m unittest discover -s tests -v`
-- Expected release test result: **158/158 PASS**
+- Expected release test result: **full suite pending final artifact validation**
 - Exact artifact must be tested again after packaging. The package must contain no generated Python/test cache artifacts, including `.pytest_cache`.
 - Release artifact must pass the executable Artifact Compliance Gate: valid version lineage, synchronized release metadata, required structure, flat-root packaging, documentation consistency including Chronicle + Glossary, provenance, and no generated Python cache artifacts.
 

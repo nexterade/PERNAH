@@ -306,3 +306,78 @@ def orchestrate_extraction(
         mode="deterministic_with_candidate",
         provider_candidate=candidate,
     )
+
+
+@dataclass(frozen=True)
+class RetrievalResult:
+    """Deterministic canonical candidates plus an optional grounded answer candidate."""
+    query: str
+    evidence: tuple[Mapping[str, Any], ...]
+    mode: str
+    answer_candidate: AnswerCandidate | None = None
+    fallback_reason: str | None = None
+
+
+def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *, limit: int = 10) -> RetrievalResult:
+    """Run deterministic retrieval first; AI may only see bounded canonical evidence.
+
+    This function never writes canonical data. Provider failures return the exact
+    deterministic candidates without exposing provider exception messages.
+    """
+    if not isinstance(question, str) or not question.strip():
+        raise ValueError("question must be a non-empty string")
+    if len(question) > MAX_INPUT_CHARS:
+        raise ValueError(f"question exceeds {MAX_INPUT_CHARS} characters")
+    if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 50:
+        raise ValueError("limit must be an integer between 1 and 50")
+
+    from .memory_engine import normalize
+    from .retrieval import retrieve
+
+    draft = normalize(question)
+    rows = retrieve(db, draft)
+    # If intent routing returns no rows, preserve deterministic exact search as a
+    # safe secondary path; never ask a provider to invent absent personal facts.
+    if not rows and hasattr(db, "exact_search"):
+        rows = db.exact_search(question)
+    # Canonical retrieval outputs vary by query type. Only mappings with stable
+    # memory IDs can be passed as answer evidence; timeline/event rows are
+    # reduced to their referenced canonical memory records.
+    candidates: list[Mapping[str, Any]] = []
+    seen: set[str] = set()
+    for row in rows or []:
+        if not isinstance(row, Mapping):
+            continue
+        if row.get("memory_id", row.get("id")) is not None:
+            item = dict(row)
+            key = str(item.get("memory_id", item.get("id")))
+            item["memory_id"] = key
+            if key not in seen:
+                candidates.append(item)
+                seen.add(key)
+        elif isinstance(row.get("memories"), (list, tuple)):
+            for memory in row["memories"]:
+                if not isinstance(memory, Mapping) or memory.get("memory_id", memory.get("id")) is None:
+                    continue
+                item = dict(memory)
+                key = str(item.get("memory_id", item.get("id")))
+                item["memory_id"] = key
+                if key not in seen:
+                    candidates.append(item)
+                    seen.add(key)
+    evidence = tuple(candidates[:limit])
+    if provider is None:
+        return RetrievalResult(question, evidence, "deterministic", fallback_reason="provider_not_configured")
+    if not evidence:
+        # Never ask a model to invent a personal fact when canonical retrieval found nothing.
+        return RetrievalResult(question, (), "deterministic_no_evidence", fallback_reason="no_canonical_evidence")
+    request = AnswerRequest(question, evidence)
+    try:
+        raw = provider.answer(request)
+        candidate = validate_answer(raw, request)
+    except Exception as exc:
+        return RetrievalResult(question, evidence, "deterministic_fallback", fallback_reason=f"provider_error:{type(exc).__name__}")
+    if not candidate.evidence_sufficient:
+        return RetrievalResult(question, evidence, "deterministic_review_required", answer_candidate=candidate,
+                               fallback_reason="evidence_insufficient")
+    return RetrievalResult(question, evidence, "deterministic_with_grounded_candidate", answer_candidate=candidate)

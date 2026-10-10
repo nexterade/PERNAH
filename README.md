@@ -2,7 +2,7 @@
 
 **Personal Memory & Life Context System**
 
-Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.65.
+Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.66.
 
 ## Runtime
 
@@ -195,3 +195,6 @@ PERNAH now defines provider-neutral contracts and strict validation for untruste
 ## AI extraction orchestration — dev.65
 
 `pernah.ai_layer.orchestrate_extraction()` provides an offline-safe orchestration boundary. It prepares the deterministic `normalize()` draft first and may validate a provider proposal as advisory context. Missing/failed providers and invalid proposals fall back to the deterministic draft. Provider proposals are never written to canonical memory automatically; low-confidence proposals require review. No real provider, SDK, network call, or schema change is included.
+
+
+Milestone 6 current gate: initial retrieval-first orchestration is in dev.66. See `docs/AI-LAYER-PLAN.md`; no real provider/network is enabled.

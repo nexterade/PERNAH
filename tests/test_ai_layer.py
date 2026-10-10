@@ -151,3 +151,65 @@ class ExtractionOrchestrationTests(unittest.TestCase):
         result = orchestrate_extraction(self.request.text, FakeProvider())
         self.assertEqual(result.mode, "deterministic_fallback")
         self.assertEqual(result.fallback_reason, "InvalidProposal")
+
+
+class RetrievalOrchestrationTests(unittest.TestCase):
+    def test_missing_provider_keeps_deterministic_results(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text):
+                return [{"memory_id": "m1", "content": "Rahayu meminjam Rp200.000"}]
+            def list_memories(self):
+                return [{"id": "m1", "content": "Rahayu meminjam Rp200.000", "created_at": "2026-01-01T00:00:00Z"}]
+        result = orchestrate_retrieval(DB(), "Rahayu meminjam Rp200.000")
+        self.assertEqual(result.mode, "deterministic")
+        self.assertEqual(result.evidence[0]["memory_id"], "m1")
+        self.assertEqual(result.fallback_reason, "provider_not_configured")
+
+    def test_provider_sees_only_deterministic_canonical_evidence(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text):
+                return [{"memory_id": "m1", "content": "Catatan canonical"}]
+            def list_memories(self):
+                return [{"id": "m1", "content": "Catatan canonical", "created_at": "2026-01-01T00:00:00Z"}]
+        class Provider:
+            def answer(self, request):
+                self.request = request
+                return {"text": "Catatan ditemukan.", "supporting_memory_ids": ["m1"], "evidence_sufficient": True}
+        provider = Provider()
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider)
+        self.assertEqual(result.mode, "deterministic_with_grounded_candidate")
+        self.assertEqual([e["memory_id"] for e in provider.request.evidence], ["m1"])
+        self.assertEqual(result.answer_candidate.supporting_memory_ids, ("m1",))
+
+    def test_no_evidence_never_calls_provider(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return []
+            def list_memories(self): return []
+        class Provider:
+            def answer(self, request): raise AssertionError("must not call provider without evidence")
+        result = orchestrate_retrieval(DB(), "Apa yang gue catat?", Provider())
+        self.assertEqual(result.mode, "deterministic_no_evidence")
+        self.assertEqual(result.fallback_reason, "no_canonical_evidence")
+
+    def test_provider_failure_falls_back_without_leaking_exception(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return [{"memory_id": "m1", "content": "Catatan"}]
+            def list_memories(self): return [{"id": "m1", "content": "Catatan", "created_at": "2026-01-01T00:00:00Z"}]
+        class Provider:
+            def answer(self, request): raise RuntimeError("private-api-key")
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", Provider())
+        self.assertEqual(result.mode, "deterministic_fallback")
+        self.assertNotIn("private-api-key", result.fallback_reason)
+        self.assertEqual(result.evidence[0]["memory_id"], "m1")
+
+    def test_retrieval_limit_is_bounded(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return []
+        for limit in (0, 51, True):
+            with self.subTest(limit=limit), self.assertRaises(ValueError):
+                orchestrate_retrieval(DB(), "tes", limit=limit)

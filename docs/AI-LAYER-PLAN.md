@@ -86,3 +86,10 @@ Start with **M6.1 + M6.2 contracts and tests only**, using fake providers and no
 ## Implementation note — dev.65
 
 `orchestrate_extraction()` prepares the deterministic `normalize()` draft first, then optionally validates provider output. Missing providers, malformed proposals, and provider exceptions return the deterministic draft. Provider proposals remain advisory and are not converted into `MemoryDraft` or persisted; low-confidence proposals are marked review-required. The provider exception message is intentionally not exposed. Five regression tests cover these branches. This is orchestration groundwork, not retrieval orchestration or a real provider integration.
+
+
+## Implementation note — dev.66
+
+`orchestrate_retrieval()` runs the existing deterministic `normalize()` → `retrieve()` path first. Only bounded canonical memory candidates with stable memory IDs are eligible as provider evidence. A provider is not called when retrieval is empty. A valid answer is accepted only through `validate_answer()` and must cite IDs in the supplied evidence set. Provider errors preserve deterministic evidence and return a sanitized error class. This layer is advisory and performs no canonical writes.
+
+Known limitation: deterministic retrieval returns different shapes for event/timeline queries; orchestration only forwards rows that can be tied to stable canonical memory IDs. Broader event-to-memory projection should be added only with tests grounded in actual storage return contracts.

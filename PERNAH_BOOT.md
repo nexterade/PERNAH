@@ -11,7 +11,7 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.65`
+- **Version:** `0.2.0-dev.66`
 - **Schema:** `v4`
 - **Status:** active development
 
@@ -90,3 +90,5 @@ This file is a **fast boot snapshot**, not a replacement for CHECKPOINT, STATE, 
 CHANGELOG, Glosarium, Chronicle, source, or tests. Its purpose is to make cross-chat
 continuation resilient on limited-context/free-tier sessions while keeping authoritative
 project state inside the artifact itself.
+
+- `dev.66` adds initial retrieval-first orchestration; deterministic retrieval remains first, providers receive bounded canonical evidence only, and no provider is called without evidence. No network/provider SDK/schema change.

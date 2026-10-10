@@ -1,6 +1,15 @@
+## 0.2.0-dev.66 — Retrieval-first orchestration
+
+- **Version:** `0.2.0-dev.66`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.65.zip`
+- **Scope:** initial M6.3 retrieval-first orchestration with deterministic fallback.
+- **Runtime/schema:** schema v4 unchanged; no real provider, SDK, network calls, or canonical writes.
+- **Tests:** includes provider absent, evidence bounded, empty evidence, provider failure, and limit validation cases.
+- **Artifact SHA-256:** recorded after packaging; not embedded here.
+
 ## 0.2.0-dev.65 — Deterministic Extraction Orchestration
 
-- **Version:** `0.2.0-dev.65`
+- **Version:** `0.2.0-dev.66`
 - **Parent artifact:** `PERNAH-v0.2.0-dev.64.zip`
 - **Scope:** M6.3 extraction orchestration foundation around deterministic `normalize()`.
 - **Behavior:** provider proposals are validated and advisory; missing provider, invalid proposal, or provider failure falls back to the deterministic draft.
@@ -63,9 +72,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.65`
+- **Version:** `0.2.0-dev.66`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.64.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.65.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

@@ -1,5 +1,14 @@
 # PERNAH — Changelog
 
+## 0.2.0-dev.66 — Retrieval-first orchestration
+
+- Added `orchestrate_retrieval()` that runs deterministic canonical retrieval before optional answer generation.
+- Provider receives only bounded canonical evidence; empty retrieval does not call the provider.
+- Answer output is accepted only through evidence-ID validation; provider failures preserve deterministic evidence and expose no exception message.
+- No provider SDK, network calls, schema migration, or canonical writes were added.
+- Parent artifact: `PERNAH-v0.2.0-dev.65.zip`.
+
+
 ## 0.2.0-dev.65 — Deterministic Extraction Orchestration
 
 - Added `orchestrate_extraction()` as a provider-neutral orchestration boundary that always prepares the existing deterministic `normalize()` draft first.

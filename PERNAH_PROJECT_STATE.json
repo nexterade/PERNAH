@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.65",
+  "version": "0.2.0-dev.66",
   "schema_version": 4,
   "status": "active development",
-  "milestone": "Milestone 6 — AI Layer (M6.1/M6.2 contracts implemented)",
-  "current_next_gate": "Review deterministic extraction orchestration; plan retrieval-first orchestration with minimized provider context. No real provider/network/SDK yet.",
+  "milestone": "Milestone 6 — AI Layer",
+  "current_next_gate": "Review M6.3 retrieval-first orchestration contracts and implement tested event/timeline-to-canonical-evidence projection; no real provider/network yet.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -43,9 +43,9 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 188,
-  "previous_release": "0.2.0-dev.64",
-  "next_release_task": "Implement/test retrieval-first orchestration that preserves deterministic canonical candidates and minimizes any future provider context.",
+  "expected_test_count": 193,
+  "previous_release": "0.2.0-dev.65",
+  "next_release_task": "Harden retrieval evidence projection for event/timeline queries using actual Storage return shapes, then review answer orchestration acceptance.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,8 +54,8 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Added offline-safe deterministic extraction orchestration around normalize(); provider proposals remain advisory and never write canonical memory.",
-  "expected_test_result": "full suite PASS (187 passed, 1 skipped; 188 discovered) and exact packaged-artifact preflight PASS",
+  "latest_change": "Initial retrieval-first orchestration: deterministic retrieval first, bounded canonical evidence, validated answer provenance, no provider call when evidence is empty.",
+  "expected_test_result": "full suite PASS (192 passed, 1 skipped expected) and exact-artifact preflight PASS",
   "manual_acceptance": "Project Owner reports all attachment + Backup & Recovery browser checks PASS on packaged dev.62 artifact.",
   "deployment_concept": {
     "status": "concept_not_implemented",

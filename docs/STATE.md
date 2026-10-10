@@ -1,3 +1,12 @@
+## 0.2.0-dev.66 — Retrieval-first orchestration (current)
+
+- Implemented `orchestrate_retrieval()` on top of deterministic `normalize()` and `retrieve()`.
+- Optional provider is only invoked when bounded canonical evidence exists; provider output is validated against exact supplied memory IDs.
+- Provider failures preserve deterministic results and do not expose exception messages.
+- No provider SDK/network, canonical writes, or schema migration; schema remains v4.
+- Next gate: add event/timeline evidence projection tests against actual storage return contracts and review user-facing answer behavior.
+- Parent artifact: `PERNAH-v0.2.0-dev.65.zip`.
+
 ## 0.2.0-dev.65 — Deterministic Extraction Orchestration (current)
 
 - M6.1/M6.2 contracts remain in `pernah/ai_layer.py`; M6.3 foundation adds `orchestrate_extraction()`.

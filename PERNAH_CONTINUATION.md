@@ -5,7 +5,7 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.65`.
+Current release: `0.2.0-dev.66`.
 
 **Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. Next gate: review extraction orchestration and plan retrieval-first orchestration with minimized provider context. Provider proposals remain advisory and canonical writes remain deterministic.
 
@@ -506,3 +506,6 @@ Current implementation adds canonical image attachments linked to Memory records
 ## Roadmap concept parked — dev.62
 
 **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** is an idea-only backlog entry. It is not implemented or committed. Any future plan must review public URL/privacy implications, local-first fallback, provider-neutral metadata, credential handling, remote deletion behavior, and backup portability before the Project Owner explicitly authorizes implementation.
+
+
+**dev.66:** Initial retrieval-first orchestration is implemented. Next: harden event/timeline evidence projection using actual storage return contracts; no real provider or network behavior yet.

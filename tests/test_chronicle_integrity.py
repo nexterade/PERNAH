@@ -18,10 +18,32 @@ class ChronicleIntegrityTests(unittest.TestCase):
         self.assertEqual(ids, list(range(len(ids))))
         self.assertEqual(numbers, list(range(len(numbers))))
 
-    def test_numbered_milestone_headings_share_h1_style(self):
+    def test_numbered_milestone_headings_share_h1_style_and_divider(self):
+        sections = list(re.finditer(r'<h([1-6]) id="section-(\d+)">(.*?)</h\1>', self.html))
+        self.assertTrue(sections, "no section headings discovered")
+        for index, match in enumerate(sections):
+            level, section_id, title = match.group(1), int(match.group(2)), match.group(3)
+            if section_id == 0:
+                self.assertEqual(level, "2", "introductory Chronicle contract is intentionally h2")
+                self.assertIn("CHRONICLE CONTRACT", title)
+                continue
+            self.assertEqual(level, "1", f"numbered milestone section {section_id} must use h1")
+            prefix = self.html[max(0, match.start() - 16):match.start()]
+            self.assertRegex(prefix, r'<hr\s*/?>\s*$', f"section {section_id} is missing its divider")
+            self.assertTrue(title.strip(), f"section {section_id} has an empty heading")
+
         self.assertRegex(self.html, r'<h1 id="section-44">44\. ATOMIC INGESTION DAN CONTINUITY REPAIR')
-        self.assertIn('<hr/><h1 id="section-44">', self.html)
         self.assertRegex(self.html, r'<h2 id="section-0">0\. CHRONICLE CONTRACT')
+
+    def test_every_numbered_section_has_content_before_next_section(self):
+        sections = list(re.finditer(r'<h[12] id="section-(\d+)">', self.html))
+        for index, match in enumerate(sections):
+            section_id = int(match.group(1))
+            end = sections[index + 1].start() if index + 1 < len(sections) else self.html.find('<div class="no-results"', match.end())
+            if end < 0:
+                end = len(self.html)
+            body = self.html[match.end():end]
+            self.assertRegex(body, r'<(?:p|pre|ul|ol|div|table)\b', f"section {section_id} has no recognizable body content")
 
     def test_section_ids_are_unique(self):
         ids = re.findall(r'id="(section-\d+)"', self.html)

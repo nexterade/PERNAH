@@ -1,3 +1,12 @@
+## 0.2.0-dev.69 — Chronicle document-wide structural consistency
+
+- **Version:** `0.2.0-dev.69`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.68.zip`
+- **Scope:** audited all numbered Chronicle sections and added global regression checks for heading hierarchy, preceding divider, and section body content. Section 0 remains an intentional `h2` exception.
+- **Runtime/schema:** unchanged; canonical schema v4.
+- **Tests:** full suite and exact packaged-artifact preflight required.
+- **Artifact SHA-256:** recorded after packaging, outside the ZIP.
+
 ## 0.2.0-dev.68 — Chronicle section style consistency
 
 - **Version:** `0.2.0-dev.68`
@@ -90,9 +99,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.68`
+- **Version:** `0.2.0-dev.69`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.67.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.68.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

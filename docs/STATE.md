@@ -1,8 +1,13 @@
-## 0.2.0-dev.68 — Chronicle section style consistency (current)
+## 0.2.0-dev.69 — Chronicle document-wide structural consistency (current)
 
-- Corrected section 44 in `docs/Creation-Chronicle.html` to use the same `h1` milestone heading level and preceding divider as other numbered historical sections.
-- Added a regression test for numbered milestone heading consistency while preserving the introductory section 0 `h2`.
+- Audited all numbered sections in `docs/Creation-Chronicle.html`; each uses `h1` and a preceding divider. Section 0 remains an intentional `h2` introduction.
+- Added document-wide regression checks for heading hierarchy, dividers, and recognizable body content.
 - Documentation/editorial-only change; runtime and schema v4 unchanged.
+- Parent artifact: `PERNAH-v0.2.0-dev.68.zip`.
+
+## 0.2.0-dev.68 — Chronicle section style consistency
+
+- Corrected section 44 to match the numbered milestone `h1` heading and divider pattern.
 - Parent artifact: `PERNAH-v0.2.0-dev.67.zip`.
 
 ## 0.2.0-dev.67 — Canonical evidence projection hardening

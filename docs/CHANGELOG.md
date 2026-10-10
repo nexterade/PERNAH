@@ -1,3 +1,10 @@
+## 0.2.0-dev.69 — Chronicle document-wide structural audit
+
+- Audited all numbered Chronicle sections (1–50): numbered milestones consistently use `h1` and a preceding horizontal divider; introductory section 0 remains `h2`.
+- Expanded regression tests from a section-44-specific check to document-wide heading-level and divider invariants, and added a section-body presence check.
+- Documentation/editorial-only; runtime and canonical schema v4 unchanged.
+- Parent artifact: `PERNAH-v0.2.0-dev.68.zip`.
+
 ## 0.2.0-dev.68 — Chronicle section style consistency
 
 - Fixed Chronicle section 44 to match the heading hierarchy and divider pattern used by numbered milestone sections.

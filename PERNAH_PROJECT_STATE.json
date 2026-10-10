@@ -1,7 +1,7 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.68",
+  "version": "0.2.0-dev.69",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 6 — AI Layer",
@@ -69,5 +69,5 @@
     "static_surface_candidate": "GitHub Pages",
     "canonical_storage": "SQLite on local runtime"
   },
-  "last_change": "Chronicle section 44 heading hierarchy and divider normalized; documentation-only dev.68."
+  "last_change": "Full Chronicle numbered-section audit and document-wide heading/divider/content regression guards; documentation-only dev.69."
 }

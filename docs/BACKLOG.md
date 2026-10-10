@@ -2,7 +2,7 @@
 
 Status roadmap: **Active implementation**
 
-Current maintenance note (dev.68): Chronicle numbered-section heading consistency repaired. Active AI gate remains answer-grounding and insufficient-evidence/refinement behavior.
+Current maintenance note (dev.69): full Chronicle section audit completed; global heading/divider/content integrity guards added. Active AI gate remains answer-grounding and insufficient-evidence/refinement behavior.
 
 ## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 

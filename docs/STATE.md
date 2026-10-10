@@ -1,10 +1,20 @@
+## 0.2.0-dev.61 — Canonical Image Attachments (current)
+
+- Schema v4 adds canonical `attachments` linked to `memories`; SQLite stores image bytes as BLOBs.
+- Local Web Interface capture accepts JPEG, PNG, GIF, and WebP with 4-image / 8 MiB each / 12 MiB request limits and signature validation.
+- Saved-memory view displays attached images through a same-origin route.
+- Canonical JSON export/backup encodes image bytes as Base64; validation, import, and restore preserve them.
+- Existing v3 SQLite databases migrate in place; v3 canonical JSON backups remain importable/restorable.
+- AI/OCR interpretation, redaction, encryption-at-rest, and remote access are not implemented.
+- Current gate: full automated suite and exact-artifact preflight, followed by Project Owner browser acceptance.
+
 ## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
 
 - `pernah.ingestion.ingest_draft()` now validates the transaction/event invariant before writing and wraps each draft in a SQLite savepoint.
 - Any exception during ingestion rolls back source, memory, entity, event, event-entity, and transaction writes from that draft.
 - Added regression coverage for invalid draft shape and downstream persistence failure.
 - Continuity snapshots and release metadata are synchronized to `dev.60`; the original `dev.59` artifact remains immutable.
-- Schema remains v3; no AI/provider runtime dependency added.
+- Schema remained v3 in dev.60; no AI/provider runtime dependency was added in that release.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy
 
@@ -426,14 +436,13 @@ Milestone 4 is complete through local backup, validation, restore, portable expo
 
 ## Next implementation gate
 
-Current gate: Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks (including CLI URL auto-copy on the target terminal). Once these Milestone 5 acceptance items are closed, reassess Milestone 6 — AI Layer. Do not introduce provider coupling before deterministic capture/retrieval contracts are stable. The current `dev.60` release adds atomic ingestion and continuity metadata synchronization; schema remains v3.
+Current gate (dev.61): validate canonical image attachments against the full suite and exact packaged artifact, then obtain Project Owner browser acceptance for image capture and existing Backup & Recovery / clipboard UX checks. Schema v4 adds canonical image attachments and preserves v3 database and backup compatibility. After product-facing Milestone 5 gates are accepted, reassess Milestone 6 — AI Layer; do not introduce provider coupling before deterministic capture/retrieval and attachment contracts are stable.
 
-Next implementation gate: Milestone 5 — Web App Shell integration and Web Interface hardening regression. The manual input and initial Local Web Interface slices are implemented and the latter has passed the Warung Padang manual acceptance gate. Milestone 4 — Backup & Recovery remains complete through local backup, validation, restore, portable export/import hardening, and a controlled disaster-recovery drill. Continuity Layer v1 remains the cross-chat recovery mechanism. AI provider integration remains deferred until the deterministic contract is stable.
-
+The manual input and initial Local Web Interface slices are implemented, and the latter passed the earlier Warung Padang manual acceptance gate. Milestone 4 — Backup & Recovery is implemented through local backup, validation, restore, portable export/import hardening, and a controlled disaster-recovery drill. Continuity Layer v1 remains the cross-chat recovery mechanism. AI provider integration remains deferred until the deterministic contract is stable.
 
 ## Milestone 1 update — 2026-10-05
 
-Canonical storage schema version sekarang **3**. Physical storage untuk Event, Commitment, Decision, dan Transaction sudah tersedia, termasuk migration v1→v2→v3, event-entity links, dan canonical JSON export/import. Automated suite: **8/8 PASS**. Memory Engine, retrieval, AI, dan WhatsApp belum diimplementasikan.
+Canonical storage schema version pada milestone awal adalah **3**. Physical storage untuk Event, Commitment, Decision, dan Transaction sudah tersedia, termasuk migration v1→v2→v3, event-entity links, dan canonical JSON export/import. Automated suite: **8/8 PASS**. Memory Engine, retrieval, AI, dan WhatsApp belum diimplementasikan.
 
 
 ## Milestone 2 update — 2026-10-05

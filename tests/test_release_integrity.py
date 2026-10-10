@@ -15,7 +15,7 @@ class ReleaseIntegrityTests(unittest.TestCase):
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         self.assertRegex(version, SEMVER)
         self.assertRegex(version, RELEASE)
-        self.assertEqual(version, "0.2.0-dev.60")
+        self.assertEqual(version, "0.2.0-dev.61")
 
     def test_versioned_documents_are_synchronized(self):
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()

@@ -9,7 +9,7 @@ from pernah.storage import Storage, ValidationError
 class StorageTests(unittest.TestCase):
     def test_schema_initializes_and_is_versioned(self):
         with Storage() as db:
-            self.assertEqual(db.schema_version, 3)
+            self.assertEqual(db.schema_version, 4)
 
     def test_memory_has_source_and_confidence(self):
         with Storage() as db:
@@ -93,5 +93,65 @@ class StorageTests(unittest.TestCase):
                 db.add_transaction(amount=-1)
 
 
-if __name__ == "__main__":
+    def test_attachment_round_trip_and_memory_link(self):
+        png = __import__('base64').b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3ioAAAAASUVORK5CYII=')
+        with Storage() as db:
+            memory_id = db.add_memory('note', 'Rahayu meminjam Rp200.000')
+            attachment_id = db.add_attachment(memory_id, '../bukti.png', 'image/png', png)
+            attachment = db.get_attachment(attachment_id)
+            self.assertEqual(attachment['memory_id'], memory_id)
+            self.assertEqual(attachment['filename'], 'bukti.png')
+            self.assertEqual(attachment['data'], png)
+            self.assertEqual(db.list_attachments(memory_id)[0]['id'], attachment_id)
+
+    def test_attachment_is_included_in_canonical_backup_and_restore(self):
+        import base64
+        png = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3ioAAAAASUVORK5CYII=')
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            backup, target = tmp / 'backup.json', tmp / 'restored.db'
+            with Storage() as db:
+                memory_id = db.add_memory('note', 'Bukti transfer Rahayu')
+                db.add_attachment(memory_id, 'transfer.png', 'image/png', png)
+                db.backup(backup)
+            self.assertTrue(Storage.validate_backup(backup))
+            Storage.restore(backup, target)
+            with Storage(target) as restored:
+                self.assertEqual(restored.get_attachment(restored.list_attachments(memory_id)[0]['id'])['data'], png)
+
+    def test_v3_database_migrates_to_v4_without_losing_memory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'legacy.db'
+            with Storage(path) as db:
+                db.add_memory('note', 'Existing v3 memory')
+                db._conn.execute("UPDATE metadata SET value='3' WHERE key='schema_version'")
+            with Storage(path) as migrated:
+                self.assertEqual(migrated.schema_version, 4)
+                self.assertEqual(migrated.exact_search('Existing v3 memory')[0]['content'], 'Existing v3 memory')
+
+    def test_v3_canonical_backup_remains_restorable(self):
+        import json
+        with tempfile.TemporaryDirectory() as tmp:
+            backup = Path(tmp) / 'legacy-v3.json'
+            with Storage() as db:
+                memory_id = db.add_memory('note', 'Legacy backup survives migration')
+                payload = db.export_canonical()
+            payload.pop('attachments')
+            payload['schema_version'] = 3
+            for row in payload['memories']:
+                row['schema_version'] = 3
+            backup.write_text(json.dumps(payload), encoding='utf-8')
+            self.assertTrue(Storage.validate_backup(backup))
+            with Storage() as restored:
+                restored.import_json(backup)
+                self.assertEqual(restored.get_memory(memory_id)['content'], 'Legacy backup survives migration')
+
+    def test_invalid_attachment_signature_is_rejected(self):
+        with Storage() as db:
+            memory_id = db.add_memory('note', 'No fake image')
+            with self.assertRaises(ValueError):
+                db.add_attachment(memory_id, 'fake.png', 'image/png', b'not a PNG')
+
+
+if __name__ == '__main__':
     unittest.main()

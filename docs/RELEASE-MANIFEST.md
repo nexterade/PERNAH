@@ -1,3 +1,13 @@
+## 0.2.0-dev.61 — Canonical Image Attachments
+
+- **Version:** `0.2.0-dev.61`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.60.zip`
+- **Scope:** schema v4 image attachments linked to Memory, bounded local multipart capture, image preview/serving, and backup/restore compatibility.
+- **Migration:** existing SQLite v3 databases migrate to v4; v3 canonical JSON backups are upgraded during validation/import/restore.
+- **Security:** JPEG/PNG/GIF/WebP only; signature validation; max 4 attachments, 8 MiB each, 12 MiB per request; no remote exposure or external AI processing.
+- **Automated suite:** **170 passed, 1 skipped** (171 discovered); exact packaged-artifact validation must also pass.
+- **Artifact SHA-256:** record after packaging, outside the ZIP.
+
 ## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
 
 - **Version:** `0.2.0-dev.60`
@@ -11,9 +21,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.60`
-- **Schema:** `v3`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.59.zip`
+- **Version:** `0.2.0-dev.61`
+- **Schema:** `v4`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.60.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

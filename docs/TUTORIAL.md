@@ -76,3 +76,13 @@ From the local Web Interface, open **Settings → Backup & Recovery**.
 6. Open Memory or refresh the browser to verify the restored state.
 
 Restore is intentionally local-only and does not provide authentication or remote access. Secret Data remains outside the Memory Core / Web Backup contract.
+
+
+## 7. Menyimpan gambar sebagai bukti
+
+1. Buka **Memory** pada Local Web Interface.
+2. Tulis catatan yang menjelaskan kejadian, misalnya `Rahayu meminjam uang Rp200.000 tadi pagi`.
+3. Pada **Lampiran gambar**, pilih sampai 4 gambar JPEG, PNG, GIF, atau WebP.
+4. Tekan **Simpan catatan + lampiran**. Halaman hasil menampilkan gambar yang terkait dengan Memory ID tersebut.
+
+Batas saat ini: 8 MiB per gambar dan 12 MiB untuk seluruh request. Catatan dan lampiran tersimpan di SQLite lokal, serta ikut ke canonical JSON backup/restore. Simpan catatan pelunasan sebagai memory baru—jangan menimpa catatan pinjaman lama—agar histori kejadian tetap jelas. Screenshot pembayaran bisa memuat data finansial sensitif; jangan membuka Web Interface ke jaringan publik.

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import base64
+import binascii
 import sqlite3
 import tempfile
 import uuid
@@ -9,7 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 class ValidationError(ValueError):
     pass
@@ -115,6 +117,13 @@ class Storage:
             FOREIGN KEY(event_id) REFERENCES events(id), FOREIGN KEY(person_id) REFERENCES entities(id),
             FOREIGN KEY(source_id) REFERENCES sources(id)
         );
+        CREATE TABLE IF NOT EXISTS attachments (
+            id TEXT PRIMARY KEY, memory_id TEXT NOT NULL, filename TEXT NOT NULL,
+            mime_type TEXT NOT NULL, size_bytes INTEGER NOT NULL, data BLOB NOT NULL,
+            created_at TEXT NOT NULL,
+            FOREIGN KEY(memory_id) REFERENCES memories(id) ON DELETE CASCADE
+        );
+        CREATE INDEX IF NOT EXISTS idx_attachments_memory_id ON attachments(memory_id);
         CREATE INDEX IF NOT EXISTS idx_memories_content ON memories(content);
         CREATE INDEX IF NOT EXISTS idx_events_occurred_at ON events(occurred_at);
         CREATE INDEX IF NOT EXISTS idx_transactions_occurred_at ON transactions(occurred_at);
@@ -122,6 +131,10 @@ class Storage:
         row = self._conn.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone()
         if row is None:
             self._conn.execute("INSERT INTO metadata(key,value) VALUES('schema_version',?)", (str(SCHEMA_VERSION),))
+        elif int(row['value']) == 3:
+            # v3 -> v4 adds canonical image attachments and updates row schema markers.
+            self._conn.execute('UPDATE memories SET schema_version=? WHERE schema_version=3', (SCHEMA_VERSION,))
+            self._conn.execute("UPDATE metadata SET value=? WHERE key='schema_version'", (str(SCHEMA_VERSION),))
         elif int(row['value']) != SCHEMA_VERSION:
             raise RuntimeError(f'unsupported schema version {row["value"]}; expected {SCHEMA_VERSION}')
         self._conn.commit()
@@ -145,6 +158,41 @@ class Storage:
     def get_memory(self, memory_id: str):
         row = self._conn.execute('SELECT * FROM memories WHERE id=?', (memory_id,)).fetchone()
         return dict(row) if row else None
+
+    def add_attachment(self, memory_id: str, filename: str, mime_type: str, data: bytes, attachment_id: str | None = None) -> str:
+        if not self.get_memory(memory_id):
+            raise ValidationError('attachment memory does not exist')
+        if mime_type not in {'image/jpeg', 'image/png', 'image/gif', 'image/webp'}:
+            raise ValidationError('unsupported attachment image type')
+        if not isinstance(data, bytes) or not data:
+            raise ValidationError('attachment data must be non-empty bytes')
+        if not self._matches_image_signature(mime_type, data):
+            raise ValidationError('attachment bytes do not match declared image type')
+        if len(data) > 8 * 1024 * 1024:
+            raise ValidationError('attachment exceeds 8 MiB limit')
+        aid = attachment_id or _id()
+        safe_name = Path(filename).name.strip() or 'attachment'
+        safe_name = ''.join(ch for ch in safe_name if ch >= ' ' and ch not in {'\\', '/'})[:180] or 'attachment'
+        self._conn.execute(
+            'INSERT INTO attachments(id,memory_id,filename,mime_type,size_bytes,data,created_at) VALUES(?,?,?,?,?,?,?)',
+            (aid, memory_id, safe_name, mime_type, len(data), sqlite3.Binary(data), _now()),
+        )
+        return aid
+
+    def list_attachments(self, memory_id: str):
+        rows = self._conn.execute(
+            'SELECT id,memory_id,filename,mime_type,size_bytes,created_at FROM attachments WHERE memory_id=? ORDER BY created_at,id',
+            (memory_id,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+    def get_attachment(self, attachment_id: str):
+        row = self._conn.execute('SELECT * FROM attachments WHERE id=?', (attachment_id,)).fetchone()
+        if not row:
+            return None
+        result = dict(row)
+        result['data'] = bytes(result['data'])
+        return result
 
     def list_memories(self):
         return [dict(r) for r in self._conn.execute('SELECT * FROM memories ORDER BY created_at, id')]
@@ -289,7 +337,7 @@ class Storage:
 
     @staticmethod
     def _canonical_tables():
-        return ['sources','entities','memories','relationships','events','event_entities','commitments','decisions','transactions']
+        return ['sources','entities','memories','relationships','events','event_entities','commitments','decisions','transactions','attachments']
 
     def export_canonical(self):
         tables = self._canonical_tables()
@@ -298,7 +346,11 @@ class Storage:
             columns = [r['name'] for r in self._conn.execute(f'PRAGMA table_info({table})')]
             order = ', '.join(f'"{column}"' for column in columns)
             rows = self._conn.execute(f'SELECT * FROM {table} ORDER BY {order}').fetchall()
-            payload[table] = [dict(r) for r in rows]
+            table_rows = [dict(r) for r in rows]
+            if table == 'attachments':
+                for item in table_rows:
+                    item['data'] = base64.b64encode(bytes(item['data'])).decode('ascii')
+            payload[table] = table_rows
         return payload
 
     def export_json(self, path: str | Path):
@@ -384,8 +436,33 @@ class Storage:
         for row in payload['transactions']:
             if row['amount'] < 0:
                 raise ValidationError('transaction amount cannot be negative')
+        for row in payload['attachments']:
+            if row['mime_type'] not in {'image/jpeg', 'image/png', 'image/gif', 'image/webp'}:
+                raise ValidationError('unsupported attachment image type')
+            if not isinstance(row['size_bytes'], int) or row['size_bytes'] <= 0 or row['size_bytes'] > 8 * 1024 * 1024:
+                raise ValidationError('invalid attachment size')
+            try:
+                decoded = base64.b64decode(row['data'], validate=True)
+            except (binascii.Error, ValueError, TypeError) as exc:
+                raise ValidationError('invalid attachment data encoding') from exc
+            if len(decoded) != row['size_bytes']:
+                raise ValidationError('attachment size does not match its data')
+            if not cls._matches_image_signature(row['mime_type'], decoded):
+                raise ValidationError('attachment bytes do not match declared image type')
 
         return True
+
+    @staticmethod
+    def _matches_image_signature(mime_type: str, data: bytes) -> bool:
+        if mime_type == 'image/jpeg':
+            return data.startswith(b'\xff\xd8\xff')
+        if mime_type == 'image/png':
+            return data.startswith(b'\x89PNG\r\n\x1a\n')
+        if mime_type == 'image/gif':
+            return data.startswith((b'GIF87a', b'GIF89a'))
+        if mime_type == 'image/webp':
+            return len(data) >= 12 and data[:4] == b'RIFF' and data[8:12] == b'WEBP'
+        return False
 
     @classmethod
     def _read_backup(cls, path: str | Path):
@@ -396,6 +473,15 @@ class Storage:
             payload = json.loads(target.read_text(encoding='utf-8'))
         except (OSError, UnicodeError, json.JSONDecodeError) as exc:
             raise ValidationError(f'invalid backup JSON: {target}') from exc
+        # Preserve recovery compatibility for canonical v3 backups created before attachments existed.
+        if isinstance(payload, dict) and payload.get('format') == 'pernah-canonical-v1' and payload.get('schema_version') == 3:
+            legacy_tables = {'sources','entities','memories','relationships','events','event_entities','commitments','decisions','transactions'}
+            if set(payload) != {'format', 'schema_version', *legacy_tables}:
+                raise ValidationError('invalid legacy v3 canonical payload structure')
+            payload = dict(payload)
+            payload['schema_version'] = SCHEMA_VERSION
+            payload['attachments'] = []
+            payload['memories'] = [dict(row, schema_version=SCHEMA_VERSION) for row in payload['memories']]
         cls._validate_canonical_payload(payload)
         return payload
 
@@ -452,6 +538,11 @@ class Storage:
             verb = 'INSERT OR IGNORE' if ignore_conflicts else 'INSERT'
             for row in payload[table]:
                 vals = [row[c] for c in columns]
+                if table == 'attachments':
+                    try:
+                        vals[columns.index('data')] = sqlite3.Binary(base64.b64decode(row['data'], validate=True))
+                    except (binascii.Error, ValueError, TypeError) as exc:
+                        raise ValidationError('invalid attachment data encoding') from exc
                 self._conn.execute(
                     f'{verb} INTO {table}({",".join(columns)}) VALUES({placeholders})',
                     vals,

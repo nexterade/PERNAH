@@ -2,7 +2,7 @@
 
 **Personal Memory & Life Context System**
 
-Canonical storage + deterministic Memory Engine + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.60.
+Canonical storage + deterministic Memory Engine + image attachments + rebuildable semantic retrieval foundation for PERNAH v0.2.0-dev.61.
 
 ## Runtime
 
@@ -25,7 +25,7 @@ with Storage("pernah.db") as db:
     )
 ```
 
-The canonical database is local. Search indexes, embeddings, AI summaries, and caches are intentionally not part of this storage layer. Local backups use the same `pernah-canonical-v1` JSON contract and can be validated without mutating the canonical database.
+The canonical database is local. Search indexes, embeddings, AI summaries, and caches are intentionally not part of this storage layer. Image attachments are canonical SQLite BLOBs linked to memories and included in `pernah-canonical-v1` backups as validated Base64. Existing schema v3 databases and v3 JSON backups remain compatible through migration/upgrade.
 
 ## Local Web Interface
 
@@ -170,3 +170,8 @@ atau remote exposure sudah tersedia hanya karena konsep ini terdokumentasi.
 ## Visual Identity
 
 The project-facing UI uses the **PERNAH Visual Identity System**: Symbol + Wordmark / Continuity P, Memory · Knowledge · Continuity, LEMON MILK + Open Sans, restrained green signal accents, and dark/light themes. See `docs/assets/DESIGN-SYSTEM.md`.
+
+
+## Image attachments
+
+The Local Web Interface Memory form can attach up to four JPEG, PNG, GIF, or WebP images to one note (8 MiB each; 12 MiB per request). This is intended for receipts, transfer/payment screenshots, warranty evidence, and other visual context. Images remain local and are preserved by canonical backup/restore. The current implementation does not OCR images or transmit them to an AI provider.

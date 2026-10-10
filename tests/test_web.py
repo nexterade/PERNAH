@@ -551,5 +551,65 @@ class WebInterfaceTests(unittest.TestCase):
                 server.shutdown(); server.server_close(); thread.join()
 
 
-if __name__ == "__main__":
+    def test_multipart_capture_saves_and_serves_image_attachment(self):
+        import base64
+        png = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3ioAAAAASUVORK5CYII=')
+        boundary = '----pernah-test-boundary'
+        body = (
+            f'--{boundary}\r\nContent-Disposition: form-data; name="text"\r\n\r\nRahayu meminjam Rp200.000 tadi pagi\r\n'
+            f'--{boundary}\r\nContent-Disposition: form-data; name="attachments"; filename="bukti transfer.png"\r\nContent-Type: image/png\r\n\r\n'
+        ).encode() + png + f'\r\n--{boundary}--\r\n'.encode()
+        with tempfile.TemporaryDirectory() as td:
+            db_path = Path(td) / 'pernah.db'
+            server = create_server(db_path, port=0)
+            thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+            try:
+                conn = HTTPConnection('127.0.0.1', server.server_port)
+                conn.request('POST', '/capture', body=body, headers={'Content-Type': f'multipart/form-data; boundary={boundary}'})
+                response = conn.getresponse(); response.read()
+                self.assertEqual(response.status, 303)
+                location = response.getheader('Location')
+                conn.request('GET', location)
+                response = conn.getresponse(); saved_html = response.read().decode()
+                self.assertEqual(response.status, 200)
+                self.assertIn('bukti transfer.png', saved_html)
+                self.assertIn('/attachments/', saved_html)
+                with Storage(db_path) as db:
+                    memory = db.list_memories()[0]
+                    attachments = db.list_attachments(memory['id'])
+                    self.assertEqual(memory['content'], 'Rahayu meminjam Rp200.000 tadi pagi')
+                    self.assertEqual(len(attachments), 1)
+                    attachment_id = attachments[0]['id']
+                conn.request('GET', f'/attachments/{attachment_id}')
+                response = conn.getresponse(); data = response.read()
+                self.assertEqual(response.status, 200)
+                self.assertEqual(response.getheader('Content-Type'), 'image/png')
+                self.assertEqual(data, png)
+            finally:
+                server.shutdown(); server.server_close(); thread.join()
+
+    def test_multipart_rejects_fake_image_without_saving_memory(self):
+        boundary = '----pernah-test-boundary'
+        body = (
+            f'--{boundary}\r\nContent-Disposition: form-data; name="text"\r\n\r\nThis must not persist\r\n'
+            f'--{boundary}\r\nContent-Disposition: form-data; name="attachments"; filename="fake.png"\r\nContent-Type: image/png\r\n\r\nnot-image'
+            f'\r\n--{boundary}--\r\n'
+        ).encode()
+        with tempfile.TemporaryDirectory() as td:
+            db_path = Path(td) / 'pernah.db'
+            server = create_server(db_path, port=0)
+            thread = threading.Thread(target=server.serve_forever, daemon=True); thread.start()
+            try:
+                conn = HTTPConnection('127.0.0.1', server.server_port)
+                conn.request('POST', '/capture', body=body, headers={'Content-Type': f'multipart/form-data; boundary={boundary}'})
+                response = conn.getresponse(); body_out = response.read().decode()
+                self.assertEqual(response.status, 400)
+                self.assertIn('gambar', body_out)
+            finally:
+                server.shutdown(); server.server_close(); thread.join()
+            with Storage(db_path) as db:
+                self.assertEqual(db.list_memories(), [])
+
+
+if __name__ == '__main__':
     unittest.main()

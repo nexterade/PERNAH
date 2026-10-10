@@ -5,7 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.60`.
+Current release: `0.2.0-dev.61`.
+
+**Current implementation / next gate:** schema v4 canonical image attachments are implemented. Source suite result: 170 passed, 1 skipped (171 discovered). Next: package and validate the exact ZIP, then obtain Project Owner browser acceptance for attachment capture and Backup & Recovery.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle
@@ -63,7 +65,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.60  
+**Current project version:** 0.2.0-dev.61  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 
@@ -492,5 +494,10 @@ Hybrid Vocabulary + Glossary: the canonical dictionary accepts useful vocabulary
 
 - `ingest_draft()` prevalidates the transaction/event invariant and uses a unique SQLite savepoint so any exception rolls back all writes from that draft.
 - Regression tests cover malformed transaction drafts and a simulated downstream persistence failure.
-- `VERSION`, boot snapshot, machine state, README, STATE, BACKLOG, CHANGELOG, release manifest, Chronicle, and Glossary are synchronized to `0.2.0-dev.60`.
+- `VERSION`, boot snapshot, machine state, README, STATE, BACKLOG, CHANGELOG, release manifest, Chronicle, and Glossary are synchronized to `0.2.0-dev.61`.
 - Current product gate remains Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks. Milestone 6 readiness should be reassessed only after those gates are closed.
+
+
+## Current handoff — dev.61 image attachments
+
+Current implementation adds canonical image attachments linked to Memory records. SQLite schema v4 stores image BLOBs; portable canonical JSON encodes them as Base64. Local Web capture accepts JPEG/PNG/GIF/WebP (maximum 4 images, 8 MiB each, 12 MiB total), validates byte signatures, previews attachments on the saved-memory page, and preserves them through backup/restore. Existing schema v3 databases and v3 canonical JSON backups have compatibility paths. OCR, AI image interpretation, redaction, encryption-at-rest, and remote access are not implemented. Run the full suite and exact packaged-artifact preflight, then request human browser acceptance.

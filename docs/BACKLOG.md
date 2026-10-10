@@ -2,7 +2,19 @@
 
 Status roadmap: **Active implementation**
 
-## Current Gate — v0.2.0-dev.60
+## Current Gate — v0.2.0-dev.61: Canonical Image Attachments
+
+- [x] Add canonical attachment metadata and image bytes linked to Memory (schema v4).
+- [x] Migrate v3 SQLite databases and preserve v3 canonical JSON backup compatibility.
+- [x] Accept bounded JPEG/PNG/GIF/WebP attachments in Local Web Interface capture.
+- [x] Preview and serve attachments through a same-origin local route.
+- [x] Include attachment bytes in canonical JSON backup/restore.
+- [x] Add validation, migration, persistence, web, and backup regression tests.
+- [ ] Project Owner browser acceptance of image capture and backup/restore on exact packaged artifact.
+- [ ] Add image OCR / automatic evidence interpretation only after explicit design and privacy review; not part of this release.
+
+
+## Previous Gate — v0.2.0-dev.60 (historical; superseded by dev.61)
 
 - [x] Close the test-discovery blind spot by bringing Memory Engine regression tests under canonical `unittest` discovery.
 - [x] Add a regression guard against top-level `test_*` functions bypassing the release runner.
@@ -110,7 +122,7 @@ Status roadmap: **Active implementation**
 
 ## Next gate
 
-Milestone 5 — close Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks. Once those gates are accepted, reassess Milestone 6 — AI Layer; do not introduce provider coupling before deterministic capture/retrieval contracts are stable.
+Complete Project Owner browser acceptance for image attachments and the existing Web Backup & Recovery / exact-artifact UX checks. Then reassess Milestone 6 — AI Layer; do not introduce provider coupling before deterministic capture/retrieval and attachment contracts are stable.
 
 ### Product shell direction
 

@@ -17,11 +17,11 @@ class ContinuityIntegrityTests(unittest.TestCase):
         version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
         state = json.loads((ROOT / "PERNAH_PROJECT_STATE.json").read_text(encoding="utf-8"))
         self.assertEqual(state["version"], version)
-        self.assertEqual(state["schema_version"], 3)
-        self.assertEqual(state["expected_test_count"], 164)
-        self.assertEqual(state["previous_release"], "0.2.0-dev.59")
+        self.assertEqual(state["schema_version"], 4)
+        self.assertEqual(state["expected_test_count"], 171)
+        self.assertEqual(state["previous_release"], "0.2.0-dev.60")
         self.assertNotIn("dev.55 ZIP", state["next_release_task"])
-        self.assertEqual(state["current_next_gate"], "Project Owner human acceptance for Web Backup & Recovery and remaining exact-artifact UX checks; then reassess Milestone 6 readiness.")
+        self.assertEqual(state["current_next_gate"], "Full suite and exact-artifact validation for canonical image attachments; then Project Owner browser acceptance for attachment capture and existing Backup & Recovery UX.")
         self.assertTrue(state["chat_is_ephemeral"] if "chat_is_ephemeral" in state else state["continuity_layer"]["chat_is_ephemeral"])
 
     def test_release_manifest_records_parent_and_current_release(self):
@@ -72,7 +72,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(names.count("continuity layer"), 1)
         self.assertEqual(names.count("boot snapshot"), 1)
         self.assertEqual(names.count("release manifest"), 1)
-        self.assertEqual(len(entries), 154)
+        self.assertEqual(len(entries), 157)
 
 
 if __name__ == "__main__":

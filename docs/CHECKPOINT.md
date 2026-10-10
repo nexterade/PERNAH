@@ -1144,6 +1144,22 @@ WEB BACKUP & RECOVERY CONTRACT
 · The current Web Backup & Recovery surface is localhost-only; remote exposure,
   authentication, and online sync remain separate future security work.
 
+CANONICAL IMAGE ATTACHMENT CONTRACT
+──────────────────────────────────────────────────────────────────────────────
+· Image attachments MUST have an explicit foreign-key link to the canonical Memory
+  record they document; an uploaded file MUST NOT become an orphaned independent fact.
+· Canonical backup/export and restore MUST preserve attachment bytes and their Memory
+  links. Binary payloads in JSON exports MUST use a deterministic, validated encoding.
+· Uploads MUST be size-bounded, validate both declared type and byte signature, and
+  allowlist passive image formats only. Do not accept SVG or arbitrary active content.
+· The current attachment surface supports JPEG, PNG, GIF, and WebP; maximum 4 images
+  per capture, 8 MiB per image, and 12 MiB per request.
+· Attachments may contain sensitive personal/financial evidence. Keep the current web
+  interface localhost-only, do not log image bytes, and do not send images to external
+  services or AI providers unless a separately reviewed feature explicitly authorizes it.
+· Schema changes MUST include migration coverage and preserve v3 databases and v3
+  canonical backups where compatibility is explicitly implemented.
+
 LANGUAGE / UNDERSTANDING CONTRACT
 ──────────────────────────────────────────────────────────────────────────────
 · Multi-language input is an architectural requirement.

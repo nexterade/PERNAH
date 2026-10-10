@@ -105,3 +105,10 @@ The product shell embeds the canonical Chronicle and Glossary reference document
 - the product shell allows `frame-src 'self'` only, so external frame sources remain disallowed.
 
 This is a narrow same-origin exception for the existing local documentation reader, not a general public framing policy.
+
+
+## Image attachment boundary — schema v4
+
+Image attachments are canonical evidence linked to a Memory record. They are stored as SQLite BLOBs and included in canonical JSON backup/export using validated Base64. The local Web Interface accepts only JPEG, PNG, GIF, and WebP, validates the payload signature, limits uploads to 4 images per capture, 8 MiB per image, and 12 MiB per request, and rejects SVG or arbitrary files.
+
+A receipt or payment screenshot may contain names, account details, balances, or other Sensitive Data. Keep the current interface bound to localhost, avoid logging payload contents, and do not send attachments to external services or AI providers. The current implementation does not perform OCR, image interpretation, redaction, encryption-at-rest, or per-attachment access control; do not treat it as a secure document vault or expose it remotely.

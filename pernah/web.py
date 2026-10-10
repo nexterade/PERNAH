@@ -6,10 +6,12 @@ import json
 import mimetypes
 import tempfile
 import shutil
+from email import policy
+from email.parser import BytesParser
 import subprocess
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, unquote, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 from .manual_input import capture_text
 from .storage import Storage, ValidationError
@@ -114,10 +116,11 @@ class WebInputHandler(BaseHTTPRequestHandler):
                 memory_id = saved_ids[0]
                 with Storage(self.server.db_path) as db:
                     memory = db.get_memory(memory_id)
+                    attachments = db.list_attachments(memory_id) if memory else []
                 if memory is None:
                     self._send(404, _page('<section class="result" aria-live="polite"><strong>Memory tidak ditemukan.</strong></section>'))
                     return
-                self._send(200, shell_saved_memory(memory))
+                self._send(200, shell_saved_memory(memory, attachments))
                 return
             self._send(200, shell_home())
             return
@@ -126,6 +129,28 @@ class WebInputHandler(BaseHTTPRequestHandler):
             return
         if path == "/favicon.svg":
             self._serve_file(self.server.docs_root, "assets/pernah-symbol.svg")
+            return
+        if path.startswith("/attachments/"):
+            attachment_id = path[len("/attachments/"):]
+            if not attachment_id or "/" in attachment_id:
+                self.send_error(404)
+                return
+            try:
+                with Storage(self.server.db_path) as db:
+                    attachment = db.get_attachment(attachment_id)
+            except Exception:
+                attachment = None
+            if attachment is None:
+                self.send_error(404)
+                return
+            body = attachment["data"]
+            self.send_response(200)
+            self.send_header("Content-Type", attachment["mime_type"])
+            self.send_header("Content-Disposition", f"inline; filename=\"attachment\"; filename*=UTF-8''{quote(attachment['filename'])}")
+            self._security_headers()
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
             return
         if path == "/health":
             try:
@@ -156,41 +181,82 @@ class WebInputHandler(BaseHTTPRequestHandler):
             self._send(404, _page('<section class="result" aria-live="polite"><strong>Halaman tidak ditemukan.</strong></section>'))
             return
         content_type = self.headers.get("Content-Type", "")
-        if not content_type.lower().split(";", 1)[0].strip() == "application/x-www-form-urlencoded":
+        media_type = content_type.lower().split(";", 1)[0].strip()
+        if media_type not in {"application/x-www-form-urlencoded", "multipart/form-data"}:
             self._send(415, _page('<section class="result" aria-live="polite"><strong>Format input tidak didukung.</strong></section>'))
             return
         try:
-            length = int(self.headers.get("Content-Length", "0"))
+            length = int(self.headers.get("Content-Length", "-1"))
         except ValueError:
             self._send(400, _page('<section class="result" aria-live="polite"><strong>Content-Length tidak valid.</strong></section>'))
             return
         if length < 0:
-            self._send(400, _page('<section class="result" aria-live="polite"><strong>Content-Length tidak valid.</strong></section>'))
+            self._send(411, _page('<section class="result" aria-live="polite"><strong>Content-Length wajib.</strong></section>'))
             return
-        if length > 64 * 1024:
-            self._send(413, _page('<section class="result" aria-live="polite"><strong>Input terlalu besar.</strong></section>'))
+        max_body = 12 * 1024 * 1024
+        if length > max_body:
+            self._send(413, _page('<section class="result" aria-live="polite"><strong>Total input dan lampiran maksimal 12 MiB.</strong></section>'))
             return
+        raw = self.rfile.read(length)
+        if len(raw) != length:
+            self._send(400, _page('<section class="result" aria-live="polite"><strong>Payload input tidak lengkap.</strong></section>'))
+            return
+        text = ""
+        uploads = []
         try:
-            raw = self.rfile.read(length)
-            fields = parse_qs(raw.decode("utf-8"), keep_blank_values=True, max_num_fields=16)
-        except (UnicodeDecodeError, ValueError):
-            self._send(400, _page('<section class="result" aria-live="polite"><strong>Format input tidak valid.</strong></section>'))
+            if media_type == "application/x-www-form-urlencoded":
+                if length > 64 * 1024:
+                    self._send(413, _page('<section class="result" aria-live="polite"><strong>Input teks terlalu besar.</strong></section>'))
+                    return
+                fields = parse_qs(raw.decode("utf-8"), keep_blank_values=True, max_num_fields=16)
+                values = fields.get("text", [])
+                if len(values) != 1:
+                    raise ValueError("Input teks harus tepat satu field.")
+                text = values[0]
+            else:
+                message = BytesParser(policy=policy.default).parsebytes(
+                    b"Content-Type: " + content_type.encode("ascii", "strict") + b"\r\nMIME-Version: 1.0\r\n\r\n" + raw
+                )
+                if not message.is_multipart():
+                    raise ValueError("Payload multipart tidak valid.")
+                text_values = []
+                for part in message.iter_parts():
+                    field_name = part.get_param("name", header="content-disposition")
+                    filename = part.get_filename()
+                    if field_name == "text" and filename is None:
+                        payload = part.get_payload(decode=True) or b""
+                        charset = part.get_content_charset() or "utf-8"
+                        text_values.append(payload.decode(charset, "strict"))
+                    elif field_name == "attachments" and filename:
+                        payload = part.get_payload(decode=True) or b""
+                        if not payload:
+                            continue
+                        if len(payload) > 8 * 1024 * 1024:
+                            raise ValueError("Setiap gambar maksimal 8 MiB.")
+                        mime_type = part.get_content_type().lower()
+                        if not Storage._matches_image_signature(mime_type, payload):
+                            raise ValueError("Lampiran harus berupa gambar JPEG, PNG, GIF, atau WebP yang valid.")
+                        uploads.append((filename, mime_type, payload))
+                if len(text_values) != 1:
+                    raise ValueError("Input teks harus tepat satu field.")
+                text = text_values[0]
+                if len(uploads) > 4:
+                    raise ValueError("Maksimal 4 gambar per catatan.")
+        except (UnicodeDecodeError, UnicodeEncodeError, ValueError, LookupError) as exc:
+            self._send(400, _page(f'<section class="result" aria-live="polite"><strong>Input tidak valid.</strong><p>{html.escape(str(exc))}</p></section>'))
             return
-        values = fields.get("text", [])
-        if len(values) != 1:
-            self._send(400, _page('<section class="result" aria-live="polite"><strong>Input teks harus tepat satu field.</strong></section>'))
-            return
-        text = values[0]
         if not text.strip():
-            self._send(400, _page('<section class="result" aria-live="polite"><strong>Input tidak boleh kosong.</strong></section>', text))
+            self._send(400, _page('<section class="result" aria-live="polite"><strong>Catatan tidak boleh kosong.</strong></section>', text))
             return
         try:
             with Storage(self.server.db_path) as db:
                 captured = capture_text(db, text, source_type="web")
+                memory_id = captured["result"]["memory_id"]
+                for filename, mime_type, payload in uploads:
+                    db.add_attachment(memory_id, filename, mime_type, payload)
         except (ValueError, UnicodeDecodeError) as exc:
             self._send(400, _page(f'<section class="result" aria-live="polite"><strong>Input ditolak.</strong><p>{html.escape(str(exc))}</p></section>', text))
             return
-        memory_id = captured["result"]["memory_id"]
         self._redirect(303, f"/?saved={memory_id}")
 
     def _restore_backup(self):

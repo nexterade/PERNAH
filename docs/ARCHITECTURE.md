@@ -243,7 +243,13 @@ PERNAH mengambil Commitment dengan status pending/open dan mengevaluasi deadline
 - Canonical storage tables implemented in this gate: `sources`, `entities`, `memories`, `relationships`, `events`, `event_entities`, `commitments`, `decisions`, `transactions`
 - Derived indexes, embeddings, AI summaries, and caches remain outside the canonical store
 
-The physical schema was completed in the current storage gate through schema version 3. Event-to-entity links are represented explicitly by `event_entities` so retrieval can scope an event to the entities actually involved.
+The physical schema was completed through schema version 4. Event-to-entity links are represented explicitly by `event_entities` so retrieval can scope an event to the entities actually involved. Schema v4 adds canonical image attachments linked to memories.
+
+### 10.1 Canonical image attachments — schema v4
+
+`attachments` stores an image's ID, owning `memory_id`, safe filename, allowlisted MIME type, byte size, binary payload, and creation timestamp. The foreign key uses `ON DELETE CASCADE` so attachment metadata and bytes cannot outlive the memory they document. Current UI capture supports up to four JPEG/PNG/GIF/WebP images per memory, 8 MiB each and 12 MiB per HTTP request.
+
+SQLite stores the image payload as a BLOB. The portable `pernah-canonical-v1` JSON contract encodes that payload as validated Base64 under the same `data` field, allowing backup/restore to preserve evidence without a second filesystem store. Schema v3 databases migrate to v4 in place; v3 canonical JSON backups are upgraded in memory during import/restore by adding an empty attachment collection and advancing memory schema markers. SVG and arbitrary files are deliberately excluded. Images remain local canonical data and may contain Sensitive Data.
 
 ## 11. Memory Engine v0.1
 

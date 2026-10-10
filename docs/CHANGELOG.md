@@ -1,3 +1,14 @@
+## 0.2.0-dev.61 — Canonical Image Attachments
+
+- Added schema v4 `attachments` table with an explicit foreign-key link to the owning Memory and SQLite BLOB storage.
+- Extended the Local Web Interface Memory form to accept up to four JPEG, PNG, GIF, or WebP images alongside a note; validates byte signatures and enforces 8 MiB per image / 12 MiB per request limits.
+- Added local attachment viewing and result-page previews; attachment content is never written to request logs or sent to external services.
+- Included attachment bytes in `pernah-canonical-v1` backup/export as validated Base64, and preserved them through validation, import, and atomic restore.
+- Added v3→v4 database migration and compatibility upgrade for existing v3 canonical JSON backups.
+- Added storage, backup/restore, migration, web upload, invalid-image, and attachment-serving regression tests.
+- Parent artifact: `PERNAH-v0.2.0-dev.60.zip`.
+- Automated suite: **170 passed, 1 skipped** (171 discovered). Exact packaged-artifact validation is required before delivery.
+
 ## 0.2.0-dev.60 — Atomic Ingestion + Continuity Repair
 
 - Made `ingest_draft()` atomic with a SQLite savepoint; failures roll back all rows written by that draft, including when the caller catches the exception inside a `Storage` context.

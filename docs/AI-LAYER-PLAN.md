@@ -1,7 +1,7 @@
 # Milestone 6 — AI Layer: Execution Plan
 
-**Status:** IN PROGRESS — M6.1/M6.2, extraction orchestration, and M6.3 evidence projection implemented through dev.67  
-**Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.67`  
+**Status:** IN PROGRESS — M6.1–M6.3 implemented; M6.4 grounding/refinement hardening implemented in dev.70  
+**Planning baseline:** `0.2.0-dev.63`; updated through `0.2.0-dev.70`  
 **Architecture guardrail:** AI is an optional interpretation/answering capability. Canonical memory and deterministic capture/retrieval remain authoritative.
 
 ## Outcome
@@ -98,3 +98,8 @@ Known limitation: deterministic retrieval returns different shapes for event/tim
 ## Implementation note — dev.67
 
 Event/purchase retrieval rows are not automatically canonical memory evidence. When a query result exposes an `event_id` without a direct memory payload, orchestration resolves it through the storage contract `event_memories(event_id)`. Only linked rows with a stable memory ID and non-empty content are forwarded. Timeline nested memory rows follow the same normalization and deduplication rules. Orphan event summaries and malformed rows are excluded; provider/network integration remains deferred.
+
+
+## Implementation note — dev.70 (M6.4)
+
+Answer candidates still require traceable canonical memory IDs. Insufficient answers now require a non-empty uncertainty note; the orchestration result includes deterministic, UI-neutral refinement suggestions when evidence is absent/insufficient or the provider fails. Empty evidence continues to short-circuit provider invocation. Before an optional provider sees evidence, each record is projected to a small allowlist (`memory_id`, `content`, and selected bounded descriptive fields), excluding arbitrary storage metadata and attachment bytes. This does not enable a real provider or external processing; M6.5 must define and test provider failure, privacy disclosure, and external-processing boundaries first.

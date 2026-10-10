@@ -1,3 +1,12 @@
+## 0.2.0-dev.70 — Grounded answer and refinement boundary
+
+- Hardened insufficient-evidence validation: uncertainty notes must be non-empty after trimming.
+- Added deterministic, UI-neutral refinement suggestions when canonical evidence is absent, provider output is insufficient, or provider answering fails. No provider call occurs when evidence is empty.
+- Minimized provider-facing evidence to canonical memory ID, content, and selected bounded descriptive fields; unrelated metadata, attachment bytes, and arbitrary storage columns are dropped.
+- Added regression tests for insufficient answers, refinement suggestions, and provider-context minimization.
+- No real provider, SDK, network calls, canonical writes, UI integration, or schema migration; canonical schema remains v4.
+- Parent artifact: `PERNAH-v0.2.0-dev.69.zip`.
+
 ## 0.2.0-dev.69 — Chronicle document-wide structural audit
 
 - Audited all numbered Chronicle sections (1–50): numbered milestones consistently use `h1` and a preceding horizontal divider; introductory section 0 remains `h2`.

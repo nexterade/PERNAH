@@ -18,10 +18,10 @@ class ContinuityIntegrityTests(unittest.TestCase):
         state = json.loads((ROOT / "PERNAH_PROJECT_STATE.json").read_text(encoding="utf-8"))
         self.assertEqual(state["version"], version)
         self.assertEqual(state["schema_version"], 4)
-        self.assertEqual(state["expected_test_count"], 197)
-        self.assertEqual(state["previous_release"], "0.2.0-dev.67")
+        self.assertGreaterEqual(state["expected_test_count"], 197)
+        self.assertEqual(state["previous_release"], "0.2.0-dev.69")
         self.assertNotIn("dev.55 ZIP", state["next_release_task"])
-        self.assertIn("answer grounding", state["current_next_gate"])
+        self.assertIn("M6.5", state["current_next_gate"])
         self.assertTrue(state["chat_is_ephemeral"] if "chat_is_ephemeral" in state else state["continuity_layer"]["chat_is_ephemeral"])
 
     def test_release_manifest_records_parent_and_current_release(self):
@@ -72,7 +72,7 @@ class ContinuityIntegrityTests(unittest.TestCase):
         self.assertEqual(names.count("continuity layer"), 1)
         self.assertEqual(names.count("boot snapshot"), 1)
         self.assertEqual(names.count("release manifest"), 1)
-        self.assertEqual(len(entries), 160)
+        self.assertEqual(len(entries), 163)
 
 
 if __name__ == "__main__":

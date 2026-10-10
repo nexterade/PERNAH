@@ -2,7 +2,7 @@
 
 Status roadmap: **Active implementation**
 
-Current maintenance note (dev.69): full Chronicle section audit completed; global heading/divider/content integrity guards added. Active AI gate remains answer-grounding and insufficient-evidence/refinement behavior.
+Current maintenance note (dev.70): M6.4 answer grounding now enforces non-empty uncertainty notes, returns deterministic refinement suggestions for insufficient evidence, and minimizes provider-facing canonical evidence. Active gate advances to M6.5 provider failure, privacy, and external-processing boundaries.
 
 ## Current Gate — v0.2.0-dev.61: Canonical Image Attachments (Project Owner acceptance pending)
 
@@ -147,7 +147,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-M6.1/M6.2 contracts, extraction orchestration, and M6.3 retrieval-first orchestration with canonical event-to-memory evidence projection are implemented through dev.67. Next gate: harden answer grounding and explicit insufficient-evidence/refinement behavior. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
+M6.1/M6.2 contracts, extraction orchestration, and M6.3 retrieval-first orchestration with canonical event-to-memory evidence projection are implemented through dev.67. Next gate: M6.5 provider failure, privacy, and external-processing boundaries. M6.4 has deterministic refinement suggestions and minimized provider evidence projection. No real provider, SDK, network behavior, schema migration, or AI UI until privacy/failure boundaries are reviewed.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 

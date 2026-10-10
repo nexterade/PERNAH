@@ -1,4 +1,12 @@
-## 0.2.0-dev.69 — Chronicle document-wide structural consistency (current)
+## 0.2.0-dev.70 — Grounded answer and refinement boundary (current)
+
+- M6.4 adds non-empty uncertainty-note validation and deterministic retrieval refinement suggestions for missing/insufficient evidence and provider failures.
+- Provider-facing evidence is now a minimized projection: memory ID + content, with only selected bounded descriptive fields. Arbitrary metadata and attachment bytes are excluded.
+- Provider remains optional; no network/SDK integration, UI, canonical writes, or schema migration. Schema v4 unchanged.
+- Added regression coverage for answer insufficiency and evidence minimization.
+- Parent artifact: `PERNAH-v0.2.0-dev.69.zip`.
+
+## 0.2.0-dev.69 — Chronicle document-wide structural consistency (historical)
 
 - Audited all numbered sections in `docs/Creation-Chronicle.html`; each uses `h1` and a preceding divider. Section 0 remains an intentional `h2` introduction.
 - Added document-wide regression checks for heading hierarchy, dividers, and recognizable body content.

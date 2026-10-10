@@ -216,11 +216,11 @@ def validate_answer(raw: Mapping[str, Any], request: AnswerRequest) -> AnswerCan
         raise InvalidProposal("evidence_sufficient must be boolean")
     if sufficient and not ids:
         raise InvalidProposal("sufficient evidence requires at least one supporting memory ID")
-    if not sufficient and not isinstance(note, str):
-        raise InvalidProposal("insufficient evidence requires an uncertainty note")
+    if not sufficient and (not isinstance(note, str) or not note.strip()):
+        raise InvalidProposal("insufficient evidence requires a non-empty uncertainty note")
     if note is not None and (not isinstance(note, str) or len(note) > 500):
         raise InvalidProposal("uncertainty_note must be at most 500 characters")
-    return AnswerCandidate(text.strip(), tuple(dict.fromkeys(ids)), sufficient, note)
+    return AnswerCandidate(text.strip(), tuple(dict.fromkeys(ids)), sufficient, note.strip() if isinstance(note, str) else None)
 
 
 class AIProvider(Protocol):
@@ -316,6 +316,21 @@ class RetrievalResult:
     mode: str
     answer_candidate: AnswerCandidate | None = None
     fallback_reason: str | None = None
+    refinement_suggestions: tuple[str, ...] = ()
+
+
+def _refinement_suggestions(question: str, evidence: Sequence[Mapping[str, Any]]) -> tuple[str, ...]:
+    """Return generic, deterministic ways to refine retrieval without guessing facts."""
+    suggestions = [
+        "Tambahkan nama orang, tempat, atau objek yang terkait.",
+        "Perjelas rentang waktu, misalnya hari, minggu, atau bulan.",
+    ]
+    if evidence:
+        suggestions.insert(0, "Tanyakan aspek yang lebih spesifik dari catatan yang ditemukan.")
+    if len(question.split()) <= 3:
+        suggestions.append("Tambahkan sedikit konteks tentang kejadian atau catatan yang dicari.")
+    # Stable deduplication; suggestions are UI-neutral data, not a generated answer.
+    return tuple(dict.fromkeys(suggestions))[:3]
 
 
 def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *, limit: int = 10) -> RetrievalResult:
@@ -358,9 +373,14 @@ def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *
         key = str(raw_id).strip()
         if not key or key in seen:
             return
-        item = dict(memory)
-        item["memory_id"] = key
-        item.pop("id", None)
+        # Provider-facing evidence is a minimized projection, not the full storage row.
+        # This intentionally drops arbitrary metadata, attachment fields, and unrelated
+        # internal columns before any optional external provider can inspect the record.
+        item: dict[str, Any] = {"memory_id": key, "content": content.strip()}
+        for field in ("created_at", "occurred_at", "type", "source_type"):
+            value = memory.get(field)
+            if isinstance(value, str) and value.strip() and len(value) <= 256:
+                item[field] = value
         if event_id is not None:
             item["matched_event_id"] = event_id
         candidates.append(item)
@@ -394,14 +414,23 @@ def orchestrate_retrieval(db: Any, question: str, provider: Any | None = None, *
         return RetrievalResult(question, evidence, "deterministic", fallback_reason="provider_not_configured")
     if not evidence:
         # Never ask a model to invent a personal fact when canonical retrieval found nothing.
-        return RetrievalResult(question, (), "deterministic_no_evidence", fallback_reason="no_canonical_evidence")
+        return RetrievalResult(
+            question, (), "deterministic_no_evidence", fallback_reason="no_canonical_evidence",
+            refinement_suggestions=_refinement_suggestions(question, ()),
+        )
     request = AnswerRequest(question, evidence)
     try:
         raw = provider.answer(request)
         candidate = validate_answer(raw, request)
     except Exception as exc:
-        return RetrievalResult(question, evidence, "deterministic_fallback", fallback_reason=f"provider_error:{type(exc).__name__}")
+        return RetrievalResult(
+            question, evidence, "deterministic_fallback", fallback_reason=f"provider_error:{type(exc).__name__}",
+            refinement_suggestions=_refinement_suggestions(question, evidence),
+        )
     if not candidate.evidence_sufficient:
-        return RetrievalResult(question, evidence, "deterministic_review_required", answer_candidate=candidate,
-                               fallback_reason="evidence_insufficient")
+        return RetrievalResult(
+            question, evidence, "deterministic_review_required", answer_candidate=candidate,
+            fallback_reason="evidence_insufficient",
+            refinement_suggestions=_refinement_suggestions(question, evidence),
+        )
     return RetrievalResult(question, evidence, "deterministic_with_grounded_candidate", answer_candidate=candidate)

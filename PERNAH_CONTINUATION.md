@@ -5,9 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.69`.
+Current release: `0.2.0-dev.70`.
 
-**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. M6.3 retrieval-first orchestration and canonical event-to-memory evidence projection are implemented. Active next gate: harden answer grounding and explicit insufficient-evidence/refinement behavior. Provider proposals remain advisory and canonical writes remain deterministic.
+**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. M6.3 retrieval-first orchestration and M6.4 grounded-answer validation/refinement are implemented through dev.70. Provider-facing evidence is minimized to an allowlist; empty evidence short-circuits provider calls; insufficient answers require a non-empty uncertainty note and include deterministic refinement suggestions. Next gate: M6.5 provider failure, privacy, and external-processing boundaries. No real provider/network/SDK or AI UI integration yet; canonical writes remain deterministic.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle
@@ -65,7 +65,7 @@ These files are derived/operational aids. They do not outrank `CHECKPOINT.md`,
 
 **Project:** PERNAH  
 **Expansion:** Personal Memory & Life Context System  
-**Current project version:** 0.2.0-dev.69  
+**Current project version:** 0.2.0-dev.70  
 **Working concept:** External memory / life-context system  
 **Core idea:** User speaks naturally; PERNAH understands the intent, extracts structured context, stores canonical memory, and retrieves it later.
 
@@ -511,4 +511,4 @@ Current implementation adds canonical image attachments linked to Memory records
 **dev.67:** Retrieval orchestration now resolves event/purchase rows through linked canonical memories before forming provider evidence; orphan summaries are excluded. Next: test answer grounding and insufficient-evidence/refinement behavior; no real provider or network behavior yet.
 
 
-**dev.68:** Section 44 heading/divider repair. **dev.69:** Audited all numbered Chronicle sections and expanded regression checks to enforce `h1` + preceding divider for every numbered milestone, with section 0 explicitly exempted as `h2`; tests also check section body content. Documentation-only; runtime/schema v4 unchanged.
+**dev.68:** Editorial-only Chronicle repair: section 44 now uses the standard numbered milestone `h1` heading and divider. Regression coverage added; runtime/schema v4 unchanged.

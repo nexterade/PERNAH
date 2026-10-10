@@ -1,3 +1,12 @@
+## 0.2.0-dev.70 — Grounded answer and refinement boundary
+
+- **Version:** `0.2.0-dev.70`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.69.zip`
+- **Scope:** M6.4 hardening for non-empty uncertainty notes, deterministic refinement guidance, and minimized provider evidence projection.
+- **Runtime/provider:** no real provider, SDK, network calls, or UI integration; schema v4 unchanged.
+- **Validation:** full suite plus exact packaged-artifact preflight required.
+- **Artifact SHA-256:** recorded after packaging, outside the ZIP.
+
 ## 0.2.0-dev.69 — Chronicle document-wide structural consistency
 
 - **Version:** `0.2.0-dev.69`
@@ -99,9 +108,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.69`
+- **Version:** `0.2.0-dev.70`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.68.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.69.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

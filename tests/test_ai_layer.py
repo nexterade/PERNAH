@@ -253,3 +253,75 @@ class RetrievalOrchestrationTests(unittest.TestCase):
         for limit in (0, 51, True):
             with self.subTest(limit=limit), self.assertRaises(ValueError):
                 orchestrate_retrieval(DB(), "tes", limit=limit)
+
+class GroundedAnswerRefinementTests(unittest.TestCase):
+    def test_insufficient_answer_requires_nonblank_uncertainty_note(self):
+        from pernah.ai_layer import AnswerRequest, InvalidProposal, validate_answer
+        request = AnswerRequest("Apa yang terjadi?", ({"memory_id": "mem-1", "content": "Catatan"},))
+        for note in (None, "", "   "):
+            with self.subTest(note=note), self.assertRaises(InvalidProposal):
+                validate_answer({
+                    "text": "Buktinya belum cukup.", "supporting_memory_ids": [],
+                    "evidence_sufficient": False, "uncertainty_note": note,
+                }, request)
+
+    def test_insufficient_answer_is_preserved_with_refinement_guidance(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text):
+                return [{"id": "m1", "content": "Catatan singkat", "private_metadata": "must-not-leak"}]
+            def list_memories(self):
+                return [{"id": "m1", "content": "Catatan singkat", "private_metadata": "must-not-leak"}]
+        class Provider:
+            def answer(self, request):
+                return {
+                    "text": "Catatan ini belum cukup untuk menjawab detailnya.",
+                    "supporting_memory_ids": [], "evidence_sufficient": False,
+                    "uncertainty_note": "Catatan yang ditemukan tidak memuat detail yang ditanyakan.",
+                }
+        result = orchestrate_retrieval(DB(), "Detailnya apa?", Provider())
+        self.assertEqual(result.mode, "deterministic_review_required")
+        self.assertEqual(result.fallback_reason, "evidence_insufficient")
+        self.assertIsNotNone(result.answer_candidate)
+        self.assertFalse(result.answer_candidate.evidence_sufficient)
+        self.assertTrue(result.refinement_suggestions)
+
+    def test_provider_evidence_is_minimized_and_drops_unrelated_fields(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text):
+                return [{
+                    "id": "m1", "content": "Catatan canonical", "created_at": "2026-01-01T00:00:00Z",
+                    "secret_token": "do-not-forward", "attachment_bytes": b"private-image",
+                    "internal_notes": "not for provider", "source_type": "manual",
+                }]
+            def list_memories(self):
+                return [{
+                    "id": "m1", "content": "Catatan canonical", "created_at": "2026-01-01T00:00:00Z",
+                    "secret_token": "do-not-forward", "attachment_bytes": b"private-image",
+                    "internal_notes": "not for provider", "source_type": "manual",
+                }]
+        class Provider:
+            def answer(self, request):
+                self.evidence = request.evidence
+                return {"text": "Catatan ditemukan.", "supporting_memory_ids": ["m1"], "evidence_sufficient": True}
+        provider = Provider()
+        result = orchestrate_retrieval(DB(), "Apa catatannya?", provider)
+        self.assertEqual(result.mode, "deterministic_with_grounded_candidate")
+        self.assertEqual(set(provider.evidence[0]), {"memory_id", "content", "created_at", "source_type"})
+        self.assertNotIn("secret_token", provider.evidence[0])
+        self.assertNotIn("attachment_bytes", provider.evidence[0])
+        self.assertNotIn("internal_notes", provider.evidence[0])
+
+    def test_no_evidence_returns_deterministic_refinement_suggestions_without_provider_call(self):
+        from pernah.ai_layer import orchestrate_retrieval
+        class DB:
+            def exact_search(self, text): return []
+            def list_memories(self): return []
+        class Provider:
+            def answer(self, request): raise AssertionError("must not be called without evidence")
+        result = orchestrate_retrieval(DB(), "Laptop?", Provider())
+        self.assertEqual(result.mode, "deterministic_no_evidence")
+        self.assertGreaterEqual(len(result.refinement_suggestions), 2)
+        self.assertLessEqual(len(result.refinement_suggestions), 3)
+        self.assertTrue(all(isinstance(item, str) and item.strip() for item in result.refinement_suggestions))

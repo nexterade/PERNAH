@@ -1,11 +1,11 @@
 {
   "project": "PERNAH",
   "expansion": "Personal Memory & Life Context System",
-  "version": "0.2.0-dev.69",
+  "version": "0.2.0-dev.70",
   "schema_version": 4,
   "status": "active development",
   "milestone": "Milestone 6 — AI Layer",
-  "current_next_gate": "Harden answer grounding and explicit insufficient-evidence/refinement behavior; no real provider/network yet.",
+  "current_next_gate": "M6.5 provider failure, privacy, and external-processing boundaries; no real provider/network/SDK or AI UI.",
   "continuity_layer": {
     "boot_file": "PERNAH_BOOT.md",
     "handoff_file": "PERNAH_CONTINUATION.md",
@@ -43,9 +43,9 @@
   "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
   "canonical_memory_authoritative": true,
   "ai_provider_dependency": false,
-  "expected_test_count": 197,
-  "previous_release": "0.2.0-dev.67",
-  "next_release_task": "Harden answer grounding and explicit insufficient-evidence/refinement behavior before any user-facing AI integration.",
+  "expected_test_count": 202,
+  "previous_release": "0.2.0-dev.69",
+  "next_release_task": "M6.5 provider failure, privacy, and external-processing boundaries; no real provider/network/SDK or AI UI.",
   "collaboration_style": {
     "role": "Co-Developer and discussion partner",
     "language": "Bahasa Indonesia — natural, santai, jelas, tidak kaku",
@@ -54,8 +54,8 @@
     "resource_aware": true,
     "default_cost_preference": "free/local/offline/low-cost when sufficient"
   },
-  "latest_change": "Canonical event evidence projection: event/purchase rows resolve through linked canonical memories; orphan summaries and malformed memory rows are excluded.",
-  "expected_test_result": "full suite PASS (195 passed, 1 skipped expected) and exact-artifact preflight PASS",
+  "latest_change": "M6.4 grounded answer hardening: non-empty uncertainty note, deterministic refinement suggestions, and minimized provider-facing evidence projection.",
+  "expected_test_result": "201 passed, 1 skipped (202 discovered); exact packaged-artifact preflight must pass.",
   "manual_acceptance": "Project Owner reports all attachment + Backup & Recovery browser checks PASS on packaged dev.62 artifact.",
   "deployment_concept": {
     "status": "concept_not_implemented",
@@ -69,5 +69,5 @@
     "static_surface_candidate": "GitHub Pages",
     "canonical_storage": "SQLite on local runtime"
   },
-  "last_change": "Full Chronicle numbered-section audit and document-wide heading/divider/content regression guards; documentation-only dev.69."
+  "last_change": "M6.4 grounded answer hardening: non-empty uncertainty note, deterministic refinement suggestions, minimized provider-facing evidence projection; schema v4 unchanged."
 }

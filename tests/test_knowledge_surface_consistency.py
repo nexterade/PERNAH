@@ -25,7 +25,7 @@ class KnowledgeSurfaceConsistencyTests(unittest.TestCase):
             "integrity contract", "invariant", "knowledge-surface impact check",
             "policy propagation", "prompt translation", "raw idea", "release preflight",
             "trigger policy", "test discovery contract", "regression guard",
-            "mixed-language boundary", "web backup & recovery", "explicit restore confirmation",
+            "mixed-language boundary", "web backup & recovery", "explicit restore confirmation", "grounded answer", "insufficient evidence", "evidence minimization",
         ]:
             self.assertIn(term, names)
 

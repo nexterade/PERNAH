@@ -5,9 +5,9 @@
 
 ## 0.0 CURRENT KNOWLEDGE-SURFACE GATE
 
-Current release: `0.2.0-dev.63`.
+Current release: `0.2.0-dev.64`.
 
-**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. Follow `docs/AI-LAYER-PLAN.md`; first implement provider-neutral contracts and structured-output validation with fake providers only.
+**Current implementation / next gate:** schema v4 canonical image attachments remain local SQLite BLOBs. Project Owner reports all attachment and Backup & Recovery browser checks PASS on packaged `dev.62`; this acceptance is recorded in `dev.63`. Catbox remains parked. M6.1 provider-neutral contracts and M6.2 strict extraction/answer proposal validation are implemented in `pernah/ai_layer.py`; no real provider/network/SDK or canonical writes. Next review semantics and add deterministic fallback orchestration around `normalize()`.
 
 For every material change, perform the lightweight Knowledge-Surface Impact Check:
 `BOTH / GLOSSARY / CHRONICLE / NONE`. Glossary defines terminology; Creation Chronicle

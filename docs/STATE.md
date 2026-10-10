@@ -1,3 +1,14 @@
+## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation (current)
+
+- Implemented M6.1 provider-neutral contracts and M6.2 structured extraction validation in `pernah/ai_layer.py`.
+- `UnconfiguredProvider` is offline-safe and raises an actionable `ProviderUnavailable`; there is no real provider, SDK, network behavior, or credential handling.
+- Provider output is validated as an untrusted proposal; low-confidence or deterministic-routing intents require review. Proposals are not `MemoryDraft` objects and are not persisted automatically.
+- Answer candidates must cite IDs from the exact supplied evidence set; insufficient evidence requires an uncertainty note.
+- Added 12 AI boundary regression tests. Canonical schema remains v4; runtime capture/storage/retrieval paths are unchanged.
+- Next gate: review the contract/failure semantics, then implement a deterministic fallback adapter that uses existing `normalize()` and only hands validated/reviewed proposals to the existing atomic ingestion boundary.
+- Catbox remains parked.
+- Parent artifact: `PERNAH-v0.2.0-dev.63.zip`.
+
 ## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan (current)
 
 - Project Owner reports all manual checks PASS on exact packaged `dev.62`: image capture, preview/reopen, backup, restore, refresh/restart persistence, and existing Memory/Backup UX.

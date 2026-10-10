@@ -77,3 +77,7 @@ Add a provider-neutral AI boundary that can improve extraction and answer compos
 ## First implementation target
 
 Start with **M6.1 + M6.2 contracts and tests only**, using fake providers and no real network provider. Review the API and failure semantics before adding provider integrations or changing the Web UI.
+
+## Implementation note — dev.64
+
+`pernah/ai_layer.py` now implements provider-neutral contracts, an offline-safe `UnconfiguredProvider`, strict extraction-proposal validation, and evidence-bound answer validation. Tests use local fixtures only. This module intentionally does not call providers, write canonical data, or construct a `MemoryDraft`; deterministic orchestration remains the next gate.

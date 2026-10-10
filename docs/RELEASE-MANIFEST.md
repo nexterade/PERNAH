@@ -1,3 +1,13 @@
+## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation
+
+- **Version:** `0.2.0-dev.64`
+- **Parent artifact:** `PERNAH-v0.2.0-dev.63.zip`
+- **Scope:** M6.1 provider-neutral contracts and M6.2 validation of untrusted extraction/answer proposals.
+- **Provider/network:** none; no SDK or real credentials required.
+- **Canonical schema:** v4 unchanged; no AI result is automatically persisted.
+- **Tests:** 12 new AI contract tests plus full regression suite; exact packaged artifact preflight required.
+- **Artifact SHA-256:** record after packaging, outside the ZIP.
+
 ## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan
 
 - **Version:** `0.2.0-dev.63`
@@ -42,9 +52,9 @@
 ## Current artifact
 
 - **Project:** PERNAH
-- **Version:** `0.2.0-dev.63`
+- **Version:** `0.2.0-dev.64`
 - **Schema:** `v4`
-- **Previous artifact:** `PERNAH-v0.2.0-dev.62.zip`
+- **Previous artifact:** `PERNAH-v0.2.0-dev.63.zip`
 - **Current artifact SHA-256:** recorded in delivery notes after packaging; not embedded here to avoid a self-referential ZIP hash.
 
 ## 0.2.0-dev.59 — Chronicle Sidebar Scroll-Sync / Scrollspy

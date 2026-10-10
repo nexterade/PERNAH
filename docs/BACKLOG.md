@@ -145,7 +145,7 @@ Do not implement, add Catbox runtime dependencies, migrate attachment storage, o
 
 Project Owner manual acceptance for image attachments and the existing Web Backup & Recovery flow on packaged `dev.62`: **PASS** (reported by Project Owner; screenshot confirms saved-memory attachment preview). This closes the current Milestone 5 acceptance gate for that artifact.
 
-Proceed to **Milestone 6 — AI Layer**, following `docs/AI-LAYER-PLAN.md`. First implementation slice is M6.1 provider-neutral contracts and M6.2 structured extraction validation using fake providers only. Do not add a real provider, SDK, network behavior, schema migration, or AI UI until contracts, failure semantics, and privacy boundaries are tested and reviewed.
+M6.1 provider-neutral contracts and M6.2 structured extraction validation are implemented in dev.64 with no real provider or network access. Next gate: review API/failure semantics, then implement deterministic fallback orchestration around existing `normalize()` before considering any real provider. Do not add an SDK, network behavior, schema migration, or AI UI until the contracts and privacy boundaries are reviewed.
 
 Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** and must not be implemented unless explicitly reopened by the Project Owner.
 
@@ -198,8 +198,8 @@ Catbox remains parked as **PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)** a
 
 Detailed plan and acceptance criteria: [`docs/AI-LAYER-PLAN.md`](AI-LAYER-PLAN.md).
 
-- [ ] M6.1 — Provider-neutral contracts + deterministic fallback (first implementation slice)
-- [ ] M6.2 — Structured extraction contract and untrusted-output validation
+- [x] M6.1 — Provider-neutral request/result/error contracts; unconfigured provider is offline-safe
+- [x] M6.2 — Structured extraction contract and untrusted-output validation
 - [ ] M6.3 — Retrieval orchestration over deterministic canonical candidates
 - [ ] M6.4 — Memory-grounded answer generation with traceable evidence
 - [ ] M6.5 — Provider failure, privacy, and external-processing boundaries

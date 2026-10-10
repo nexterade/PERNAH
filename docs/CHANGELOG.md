@@ -1,5 +1,15 @@
 # PERNAH — Changelog
 
+## 0.2.0-dev.64 — AI Contracts + Structured Proposal Validation
+
+- Added provider-neutral AI request/result contracts and explicit `ProviderUnavailable`, `ProviderFailure`, and `InvalidProposal` error types in `pernah/ai_layer.py`.
+- Added strict validation for untrusted structured extraction proposals, exact original-input provenance, bounded sizes, allowed intent/language/entity/relationship fields, transaction/event invariants, and confidence review routing.
+- Added answer-candidate validation that rejects memory references outside the retrieved canonical evidence set and requires uncertainty notes when evidence is insufficient.
+- Added an offline-safe unconfigured provider contract; no SDK, network calls, provider credentials, canonical writes, or schema changes.
+- Added 12 regression tests for valid/invalid proposals, evidence grounding, and deterministic fallback semantics.
+- Parent artifact: `PERNAH-v0.2.0-dev.63.zip`.
+
+
 ## 0.2.0-dev.63 — Attachment Acceptance + AI Layer Plan
 
 - Recorded Project Owner manual acceptance of image attachment capture, preview, and Backup & Recovery on the packaged `dev.62` artifact; all checks were reported PASS.

@@ -27,7 +27,7 @@ class SecurityGovernanceTests(unittest.TestCase):
         names = [entry[0].casefold() for entry in entries]
         for term in ["data classification", "normal data", "sensitive data", "secret data", "secret vault"]:
             self.assertEqual(names.count(term), 1, term)
-        self.assertEqual(len(entries), 157)
+        self.assertEqual(len(entries), 159)
 
     def test_web_backup_recovery_contract_is_explicit(self):
         checkpoint = (ROOT / "docs" / "CHECKPOINT.md").read_text(encoding="utf-8")

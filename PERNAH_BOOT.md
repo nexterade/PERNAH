@@ -11,14 +11,14 @@
 
 - **Project:** PERNAH
 - **Expansion:** Personal Memory & Life Context System
-- **Version:** `0.2.0-dev.63`
+- **Version:** `0.2.0-dev.64`
 - **Schema:** `v4`
 - **Status:** active development
 
 ## Current continuation point
 
-- **Milestone:** Milestone 6 — AI Layer (plan accepted; implementation not yet started)
-- **Current next gate:** Implement M6.1 provider-neutral contracts and M6.2 structured extraction validation using fake providers only, following `docs/AI-LAYER-PLAN.md`.
+- **Milestone:** Milestone 6 — AI Layer (M6.1/M6.2 contracts implemented; orchestration/provider integration not started)
+- **Current next gate:** Review M6.1/M6.2 API and failure semantics, then implement deterministic fallback orchestration around existing `normalize()`; no real provider/network/SDK.
 - **Current shell sub-gate:** shared shell now wraps Home, Memory, Chronicle, Glossary, Settings, and About; Chronicle/Glossary now embed content-only reference surfaces with one product navigation; standalone docs remain directly accessible
 - **Completed immediately before this gate:** Warung Padang manual acceptance of the Local Web Interface on the packaged dev.31 artifact
 - **Completed immediately before this release:** CLI Web Interface startup now auto-copies its printed local URL when a supported clipboard utility is available
@@ -30,12 +30,13 @@
 
 - `dev.61` adds canonical image attachments, v3→v4 migration, bounded upload validation, and attachment-preserving backup/restore.
 - `dev.62` archived “PERNAH CROSSOVER CATBOX (Coming Soon, Maybe 🤔)” as a non-committed roadmap concept. Catbox is not integrated; attachments remain local SQLite BLOBs.
-- `dev.63` records Project Owner PASS for all manual attachment + Backup & Recovery checks on the exact packaged dev.62 artifact and adds a staged Milestone 6 plan; no runtime/schema/provider behavior changes.
-- Latest source-tree regression baseline from dev.62: **170 passed, 1 skipped (171 discovered)**. Re-run the full suite and exact-artifact preflight for dev.63 before delivery.
+- `dev.63` records Project Owner PASS for attachment + Backup & Recovery on packaged dev.62 and adds the staged AI Layer plan.
+- `dev.64` implements provider-neutral AI contracts and strict validation for untrusted extraction/answer proposals; no real provider, network, SDK, automatic canonical writes, or schema change.
+- Latest dev.64 source-tree suite must be rerun; dev.63 baseline was **170 passed, 1 skipped (171 discovered)**, plus 12 new AI contract tests.
 - Exact packaged-artifact validation must be completed for this release before delivery.
 
 - Canonical test command: `python3 -m unittest discover -s tests -v`
-- Expected release test result: **170 passed, 1 skipped (171 discovered); exact artifact must be revalidated**
+- Expected release test result: 182 passed, 1 skipped (183 discovered); exact artifact must be revalidated
 - Exact artifact must be tested again after packaging. The package must contain no generated Python/test cache artifacts, including `.pytest_cache`.
 - Release artifact must pass the executable Artifact Compliance Gate: valid version lineage, synchronized release metadata, required structure, flat-root packaging, documentation consistency including Chronicle + Glossary, provenance, and no generated Python cache artifacts.
 
